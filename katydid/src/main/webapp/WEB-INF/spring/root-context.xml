@@ -36,13 +36,13 @@
 	<mybatis-spring:scan base-package="com.project.board.mapper"/>
 	<context:component-scan base-package="com.project.board.service"/>
 	
-	<mybatis-spring:scan base-package="com.project.user.mapper"/>
+	<!-- <mybatis-spring:scan base-package="com.project.user.mapper"/>
 	<context:component-scan base-package="com.project.user.service"/>
 	
 	<mybatis-spring:scan base-package="com.project.report.mapper"/>
 	<context:component-scan base-package="com.project.report.service"/>
 	
 	<mybatis-spring:scan base-package="com.project.pay.mapper"/>
-	<context:component-scan base-package="com.project.pay.service"/>
+	<context:component-scan base-package="com.project.pay.service"/> -->
 
 </beans>
