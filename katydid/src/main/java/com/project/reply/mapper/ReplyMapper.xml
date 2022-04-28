@@ -1,21 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http:/mybatis.org/dtd/mybatis-3-mapper.dtd">
-<<<<<<< HEAD
+
 <mapper namespace="com.project.reply.mapper.ReplyMapper">
 
 	<select id="getList" resultType="com.project.reply.domain.ReplyVO">
-=======
-<<<<<<< HEAD
-<mapper namespace="com.ict.mapper.ReplyMapper">
-
-	<select id="getList" resultType="com.ict.domain.ReplyVO">
-=======
-<mapper namespace="com.project.reply.mapper.ReplyMapper">
-
-	<select id="getList" resultType="com.project.reply.domain.ReplyVO">
->>>>>>> 9bd388c2dcc57ea846e240f27d98d6726d31f925
->>>>>>> muhwan
 		SELECT * FROM reply_tbl WHERE bno = #{bno} ORDER BY rno DESC
 		<!-- SELECT rownum, rt.* FROM
 (SELECT * FROM reply_tbl WHERE bno = #{bno} ODER BY REPLYDATE DESC) rt
