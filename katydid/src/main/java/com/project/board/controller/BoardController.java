@@ -1,11 +1,14 @@
 package com.project.board.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.board.domain.BoardVO;
@@ -17,15 +20,18 @@ import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
+@RequestMapping(value = "/board")
 public class BoardController {
 
 	@Autowired
 	private BoardService service;
 	
-	@GetMapping("/boardList")
+	@GetMapping("/list")
 	public String getList(SearchCriteria cri, Model model) {
 		
-		model.addAttribute("boardList", service.getList(cri));
+		List<BoardVO> boardList = service.getList(cri);
+		
+		model.addAttribute("boardList", boardList);
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
@@ -37,7 +43,7 @@ public class BoardController {
 		
 	}
 	
-	@GetMapping("/boardList/{bno}")
+	@GetMapping("/list/{bno}")
 	public String getBoardDetail(@PathVariable long bno, SearchCriteria cri, Model model) {
 		
 		model.addAttribute("board", service.select(bno));
@@ -47,22 +53,22 @@ public class BoardController {
 		return "board/boardDetail";
 	}
 	
-	@GetMapping(value="/boardInsert")
+	@GetMapping(value="/insert")
 	public String boardForm() {
 		return "board/boardForm";
 	}
 	
-	@PostMapping("/boardInsert")
+	@PostMapping("/insert")
 	public String boardInsert(BoardVO vo, Model model) {
 			
 		log.info("들어온 데이터 디버깅 : " + vo);
 			
 		service.insert(vo);
 			
-		return "redirect:board/boardList/";
+		return "redirect:list/";
 	}
 	
-	@PostMapping("/boardDelete")
+	@PostMapping("/delete")
 	public String boardDelete(long bno, SearchCriteria cri, RedirectAttributes rttr) {
 		
 		service.delete(bno);
@@ -71,10 +77,10 @@ public class BoardController {
 		rttr.addAttribute("searchType", cri.getSearchType());
 		rttr.addAttribute("keyword", cri.getKeyword());
 		
-		return "redirect:board/boardList";
+		return "redirect:list";
 	}
 	
-	@PostMapping("/boardUpdateForm")
+	@PostMapping("/updateForm")
 	public String boardUpdateForm(long bno, SearchCriteria cri, Model model) {
 		
 		BoardVO boardvo = service.select(bno);
@@ -86,7 +92,7 @@ public class BoardController {
 		return "board/boardUpdateForm";
 	}
 	
-	@PostMapping("/boardUpdate")
+	@PostMapping("/update")
 	public String boardUpdate(BoardVO vo, SearchCriteria cri, RedirectAttributes rttr) {
 		
 		service.update(vo);
@@ -95,7 +101,7 @@ public class BoardController {
 		rttr.addAttribute("searchType", cri.getSearchType());
 		rttr.addAttribute("keyword", cri.getKeyword());
 		
-		return "redirect:board/boardList/" + vo.getBno();
+		return "redirect:list/" + vo.getBno();
 	}
 	
 }

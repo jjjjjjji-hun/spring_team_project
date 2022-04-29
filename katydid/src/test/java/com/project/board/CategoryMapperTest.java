@@ -1,4 +1,4 @@
-package com.project.category;
+package com.project.board;
 
 import java.util.List;
 
