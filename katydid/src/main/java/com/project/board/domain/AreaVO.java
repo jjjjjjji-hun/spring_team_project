@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class AreaVO {
 
-	private long ano;
+	private Long ano;
 	private String ward;
 	
 }

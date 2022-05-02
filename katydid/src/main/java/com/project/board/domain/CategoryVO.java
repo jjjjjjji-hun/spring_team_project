@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class CategoryVO {
 
-	private long cno;
-	private long sno;
-	private long ano;
+	private Long cno;
+	private Long sno;
+	private Long ano;
 	
 }

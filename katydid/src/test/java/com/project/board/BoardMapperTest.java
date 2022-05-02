@@ -32,11 +32,11 @@ public class BoardMapperTest {
 	public void insertTest() {
 		BoardVO vo = new BoardVO();
 		
-		vo.setCno(1);
+		vo.setCno(1L);
 		vo.setU_id("id");
 		vo.setTitle("1");
 		vo.setContent("1");
-		vo.setSno(1);
+		vo.setSno(1L);
 		
 		mapper.insert(vo);
 	}
@@ -58,7 +58,7 @@ public class BoardMapperTest {
 		
 		vo.setTitle("1");
 		vo.setContent("1");
-		vo.setBno(1);
+		vo.setBno(1L);
 		
 		mapper.update(vo);
 	}
