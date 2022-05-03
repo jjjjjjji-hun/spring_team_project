@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http:/mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.board.mapper.CategoryMapper">
+
+	
+	<resultMap type="com.project.board.domain.L_kindVO" id="l_kindMap">
+		<id property="lno" column="lno" />
+		<result property="lno" column="lno" />
+		<result property="k_group" column="k_group" />
+		<collection property="s_kindList" resultMap="s_kindMap">
+		</collection>
+	</resultMap>
+	
+	<resultMap type="com.project.board.domain.S_kindVO" id="s_kindMap">
+		<result property="sno" column="sno" />
+		<result property="lno" column="lno" />
+		<result property="sClass" column="class" />
+	</resultMap>
+	
+	<select id="getAreaList" resultType="com.project.board.domain.AreaVO">
+		SELECT * FROM area_tbl
+	</select>
+	
+	<select id="getArea" resultType="com.project.board.domain.AreaVO">
+		SELECT * FROM area_tbl WHERE ano = #{ano}
+	</select>
+	
+	<select id="getCategoryList" resultType="com.project.board.domain.CategoryVO">
+		SELECT * FROM category_tbl
+	</select>
+	
+	<select id="getCategory" resultType="com.project.board.domain.CategoryVO">
+		SELECT * FROM category_tbl WHERE cno = #{cno}
+	</select>
+	
+	<select id="getLkindList" resultMap="l_kindMap">
+		SELECT l.lno, l.k_group, s.sno, s.lno, s.class
+			FROM l_kind_tbl l
+			JOIN s_kind_tbl s
+				ON
+			l.lno = s.lno
+	</select>
+	
+	<select id="getLkind" resultMap="l_kindMap">
+		SELECT * FROM l_kind_tbl WHERE lno = #{lno}
+	</select>
+	
+	<select id="getSkindList" resultMap="s_kindMap">
+		SELECT * FROM s_kind_tbl
+	</select>
+	
+	<select id="getSkind" resultMap="s_kindMap">
+		SELECT * FROM s_kind_tbl WHERE sno = #{sno}
+	</select>
+	
+	<insert id="insertArea">
+		INSERT INTO area_tbl VALUES (area_num.nextval, #{ward})
+	</insert>
+	
+	<insert id="insertCategory">
+		INSERT INTO category_tbl VALUES (category_num.nextval, #{sno}, #{ano})
+	</insert>
+	
+	<insert id="insertLkind">
+		INSERT INTO l_kind_tbl VALUES (l_kind_num.nextval, #{k_group})
+	</insert>
+	
+	<insert id="insertSkind">
+		INSERT INTO s_kind_tbl VALUES (s_kind_num.nextval, #{lno}, #{sClass})
+	</insert>
+	
+	<delete id="deleteArea">
+		 DELETE FROM area_tbl WHERE ano = #{ano}
+	</delete>
+	
+	<delete id="deleteCategory">
+		 DELETE FROM category_tbl WHERE cno = #{cno}
+	</delete>
+	
+	<delete id="deleteLkind">
+		 DELETE FROM l_kind_tbl WHERE lno = #{lno}
+	</delete>
+	
+	<delete id="deleteSkind">
+		 DELETE FROM s_kind_tbl WHERE sno = #{sno}
+	</delete>
+	
+	<update id="updateArea">
+	 	UPDATE area_tbl SET ward=#{ward} WHERE ano=#{ano}
+	</update>
+	
+	<update id="updateCategory">
+		UPDATE category_tbl SET sno=#{sno}, ano=#{ano} WHERE cno=#{cno}
+	</update>
+	
+	<update id="updateLkind">
+		UPDATE l_kind_tbl SET k_group=#{k_group} WHERE lno=#{lno}
+	</update>
+	
+	<update id="updateSkind">
+		UPDATE s_kind_tbl SET lno=#{lno}, class=#{sClass} WHERE sno=#{sno}
+	</update>
+	
+
+</mapper>

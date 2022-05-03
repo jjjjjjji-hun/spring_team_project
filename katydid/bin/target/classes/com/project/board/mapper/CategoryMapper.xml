@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http:/mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.board.mapper.CategoryMapper">
+
+	
+	<resultMap type="com.project.board.domain.L_kindVO" id="l_kindMap">
+		<id property="lno" column="lno" />
+		<result property="lno" column="lno" />
+		<result property="k_group" column="k_group" />
+		<collection property="s_kindList" resultMap="s_kindMap">
+		</collection>
+	</resultMap>
+	
+	<resultMap type="com.project.board.domain.S_kindVO" id="s_kindMap">
+		<result property="sno" column="sno" />
+		<result property="lno" column="lno" />
+		<result property="sClass" column="class" />
+	</resultMap>
+	
+	<select id="getLkindList" resultMap="l_kindMap">
+		SELECT l.lno, l.k_group, s.sno, s.lno, s.class
+			FROM l_kind l
+			JOIN s_kind s
+				ON
+			l.lno = s.lno
+	</select>
+	
+	<select id="getAreaList" resultType="com.project.board.domain.AreaVO">
+		SELECT * FROM area
+	</select>
+	
+	
+	
+	
+	
+
+</mapper>
