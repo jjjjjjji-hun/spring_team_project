@@ -6,7 +6,7 @@ import com.project.reply.domain.ReplyVO;
 import com.project.reply.domain.R_reportVO;
 
 public interface ReplyMapper {
-	//--------------------------------
+	//
 	// 댓글
 	// 전체 댓글(후기) 가져오기
 	public List<ReplyVO> getReplyList(Long bno);
@@ -23,7 +23,7 @@ public interface ReplyMapper {
 	// 댓글번호로 글번호 유추하기
 	public Long getBno(Long rno);
 	
-	//-----------------------------------
+	//
 	// 신고
 	// 전체 댓글(후기) 신고 내역 가져오기
 	public List<R_reportVO> getReportList(Long rno);
