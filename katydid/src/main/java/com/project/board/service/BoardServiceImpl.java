@@ -8,12 +8,16 @@ import org.springframework.stereotype.Service;
 import com.project.board.domain.BoardVO;
 import com.project.board.domain.SearchCriteria;
 import com.project.board.mapper.BoardMapper;
+import com.project.board.mapper.CategoryMapper;
 
 @Service
 public class BoardServiceImpl implements BoardService {
 
 	@Autowired
 	private BoardMapper boardmapper;
+	
+	@Autowired
+	private CategoryMapper categoryMapper;
 	
 	@Override
 	public List<BoardVO> getList(SearchCriteria cri) {

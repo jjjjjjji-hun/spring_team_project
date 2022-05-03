@@ -17,4 +17,7 @@ public interface ReplyMapper {
 	
 	// 작성한 댓글(후기) 삭제하기
 	public void delete(Long rno);
+	
+	// 댓글번호로 글번호 유추하기
+	public Long getBno(Long rno);
 }
