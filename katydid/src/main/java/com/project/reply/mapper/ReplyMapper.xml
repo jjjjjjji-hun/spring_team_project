@@ -4,7 +4,8 @@
 
 <mapper namespace="com.project.reply.mapper.ReplyMapper">
 
-	<select id="getList" resultType="com.project.reply.domain.ReplyVO">
+<!-- 댓글 -->
+	<select id="getReplyList" resultType="com.project.reply.domain.ReplyVO">
 		SELECT * FROM reply_tbl WHERE bno = #{bno} ORDER BY rno DESC
 		<!-- SELECT rownum, rt.* FROM
 (SELECT * FROM reply_tbl WHERE bno = #{bno} ODER BY REPLYDATE DESC) rt
@@ -27,4 +28,19 @@ ORDER BY rownum DESC   각 게시물에 댓글 번호 부여시 -->
 	<select id="getBno" resultType="long">
 		SELECT bno FROM reply_tbl WHERE rno = #{rno}
 	</select>
+	<!-- ----------------------------- -->
+	
+<!-- 신고 -->
+	<select id="getReportList" resultType="com.project.reply.domain.R_reportVO">
+		SELECT * FROM r_report_tbl WHERE rno = #{rno} ORDER BY r_reno DESC
+	</select>
+	
+	<insert id="insertReport">
+		INSERT INTO r_report_tbl(r_reno, rno, reason, content) VALUES
+						(r_report_num.nextval, #{rno}, #{reason}, #{content})
+	</insert>
+	
+	<update id="updateReport">
+		UPDATE r_report_tbl SET reason = #{reason}, content = #{content} WHERE r_reno = #{r_reno}
+	</update>
 </mapper>

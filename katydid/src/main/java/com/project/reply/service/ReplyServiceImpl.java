@@ -26,7 +26,7 @@ public class ReplyServiceImpl implements ReplyService{
 
 	@Override
 	public List<ReplyVO> listReply(Long bno) {
-		return mapper.getList(bno);
+		return mapper.getReplyList(bno);
 	}
 
 	@Override
