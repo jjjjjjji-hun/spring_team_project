@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http:/mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.board.mapper.UserMapper">
+	<resultMap tpe="com.ict.user.domain.UserVO" id="userMap">
+		<id property="uno" column="uno" />
+		<result property="uno" coulmn="uno" />
+		<result property="u_id" coulmn="u_id" />
+		<result property="upw" coulmn="upw" />
+		<result property="uname" coulmn="uname" />
+		<result property="pnum" coulmn="pnum" />
+		<collection property="authList" resultMap="authMap" />
+	</resultMap>
+	
+	<resultMap type="com.project.user.domain.AuthVO" id="authMap">
+		<result property="uano" coulme="uano" />
+		<result property="u_id" coulmn="u_id" />
+		<result property="auth" coulmn="auth" />
+	</resultMap>
+	
+	<select id="read" resultMap="userMap">
+		SELECT
+			u.uno, u.u_id, u.upw, u.uname, u.pnum, a.uano, a.auth
+				FROM
+			user_tbl u 
+				JOIN 
+			user_auth_tbl a
+				on
+			u.#{u_id} = a.#{u_id} 
+	</select>
+	
+</mapper>
