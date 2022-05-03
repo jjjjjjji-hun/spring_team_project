@@ -1,5 +1,9 @@
 Manifest-Version: 1.0
+<<<<<<< HEAD
 Built-By: lee su min
+=======
+Built-By: muhwan
+>>>>>>> 3e46c4340e6e428b878db192a717afdc2b3e758b
 Build-Jdk: 11.0.14.1
 Created-By: Maven Integration for Eclipse
 
