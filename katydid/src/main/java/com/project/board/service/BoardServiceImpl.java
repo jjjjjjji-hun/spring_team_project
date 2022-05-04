@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.project.board.domain.B_reportVO;
 import com.project.board.domain.BoardVO;
 import com.project.board.domain.SearchCriteria;
 import com.project.board.mapper.BoardMapper;
@@ -55,5 +56,31 @@ public class BoardServiceImpl implements BoardService {
 	public void update(BoardVO vo) {
 		boardmapper.update(vo);
 	}
+   
+	
+	//게시판 신고
 
+	@Override
+	public void addB_report(B_reportVO vo) {
+		boardmapper.insertReport(vo);
+		
+	}
+
+	@Override
+	public List<B_reportVO> listB_Report(Long bno) {
+		
+		return boardmapper.getRepoerList(bno);
+	}
+
+	@Override
+	public void modifyB_report(B_reportVO vo) {
+		boardmapper.updateRepoer(vo);
+		
+	}
+
+	@Override
+	public void removeB_report(Long b_reno) {
+		boardmapper.deleteReport(b_reno);
+		
+	}
 }

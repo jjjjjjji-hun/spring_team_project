@@ -105,4 +105,10 @@ public class BoardController {
 		return "redirect:list/" + vo.getBno();
 	}
 	
+	@PostMapping(value="/B_report")
+	public String report() {
+		return "board/B_report";
+	}
+	
+	
 }

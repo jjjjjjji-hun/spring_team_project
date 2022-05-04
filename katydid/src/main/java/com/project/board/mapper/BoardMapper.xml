@@ -80,4 +80,36 @@
 	<update id="updateReplyCount">
 		UPDATE board_tbl SET replycount = replycount + #{amount} WHERE bno = #{bno}
 	</update>
+	
+	
+	
+	
+	<!-- 신고 -->
+	<select id="getReportList" resultType="com.project.board.domain.B_reportVO">
+		SELECT * FROM r_report_tbl WHERE rno = #{rno} ORDER BY r_reno DESC
+	</select>
+	
+	<select id="getReport" resultType="com.project.board.domain.B_reportVO">
+		SELECT * FROM b_report_tbl WHERE b_reno = #{B_reno}
+	</select>
+	
+	<insert id="insertReport">
+		INSERT INTO r_report_tbl(b_reno, bno, reason, content) VALUES
+						(b_report_num.nextval, #{bno}, #{reason}, #{content})
+	</insert>
+	
+	<update id="updateReport">
+		UPDATE b_report_tbl SET reason = #{reason}, content = #{content} WHERE b_reno = #{b_reno}
+	</update>
+	
+	<delete id="deleteReport">
+		DELETE FROM b_report_tbl WHERE b_reno = #{b_reno}
+	</delete>
+	
+	<delete id="deleteALLReport">
+		DELETE FROM b_report_tbl WHERE bno = #{bno}
+	</delete>
+	
+	
+	
 </mapper>

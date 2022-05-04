@@ -61,6 +61,14 @@
 				</form>
 			</div>
 		</div>
+		<div class="col-md-3">
+				<form action="/board/B_report" method="post">
+					
+					<input type="submit" value="글 신고하기" class="btn btn-primary"/>	
+				</form>
+			</div>
+		</div>
+		
 
 	<hr/>
 	<!-- 댓글이 추가될 공간 -->
@@ -99,8 +107,7 @@
 				<button type="button" id="closeBtn">닫기</button>
 			</div>
 		</div>
-	</div>
-	
+	<!-- 댓글 신고 modal -->
 	
 	
 	
@@ -148,7 +155,13 @@
 					    + this.replyer + "</strong> -" + formattedTime + "<br>"
 					    +"<div class='reply'>" +this.reply + "</div>"
 					    +"<button type='button' class='btn btn-info'>수정/삭제</button>"
-					    + "</div>";
+					    +"</div>"
+					    +"<div class='report' data-rno='"+ this.rno +"'>"					 
+					    +"<button type='button' class='btn btn-danger'>댓글 신고</button>"
+					    +"</div>";
+					    
+				    		
+					
 				});
 				// #replies사이에 끼워넣을수있도록 console.log()로 디버깅
 				console.log(str);
@@ -166,7 +179,7 @@
 			
 			// $.ajax({내용물}); 이 기본형태
 			$.ajax({
-				type : 'post',
+				type : 'post',		
 				url : '/replies',
 				headers : {
 					"Content-Type" : "application/json",
@@ -192,8 +205,8 @@
 			
 		});
 	
-		
-		
+
+
 		
 		// 이벤트 위임
 		$("#replies").on("click", ".replyLi button", function(){//replyLi button에서 replyLi는 생략해도된다.
