@@ -26,7 +26,8 @@
 				JOIN 
 			user_auth_tbl a
 				on
-			u.#{u_id} = a.#{u_id} 
+			u.u_id = a.u_id
+			WHERE u.u_id = #{u_id} 
 	</select>
 	
 </mapper>
