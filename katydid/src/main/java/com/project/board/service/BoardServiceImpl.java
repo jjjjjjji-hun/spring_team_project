@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.project.board.domain.BoardVO;
 import com.project.board.domain.SearchCriteria;
 import com.project.board.mapper.BoardMapper;
 import com.project.board.mapper.CategoryMapper;
+import com.project.reply.mapper.ReplyMapper;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -17,7 +19,10 @@ public class BoardServiceImpl implements BoardService {
 	private BoardMapper boardmapper;
 	
 	@Autowired
-	private CategoryMapper categoryMapper;
+	private CategoryMapper categorymapper;
+	
+	@Autowired
+	private ReplyMapper replymapper;
 	
 	@Override
 	public List<BoardVO> getList(SearchCriteria cri) {
@@ -39,8 +44,10 @@ public class BoardServiceImpl implements BoardService {
 		boardmapper.insert(vo);
 	}
 
+	@Transactional
 	@Override
 	public void delete(long bno) {
+		replymapper.deleteAllReplies(bno);
 		boardmapper.delete(bno);
 	}
 
