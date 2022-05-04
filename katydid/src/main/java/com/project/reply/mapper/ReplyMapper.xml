@@ -29,9 +29,17 @@ ORDER BY rownum DESC   각 게시물에 댓글 번호 부여시 -->
 		SELECT bno FROM reply_tbl WHERE rno = #{rno}
 	</select>
 	
+	<delete id="deleteAllReplies">
+		DELETE FROM reply_tbl WHERE bno = #{bno}
+	</delete>
+	
 <!-- 신고 -->
 	<select id="getReportList" resultType="com.project.reply.domain.R_reportVO">
 		SELECT * FROM r_report_tbl WHERE rno = #{rno} ORDER BY r_reno DESC
+	</select>
+	
+	<select id="getReport" resultType="com.project.reply.domain.R_reportVO">
+		SELECT * FROM r_report_tbl WHERE r_reno = #{r_reno}
 	</select>
 	
 	<insert id="insertReport">
@@ -42,4 +50,12 @@ ORDER BY rownum DESC   각 게시물에 댓글 번호 부여시 -->
 	<update id="updateReport">
 		UPDATE r_report_tbl SET reason = #{reason}, content = #{content} WHERE r_reno = #{r_reno}
 	</update>
+	
+	<delete id="deleteReport">
+		DELETE FROM r_report_tbl WHERE r_reno = #{r_reno}
+	</delete>
+	
+	<delete id="deleteALLReport">
+		DELETE FROM r_report_tbl WHERE rno = #{rno}
+	</delete>
 </mapper>

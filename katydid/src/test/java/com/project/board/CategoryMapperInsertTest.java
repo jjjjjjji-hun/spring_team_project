@@ -25,7 +25,7 @@ public class CategoryMapperInsertTest {
 	@Test
 	public void insertAreaTest() {
 		AreaVO vo = new AreaVO();
-		vo.setWard("°­³²±¸");
+		vo.setWard("ì‹ ì´Œ");
 		mapper.insertArea(vo);
 	}
 	
@@ -40,7 +40,7 @@ public class CategoryMapperInsertTest {
 	@Test
 	public void insertLkindTest() {
 		L_kindVO vo = new L_kindVO();
-		vo.setK_group("¸ÀÁý");
+		vo.setK_group("ë§›ì§‘");
 		mapper.insertLkind(vo);
 	}
 	
@@ -48,7 +48,7 @@ public class CategoryMapperInsertTest {
 	public void insertSkindTest() {
 		S_kindVO vo = new S_kindVO();
 		vo.setLno(1L);
-		vo.setSClass("ÇÑ½Ä");
+		vo.setSClass("ê¹€ë°¥ì²œêµ­");
 		mapper.insertSkind(vo);
 	}
 	
