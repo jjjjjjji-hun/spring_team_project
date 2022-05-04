@@ -11,6 +11,9 @@ import com.project.reply.domain.R_reportVO;
 import com.project.reply.domain.ReplyVO;
 import com.project.reply.mapper.ReplyMapper;
 
+import lombok.extern.log4j.Log4j;
+
+@Log4j
 @Service
 public class ReplyServiceImpl implements ReplyService{
 
@@ -42,7 +45,7 @@ public class ReplyServiceImpl implements ReplyService{
 	@Override
 	public void removeReply(Long rno) {
 		Long bno = mapper.getBno(rno);
-		mapper.deleteAllReport(rno);
+		//mapper.deleteAllReport(rno);
 		mapper.delete(rno);
 		boardmapper.updateReplyCount(bno, -1);
 	}

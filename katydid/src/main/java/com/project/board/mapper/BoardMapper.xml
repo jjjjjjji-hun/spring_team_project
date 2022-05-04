@@ -48,8 +48,8 @@
 	
 	<insert id="insert">
 		INSERT INTO 
-		board_tbl(bno, title, content, u_id, cno, sno) 
-		VALUES (board_num.nextval, #{title}, #{content}, #{u_id}, #{cno}, #{sno})
+		board_tbl(bno, title, content, u_id, cno, stno) 
+		VALUES (board_num.nextval, #{title}, #{content}, #{u_id}, #{cno}, #{stno})
 	</insert>
 	
 	<select id="select" resultType="com.project.board.domain.BoardVO">

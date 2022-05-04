@@ -12,6 +12,8 @@
 		<form action="/board/insert" method="post">
 			글 제목 : <input type="text" name="title" required/><br/>
 			글쓴이 : <input type="text" name="u_id" required/><br/>
+			카테고리 : <input type="radio" name="cno" value="1"/>&nbsp;&nbsp;&nbsp;
+			식당 : <input type="radio" name="stno" value="2"/><br/>
 			본문 : <textarea name="content" rows="15" cols="30"></textarea>
 			<input type="submit" value="제출"/>&nbsp;&nbsp;&nbsp;<input type="reset" value="초기화"/>
 		</form>

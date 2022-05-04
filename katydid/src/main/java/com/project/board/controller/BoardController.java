@@ -39,6 +39,7 @@ public class BoardController {
 		
 		model.addAttribute("pageMaker", pageMaker);
 		log.info("boardList");
+		System.out.println("리스트 : " + boardList);
 		return "board/boardList";
 		
 	}
@@ -62,7 +63,7 @@ public class BoardController {
 	public String boardInsert(BoardVO vo, Model model) {
 			
 		log.info("들어온 데이터 디버깅 : " + vo);
-			
+		System.out.println("들어온 데이터 디버깅입니다 : " + vo);	
 		service.insert(vo);
 			
 		return "redirect:list/";

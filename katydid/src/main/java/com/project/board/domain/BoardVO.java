@@ -13,7 +13,7 @@ public class BoardVO {
 	private String u_id;
 	private long hit;
 	private Long cno;
-	private Long sno;
+	private Long stno;
 	private Date regdate;
 	private Date updatedate;
 	private int replyCount;
