@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http:/mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mapper.l_kind.L_kindMapper">
+
+<!-- 대분류 -->
+	<resultMap type="com.project.domain.L_kindVO" id="l_kindMap">
+		<id property="lno" column="lno" />
+		<result property="lno" column="lno" />
+		<result property="k_group" column="k_group" />
+		<collection property="s_kindList" resultMap="s_kindMap">
+		</collection>
+	</resultMap>
+	
+	<select id="getLkindList" resultMap="l_kindMap">
+		SELECT l.lno, l.k_group, s.sno, s.lno, s.class
+			FROM l_kind_tbl l
+			JOIN s_kind_tbl s
+				ON
+			l.lno = s.lno
+	</select>
+	
+	<select id="getLkind" resultMap="l_kindMap">
+		SELECT * FROM l_kind_tbl WHERE lno = #{lno}
+	</select>
+	
+	<insert id="insertLkind">
+		INSERT INTO l_kind_tbl VALUES (l_kind_num.nextval, #{k_group})
+	</insert>
+	
+	<update id="updateLkind">
+		UPDATE l_kind_tbl SET k_group=#{k_group} WHERE lno=#{lno}
+	</update>
+	
+	<delete id="deleteLkind">
+		 DELETE FROM l_kind_tbl WHERE lno = #{lno}
+	</delete>
+</mapper>
