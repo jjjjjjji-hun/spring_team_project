@@ -14,6 +14,7 @@ public class BoardVO {
 	private long hit;
 	private Long cno;
 	private Long stno;
+	private boolean notify;
 	private Date regdate;
 	private Date updatedate;
 	private int replyCount;
