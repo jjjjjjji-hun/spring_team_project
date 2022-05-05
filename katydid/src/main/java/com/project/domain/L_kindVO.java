@@ -10,6 +10,6 @@ public class L_kindVO {
 	private Long lno;
 	private String k_group;
 	
-	private List<S_kindVO> s_kindList;
+	// private List<S_kindVO> s_kindList;
 	
 }
