@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.project.domain.BoardVO;
 import com.project.domain.PageMaker;
 import com.project.domain.SearchCriteria;
+import com.project.domain.StoreVO;
 import com.project.service.board.BoardService;
 
 import lombok.extern.log4j.Log4j;
@@ -61,9 +62,9 @@ public class BoardController {
 	
 	@PostMapping("/insert")
 	public String boardInsert(BoardVO vo, Model model) {
-			
+		StoreVO stvo = new StoreVO();
 		log.info("들어온 데이터 디버깅 : " + vo);
-		service.insert(vo);
+		service.insert(vo, stvo);
 			
 		return "redirect:list/";
 	}
