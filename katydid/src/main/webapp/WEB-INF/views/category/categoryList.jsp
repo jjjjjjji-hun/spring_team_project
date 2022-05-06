@@ -12,28 +12,28 @@
 <body>
 
 	<c:forEach var="area" items="${areaList}">
-		areaList : ${area.ward }
-		<div>
-			<button type="button" id="replyModBtn">Modify</button>
-			<button type="button" id="replyDelBtn">Delete</button>
+		<div class="area" areaNum="${area.ano }">
+		지역 : <strong class=ward>${area.ward }</strong>
+			<button type="button" class="areaModBtn">Modify</button>
+			<button type="button" class="areaDelBtn">Delete</button>
 		</div>
 		<br/>
 	</c:forEach>
 	
 	<c:forEach var="l_kind" items="${l_kindList}">
-		l_kindList : ${l_kind.k_group }
-		<div>
-			<button type="button" id="replyModBtn">Modify</button>
-			<button type="button" id="replyDelBtn">Delete</button>
+		<div class="lkind" lkindNum="${l_kind.lno }">
+		대분류 : <strong class=k_group>${l_kind.k_group }</strong>
+			<button type="button" class="lkindModBtn">Modify</button>
+			<button type="button" class="lkindDelBtn">Delete</button>
 		</div>
 		<br/>
 	</c:forEach>
 	
 	<c:forEach var="s_kind" items="${s_kindList}">
-		s_kindList : ${s_kind.s_class }
-		<div>
-			<button type="button" id="replyModBtn">Modify</button>
-			<button type="button" id="replyDelBtn">Delete</button>
+		<div class="skind" skindNum="${s_kind.sno }">
+		소분류 : <strong class=s_class>${s_kind.s_class }</strong>
+			<button type="button" class="skindModBtn">Modify</button>
+			<button type="button" class="skindDelBtn">Delete</button>
 		</div>
 		<br/>
 	</c:forEach>
@@ -77,10 +77,25 @@
 		</div><!-- footer -->
 	</div><!-- row -->
 	
+	<div id="modDiv" style="display:none;">
+		<div>
+			<input type="hidden" class="num" />
+			<input type="text" id="value" />
+		</div>
+		<div>
+			<button type="button" id="ModBtn">Modify</button>
+			<button type="button" id="closeBtn">Close</button>
+		</div>
+	</div>
+	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	
 	<script>
 		
+		var isArea = false;
+		var isLkind = false;
+		var isSkind = false;
+
 		$("#areaAddBtn").on("click", function() {
 				
 				let ward = $("#newWard").val();
@@ -157,7 +172,77 @@
 			});
 		});
 			
-
+		$("#ModBtn").on("click", function() {
+			
+			let num = $(".num").val();
+			
+			let value = $("#value").val();
+			
+			let params = {
+					type : 'patch',
+					headers : {
+						"Content-Type" : "application/json",
+						"X-HTTP-Method-Overrride" : "PATCH"
+					},
+					contentType: "application/json",
+					dataType : 'text',
+					success : function(result) {
+						if(result == 'SUCCESS') {
+							alert("수정 되었습니다.");
+							$("#modDiv").hide();		
+						}
+					}
+			}
+			if (isArea) {
+				params.url = '/category/updateArea';
+				params.data = JSON.stringify({ano : num, ward : value});
+			} else if(isLkind) {
+				params.url = '/category/updateLkind';
+				params.data = JSON.stringify({lno : num, k_group : value});
+			} else {
+				params.url = '/category/updateSkind';
+				params.data = JSON.stringify({sno : num, s_class : value});
+			}
+			
+			$.ajax(params);
+		});
+		
+		$(".area").on("click", ".areaModBtn", function() {
+			let num = $(this).parent().attr("areaNum");
+			let area = $(this).siblings(".ward").text();
+			
+			isArea = true;
+			
+			$(".num").val(num);
+			$("#value").val(area);
+			$("#modDiv").show();
+		});
+		
+		$(".lkind").on("click", ".lkindModBtn", function() {
+			let num = $(this).parent().attr("lkindNum");
+			let lkind = $(this).siblings(".k_group").text();
+			
+			isLkind = true;
+			
+			$(".num").val(num);
+			$("#value").val(lkind);
+			$("#modDiv").show();
+		});
+		
+		$(".skind").on("click", ".skindModBtn", function() {
+			let num = $(this).parent().attr("skindNum");
+			let skind = $(this).siblings(".s_class").text();
+			
+			isSkind = true;
+			
+			$(".num").html(num);
+			$("#value").val(skind);
+			$("#modDiv").show();
+		});
+		
+		$("#closeBtn").on("click", () => {
+			$("#modDiv").hide();
+		});
 		
 		
 	</script>

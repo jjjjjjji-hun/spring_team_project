@@ -63,7 +63,7 @@ public class CategoryMapperUpdateTest {
 	public void updateSkindTest() {
 		S_kindVO vo = new S_kindVO();
 		vo.setSno(1L);
-		vo.setSClass("�ѽ�");
+		vo.setS_class("�ѽ�");
 		vo.setLno(1L);
 		s_kindmapper.updateSkind(vo);
 	}
