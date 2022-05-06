@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.domain.BoardVO;
+import com.project.domain.CategoryVO;
 import com.project.domain.PageMaker;
 import com.project.domain.SearchCriteria;
 import com.project.domain.StoreVO;
@@ -56,7 +57,9 @@ public class BoardController {
 	}
 	
 	@GetMapping(value="/insert")
-	public String boardForm() {
+	public String boardForm(CategoryVO vo, Model model) {
+		
+		//model.addAttribute("category", service.)
 		return "board/boardForm";
 	}
 	
