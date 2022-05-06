@@ -8,11 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.project.board.domain.AreaVO;
-import com.project.board.domain.CategoryVO;
-import com.project.board.domain.L_kindVO;
-import com.project.board.domain.S_kindVO;
-import com.project.board.mapper.CategoryMapper;
+import com.project.domain.AreaVO;
+import com.project.domain.CategoryVO;
+import com.project.domain.L_kindVO;
+import com.project.domain.S_kindVO;
+import com.project.mapper.area.AreaMapper;
+import com.project.mapper.category.CategoryMapper;
+import com.project.mapper.l_kind.L_kindMapper;
+import com.project.mapper.s_kind.S_kindMapper;
 
 import lombok.extern.log4j.Log4j;
 
@@ -22,29 +25,38 @@ import lombok.extern.log4j.Log4j;
 public class CategoryMapperGetListTest {
 
 	@Autowired
-	private CategoryMapper mapper;
+	private CategoryMapper categorymapper;
+	
+	@Autowired
+	private AreaMapper areamapper;
+	
+	@Autowired
+	private L_kindMapper l_kindmapper;
+	
+	@Autowired
+	private S_kindMapper s_kindmapper;
 	
 	@Test
 	public void getAreaListTest() {
-		List<AreaVO> vo = mapper.getAreaList();
+		List<AreaVO> vo = areamapper.getAreaList();
 		log.info(vo);
 	}
 	
 	@Test
 	public void getCategoryListTest() {
-		List<CategoryVO> vo = mapper.getCategoryList();
+		List<CategoryVO> vo = categorymapper.getCategoryList();
 		log.info(vo);
 	}
 	
 	@Test
 	public void getLkindListTest() {
-		List<L_kindVO> vo = mapper.getLkindList();
+		List<L_kindVO> vo = l_kindmapper.getLkindList();
 		log.info(vo);
 	}
 	
 	@Test
 	public void getSkindListTest() {
-		List<S_kindVO> vo = mapper.getSkindList();
+		List<S_kindVO> vo = s_kindmapper.getSkindList();
 		log.info(vo);
 	}
 	

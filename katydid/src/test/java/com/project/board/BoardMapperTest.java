@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.project.board.domain.BoardVO;
-import com.project.board.domain.Criteria;
-import com.project.board.domain.SearchCriteria;
-import com.project.board.mapper.BoardMapper;
+import com.project.domain.BoardVO;
+import com.project.domain.Criteria;
+import com.project.domain.SearchCriteria;
+import com.project.mapper.board.BoardMapper;
 
 import lombok.extern.log4j.Log4j;
 
@@ -36,7 +36,7 @@ public class BoardMapperTest {
 		vo.setU_id("id");
 		vo.setTitle("1");
 		vo.setContent("1");
-		vo.setSno(1L);
+		vo.setStno(1L);
 		
 		mapper.insert(vo);
 	}

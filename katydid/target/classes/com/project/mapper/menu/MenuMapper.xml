@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http:/mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mapper.menu.MenuMapper">
+	
+<!-- 메뉴 -->
+	<select id="getMenuList" resultType="com.project.domain.MenuVO">
+		SELECT * FROM menu_tbl
+	</select>
+	
+	<select id="getMenu" resultType="com.project.domain.MenuVO">
+		SELECT * FROM menu_tbl WHERE mno = #{mno}
+	</select>
+	
+	<insert id="insertMenu">
+		INSERT INTO menu_tbl VALUES (menu_num.nextval, #{menuName}, #{amount}, #{represent})
+	</insert>
+	
+	<update id="updateMenu">
+		UPDATE menu_tbl SET menuName=#{menuName}, amount=#{amount}, represent=#{represent} WHERE mno=#{mno}
+	</update>
+	
+	<delete id="deleteMenu">
+		 DELETE FROM menu_tbl WHERE mno = #{mno}
+	</delete>
+</mapper>
