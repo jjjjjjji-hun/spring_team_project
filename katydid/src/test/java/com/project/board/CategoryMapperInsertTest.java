@@ -60,7 +60,7 @@ public class CategoryMapperInsertTest {
 	public void insertSkindTest() {
 		S_kindVO vo = new S_kindVO();
 		vo.setLno(1L);
-		vo.setSClass("김밥천국");
+		vo.setS_class("김밥천국");
 		s_kindmapper.insertSkind(vo);
 	}
 	
