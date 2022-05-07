@@ -1,3 +1,6 @@
+
+
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -19,7 +22,94 @@
 	#reply{
 	width: 430px;
 	}
+	
+	#modRep{
+		width: 450px;
+		height: 150px;
+		background-color: darkred;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin-top: -50px;
+		margin-left: -150px;
+		padding:10px;
+		z-index:1000;
+	}
+	
+	
+	.modal-title{color:white;}
+	
+	 		
+	                         	
+		.modal_wrap{
+		display: none;
+		width: 500px;
+		height: 500px;
+		position: absolute;
+		top:50%;
+		left: 50%;
+		margin: -250px 0 0 -250px;
+		background:#eee;
+		z-index: 2;
+				}
+		.black_bg{
+		display: none;
+		position: absolute;
+		content: "";
+		width: 100%;
+		height: 100%;
+		background-color:rgba(0, 0,0, 0.5);
+		top:0;
+		left: 0;
+		z-index: 1;
+		}
+		.modal_close{
+		width: 26px;
+		height: 26px;
+		position: absolute;
+		top: -30px;
+		right: 0;
+		 }
+		.modal_close> a{
+		display: block;
+		width: 100%;
+		height: 100%;
+		background:url(https://img.icons8.com/metro/26/000000/close-window.png);
+		text-indent: -9999px;
+		}
+														
+		
+
+   
+   
+    .modal_close> a{
+        display: block;
+        width: 100%;
+        height: 100%;
+        background:url(https://img.icons8.com/metro/26/000000/close-window.png);
+        text-indent: -9999px;
+    }
+
+  .boardReportText{
+     width: 450px;
+		height: 300px;
+		background-color: gray;
+		position: static;
+		top: 70%;
+		left: 70%;
+		margin-top: 40px;
+		margin-left: 20px;
+		padding:30px;
+		z-index:1000;
+		font-size:25px;
+		word-wrap:break-word
+
+   }
+
+
 </style>
+
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <meta charset="UTF-8">
@@ -57,21 +147,27 @@
 					<input type="hidden" value="${param.pageNum}" name="pageNum"/>
 					<input type="hidden" value="${param.searchType}" name="searchType"/>
 					<input type="hidden" value="${param.keyword}" name="keyword"/>
-					<input type="submit" value="글 삭제하기" class="btn btn-danger"/>
+					<input type="submit" value="글 삭제하기" class="btn btn-primary"/>
 				</form>
 			</div>
-		</div>
-		<div class="col-md-3">
-				<form action="/board/B_report" method="post">
-					
-					<input type="submit" value="글 신고하기" class="btn btn-primary"/>	
-				</form>
-			</div>
-		</div>
-		
+			<div class="col-md-3">
+				<button class="btn btn-danger" type="button" id="boardReportBtn">신고하기</button>
+				 <div class="black_bg"></div>
+				  <div class="modal_wrap">
+				    <div class="modal_close"><a href="#">close</a></div>
+					   <div>
+						  <input type="hidden" value="${board.bno}" name="bno"/>
+						  <strong><h1>신고사유</h1></strong>
+						  <textarea rows="15" class="boardReportText" ></textarea>
+					    </div>							    
+						  <input type="button" value="글 신고하기" onclick="location.href='#'" class="btn btn-warning"/>	
+				  </div>							   
+			</div>									      
+	</div>													 	   													 																																																						   													   
+	<hr/>			
+	
 
-	<hr/>
-	<!-- 댓글이 추가될 공간 -->
+<!-- 댓글이 추가될 공간 -->
 	<div class="row">
 		<h3 class="text-primary">댓글</h3>
 		<ul id="replies">
@@ -95,7 +191,11 @@
 				</div><!-- footer -->
 	</div><!-- row -->
 	
+	
+	
+	
 		<!-- 댓글 modal -->
+		
 		<div id="modDiv" style="display:none;">
 			<div class="modal-title"></div>
 			<div>
@@ -107,14 +207,37 @@
 				<button type="button" id="closeBtn">닫기</button>
 			</div>
 		</div>
+	
 	<!-- 댓글 신고 modal -->
 	
+	<ul id="r_reports">
+	
+		</ul>
+		
+	  <div id="modRep" style="display:none;">
+			<div class="modal-title"></div>
+			<div>		
+				<input type="text" name="r_reportReason" id="newR_reportReason" placeholder="신고사유" class="form-control"/>
+				<input type="text" name="r_reportContent" id="newR_reportContent" placeholder="자세한 신고내용" class="form-control"/>
+					
+			</div>
+			<div>
+				<button type="button" id="replyReportBtn">신고하기</button>
+				<button type="button" id="closeReportBtn">창닫기</button>
+			</div>
+		</div>
+		
 	
 	
-		    
+	
+	
+
+
 		
 	 <!-- jquery cdn 가져오기 -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	
    
     <!-- 여기부터 댓글 비동기 처리 자바스크립트 처리 영역 -->
@@ -156,7 +279,7 @@
 					    +"<div class='reply'>" +this.reply + "</div>"
 					    +"<button type='button' class='btn btn-info'>수정/삭제</button>"
 					    +"</div>"
-					    +"<div class='report' data-rno='"+ this.rno +"'>"					 
+					    +"<div class='report' data-rno='"+ this.rno +"' data-reply='" + this.reply +"'>"					 
 					    +"<button type='button' class='btn btn-danger'>댓글 신고</button>"
 					    +"</div>";
 					    
@@ -165,7 +288,8 @@
 				});
 				// #replies사이에 끼워넣을수있도록 console.log()로 디버깅
 				console.log(str);
-				$("#replies").html(str);			
+				$("#replies").html(str);
+			
 			});
 		}		
 		getAllList();// 댓글 전체 들고와서 #replies에 심어주는 로직 실행
@@ -205,7 +329,8 @@
 			
 		});
 	
-
+		
+		
 
 		
 		// 이벤트 위임
@@ -250,7 +375,7 @@
 			$("#modDiv").hide("slow");  // #modDiv를 닫습니다.
 		});
 		
-	 
+		
 	 // 삭제버튼 작동
 		 $("#replyDelBtn").on("click",function(){
 			var rno = $(".modal-title").html();
@@ -302,15 +427,105 @@
 		 })
 	 })
 	 
-	 
-	 
-	 
-	 
-	 
+	
+	     ///////////////////////////////////////////////////////////////////////////////////////
+	     ///////////////////////////////////////////////////////////////////////////////////////
+	     //모달신고하기버튼
+	     $("#replyReportBtn").on("click", function(){
+			
+			// 폼이 없기때문에, input태그 내에 입력된 요소를 가져와야 합니다.
+			// 버튼을 누르는 시점에, 글쓴이와 내용 내부에 적힌 문자열을 변수에 저장합니다. 
+			var r_report = $("#newR_reportReason").val();
+			var r_report = $("#newR_reportContent").val();
+			
+			// $.ajax({내용물}); 이 기본형태
+			$.ajax({
+				type : 'post',		
+				url : '/replies',
+				headers : {
+					"Content-Type" : "application/json",
+					"X-HTTP-Method-Override" : "POST"
+				},
+				dataType : 'text',
+				data : JSON.stringify({
+					bno : bno,
+					replyer : replyer,
+					reply : reply
+				}),
+				success : function(result){
+					if(result == 'SUCCESS'){
+						alert("신고되었습니다.");
+						getAllList();// 댓글 등록 성공시, 다시 목록 갱신
+						// 폼 태그 비우기.
+						// 힌트 : .val(넣을값);
+						$("#newR_report").val("");
+						
+					}
+				}
+			});		
+			
+		});
+	
 		
-    </script>
-    
-		    
+	   ////////////////////////////////////////////////////////////////
+	   ///////////////////////////////////////////////////////////////////
+	   ///////////////////////////////////////////////////////////////////
+	     
+	     // 댓글신고 버튼
+	     $("#replies").on("click", ".report button", function(){
+		 
+	   
+							    var replytag = $(this).parent();
+							    var rno = replytag.attr("data-rno");
+								console.log(rno);
+								var replyContent = replytag.attr("data-reply");// button의 형제중.reply의 내용물 가져오기
+								
+								$(".modal-title").html(replyContent);//신고 모달창에 댓글보기
+								//$("#reply").html(replyContent);   // reply 영역에 리플 내용을 기입(수정/삭제)
+			                     console.log(replytag);
+		
+		 $("#modRep").show("slow");  // 버튼 누르면 모달 열림
+		 
+	 });
+	 
+	
+	    // 모달 창 닫기 이벤트
+		$("#closeReportBtn").on("click", function(){// #closeBtn 클릭시
+			$("#modRep").hide("slow");  // #modDiv를 닫습니다.
+		});
+		
+		   
+	    
+	    // 게시판 신고 버튼   boardReportBtn
+	   /////////////////////////////////////////////
+	   //////////////////////////////////////////////
+	   //////////////////////////////////////////////
+					 window.onload = function() {
+			 
+			    function onClick() {
+			        document.querySelector('.modal_wrap').style.display ='block';
+			        document.querySelector('.black_bg').style.display ='block';
+			    }   
+			    function offClick() {
+			        document.querySelector('.modal_wrap').style.display ='none';
+			        document.querySelector('.black_bg').style.display ='none';
+			    }
+			 
+			    document.getElementById('boardReportBtn').addEventListener('click', onClick);
+			    document.querySelector('.modal_close').addEventListener('click', offClick);
+			 
+			};
+
+
+
+	///////////////////아래쪽 해본거
+	
+	
+</script>
+	    
+
+
+		 
 	
 </body>
 </html>
