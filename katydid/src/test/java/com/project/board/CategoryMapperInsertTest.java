@@ -6,11 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.project.board.domain.AreaVO;
-import com.project.board.domain.CategoryVO;
-import com.project.board.domain.L_kindVO;
-import com.project.board.domain.S_kindVO;
-import com.project.board.mapper.CategoryMapper;
+import com.project.domain.AreaVO;
+import com.project.domain.CategoryVO;
+import com.project.domain.L_kindVO;
+import com.project.domain.S_kindVO;
+import com.project.mapper.area.AreaMapper;
+import com.project.mapper.category.CategoryMapper;
+import com.project.mapper.l_kind.L_kindMapper;
+import com.project.mapper.s_kind.S_kindMapper;
 
 import lombok.extern.log4j.Log4j;
 
@@ -20,13 +23,22 @@ import lombok.extern.log4j.Log4j;
 public class CategoryMapperInsertTest {
 
 	@Autowired
-	private CategoryMapper mapper;
+	private CategoryMapper categorymapper;
+	
+	@Autowired
+	private AreaMapper areamapper;
+	
+	@Autowired
+	private L_kindMapper l_kindmapper;
+	
+	@Autowired
+	private S_kindMapper s_kindmapper;
 	
 	@Test
 	public void insertAreaTest() {
 		AreaVO vo = new AreaVO();
 		vo.setWard("신촌");
-		mapper.insertArea(vo);
+		areamapper.insertArea(vo);
 	}
 	
 	@Test
@@ -34,22 +46,22 @@ public class CategoryMapperInsertTest {
 		CategoryVO vo = new CategoryVO();
 		vo.setSno(1L);
 		vo.setAno(1L);
-		mapper.insertCategory(vo);
+		categorymapper.insertCategory(vo);
 	}
 	
 	@Test
 	public void insertLkindTest() {
 		L_kindVO vo = new L_kindVO();
 		vo.setK_group("맛집");
-		mapper.insertLkind(vo);
+		l_kindmapper.insertLkind(vo);
 	}
 	
 	@Test
 	public void insertSkindTest() {
 		S_kindVO vo = new S_kindVO();
 		vo.setLno(1L);
-		vo.setSClass("김밥천국");
-		mapper.insertSkind(vo);
+		vo.setS_class("김밥천국");
+		s_kindmapper.insertSkind(vo);
 	}
 	
 }

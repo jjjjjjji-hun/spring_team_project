@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http:/mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mapper.s_kind.S_kindMapper">
+
+<!-- 소분류 -->
+	<resultMap type="com.project.domain.S_kindVO" id="s_kindMap">
+		<result property="sno" column="sno" />
+		<result property="lno" column="lno" />
+		<result property="s_class" column="class" />
+	</resultMap>
+	
+	<select id="getSkindList" resultMap="s_kindMap">
+		SELECT * FROM s_kind_tbl
+	</select>
+	
+	<select id="getSkind" resultMap="s_kindMap">
+		SELECT * FROM s_kind_tbl WHERE sno = #{sno}
+	</select>
+	
+	<insert id="insertSkind">
+		INSERT INTO s_kind_tbl VALUES (s_kind_num.nextval, #{lno}, #{s_class})
+	</insert>
+	
+	<update id="updateSkind">
+		UPDATE s_kind_tbl SET lno=#{lno}, class=#{s_class} WHERE sno=#{sno}
+	</update>
+	
+	<delete id="deleteSkind">
+		 DELETE FROM s_kind_tbl WHERE sno = #{sno}
+	</delete>
+</mapper>
