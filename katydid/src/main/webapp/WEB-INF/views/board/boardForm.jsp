@@ -24,6 +24,6 @@
 			<input type="submit" value="제출"/>&nbsp;&nbsp;&nbsp;<input type="reset" value="초기화"/>
 		</form>
 	</div>
-	<%var Lkind = document.querySelector('.L_kind');%>
+	
 </body>
 </html>

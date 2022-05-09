@@ -1,4 +1,4 @@
-package com.project.mapper.r_report;
+package com.project.mapper.R_report;
 
 import java.util.List;
 

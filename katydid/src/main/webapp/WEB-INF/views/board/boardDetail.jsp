@@ -39,17 +39,18 @@
 	
 	.modal-title{color:white;}
 	
+	
 	 		
 	                         	
 		.modal_wrap{
 		display: none;
-		width: 500px;
-		height: 500px;
+		width: 300px;
+		height: 300px;
 		position: absolute;
 		top:50%;
 		left: 50%;
 		margin: -250px 0 0 -250px;
-		background:#eee;
+		background-color: #ffffff;
 		z-index: 2;
 				}
 		.black_bg{
@@ -74,7 +75,7 @@
 		display: block;
 		width: 100%;
 		height: 100%;
-		background:url(https://img.icons8.com/metro/26/000000/close-window.png);
+		background:aqua;
 		text-indent: -9999px;
 		}
 														
@@ -91,9 +92,9 @@
     }
 
   .boardReportText{
-     width: 450px;
-		height: 300px;
-		background-color: gray;
+     width: 250px;
+		height: 100px;
+		background-color: red;
 		position: static;
 		top: 70%;
 		left: 70%;
@@ -156,14 +157,21 @@
 				  <div class="modal_wrap">
 				    <div class="modal_close"><a href="#">close</a></div>
 					   <div>
-						  <input type="hidden" value="${board.bno}" name="bno"/>
-						  <strong><h1>신고사유</h1></strong>
-						  <textarea rows="15" class="boardReportText" ></textarea>
-					    </div>							    
-						  <input type="button" value="글 신고하기" onclick="location.href='#'" class="btn btn-warning"/>	
+						  <input type="hidden" value="${board.bno}" name="bno" id="board_bno"/>
+						  
+						  <input type="text" name="reason" id="newB_Reportreason" placeholder="신고사유" class="form-control"/>
+						  <input type="text" name="content" id="newB_ReportContent" placeholder="자세한 신고내용" class="form-control"/>
+					   </div>	
+					    <div>
+							<button type="button" id="final_report"  class="btn btn-warning">글 신고하기</button>  
+				      
+							
+						</div>						    
+						 
 				  </div>							   
 			</div>									      
-	</div>													 	   													 																																																						   													   
+	</div>
+</div>													 	   													 																																																						   													   
 	<hr/>			
 	
 
@@ -198,6 +206,7 @@
 		
 		<div id="modDiv" style="display:none;">
 			<div class="modal-title"></div>
+			
 			<div>
 				<input type="text" id="reply">
 			</div>
@@ -210,15 +219,12 @@
 	
 	<!-- 댓글 신고 modal -->
 	
-	<ul id="r_reports">
-	
-		</ul>
-		
 	  <div id="modRep" style="display:none;">
 			<div class="modal-title"></div>
-			<div>		
-				<input type="text" name="r_reportReason" id="newR_reportReason" placeholder="신고사유" class="form-control"/>
-				<input type="text" name="r_reportContent" id="newR_reportContent" placeholder="자세한 신고내용" class="form-control"/>
+			<div>	
+			   	<input type="hidden" name="rno" id="modal-number"/>
+				<input type="text" name="reason" id="newR_reportReason" placeholder="신고사유" class="form-control"/>
+				<input type="text" name="content" id="newR_reportContent" placeholder="자세한 신고내용" class="form-control"/>
 					
 			</div>
 			<div>
@@ -356,7 +362,7 @@
 			
 			// 클릭한 버튼과 연계된 li태그의 data-rno에 든 값 가져와 변수 rno에 저장하기
 			var rno = replytag.attr("data-rno");
-			console.log(rno);
+		//	console.log(rno);
 			
 			// rno뿐만 아니라 본문도 가져와야함
 			//var reply = replytag.text();// 내부 text를 가져옴
@@ -417,6 +423,7 @@
 			 dataType : 'text',
 			 success : function(result){
 				 console.log("result: " + result);
+				 
 				 if(result == 'SUCCESS'){
 					 alert("수정 되었습니다.");
 					 $("#modDiv").hide("slow");
@@ -427,98 +434,155 @@
 		 })
 	 })
 	 
-	
-	     ///////////////////////////////////////////////////////////////////////////////////////
-	     ///////////////////////////////////////////////////////////////////////////////////////
-	     //모달신고하기버튼
-	     $("#replyReportBtn").on("click", function(){
-			
-			// 폼이 없기때문에, input태그 내에 입력된 요소를 가져와야 합니다.
-			// 버튼을 누르는 시점에, 글쓴이와 내용 내부에 적힌 문자열을 변수에 저장합니다. 
-			var r_report = $("#newR_reportReason").val();
-			var r_report = $("#newR_reportContent").val();
-			
-			// $.ajax({내용물}); 이 기본형태
-			$.ajax({
-				type : 'post',		
-				url : '/replies',
-				headers : {
-					"Content-Type" : "application/json",
-					"X-HTTP-Method-Override" : "POST"
-				},
-				dataType : 'text',
-				data : JSON.stringify({
-					bno : bno,
-					replyer : replyer,
-					reply : reply
-				}),
-				success : function(result){
-					if(result == 'SUCCESS'){
-						alert("신고되었습니다.");
-						getAllList();// 댓글 등록 성공시, 다시 목록 갱신
-						// 폼 태그 비우기.
-						// 힌트 : .val(넣을값);
-						$("#newR_report").val("");
-						
-					}
-				}
-			});		
-			
-		});
-	
 		
-	   ////////////////////////////////////////////////////////////////
 	   ///////////////////////////////////////////////////////////////////
 	   ///////////////////////////////////////////////////////////////////
-	     
-	     // 댓글신고 버튼
-	     $("#replies").on("click", ".report button", function(){
+	   ///////////////////////////////////////////////////////////////////
+	                     //이벤트위임
+					     // 댓글신고 버튼
+					     $("#replies").on("click", ".report button", function(){
 		 
 	   
 							    var replytag = $(this).parent();
-							    var rno = replytag.attr("data-rno");
+							    
 								console.log(rno);
-								var replyContent = replytag.attr("data-reply");// button의 형제중.reply의 내용물 가져오기
 								
-								$(".modal-title").html(replyContent);//신고 모달창에 댓글보기
+								var rno = replytag.attr("data-rno");
+								var replyContent = replytag.attr("data-reply");// button의 형제중.reply의 내용물 가져오기
+									
+								//$(".modal-title").html(replyContent);//신고 모달창에 댓글보기
 								//$("#reply").html(replyContent);   // reply 영역에 리플 내용을 기입(수정/삭제)
 			                     console.log(replytag);
-		
-		 $("#modRep").show("slow");  // 버튼 누르면 모달 열림
+			                     $(".modal-title").html(replyContent);
+			                     $("#modal-number").val(rno);
+		                       $("#modRep").show("slow");  // 버튼 누르면 모달 열림
 		 
-	 });
+				 });
 	 
 	
-	    // 모달 창 닫기 이벤트
-		$("#closeReportBtn").on("click", function(){// #closeBtn 클릭시
-			$("#modRep").hide("slow");  // #modDiv를 닫습니다.
-		});
-		
-		   
-	    
-	    // 게시판 신고 버튼   boardReportBtn
-	   /////////////////////////////////////////////
-	   //////////////////////////////////////////////
-	   //////////////////////////////////////////////
-					 window.onload = function() {
-			 
-			    function onClick() {
-			        document.querySelector('.modal_wrap').style.display ='block';
-			        document.querySelector('.black_bg').style.display ='block';
-			    }   
-			    function offClick() {
-			        document.querySelector('.modal_wrap').style.display ='none';
-			        document.querySelector('.black_bg').style.display ='none';
-			    }
-			 
-			    document.getElementById('boardReportBtn').addEventListener('click', onClick);
-			    document.querySelector('.modal_close').addEventListener('click', offClick);
-			 
-			};
+				    // 모달 창 닫기 이벤트(댓글신고)
+					$("#closeReportBtn").on("click", function(){// #closeBtn 클릭시
+						$("#modRep").hide("slow");  // #modDiv를 닫습니다.
+						$("#newR_reportReason").val("");
+						$("#newR_reportContent").val("");
+					});
+					
+					   
+				    
+                     ////////////////////////////////////////
+					 ////////////////////////////////////////
+					 ////////////////////////////////////////
+					     //모달 신고하기버튼(댓글 신고하기)
+					     $("#replyReportBtn").on("click", function(){
+							
+							// 폼이 없기때문에, input태그 내에 입력된 요소를 가져와야 합니다.
+							// 버튼을 누르는 시점에, 글쓴이와 내용 내부에 적힌 문자열을 변수에 저장합니다. 
+							var rno = $("#modal-number").val();
+							var reason = $("#newR_reportReason").val();
+							var content = $("#newR_reportContent").val();
+							
+							// $.ajax({내용물}); 이 기본형태
+							$.ajax({
+								type : 'post',		
+								url : '/R_report',
+								headers : {
+									"Content-Type" : "application/json",
+									"X-HTTP-Method-Override" : "POST"
+								},
+								dataType : 'text',
+								data : JSON.stringify({
+									rno : rno,
+									reason : reason,
+									content : content
+								}),
+								
+								success : function(result){
+									if(result == 'SUCCESS'){
+										alert("신고되었습니다.");
+										
+										getAllList();// 댓글 등록 성공시, 다시 목록 갱신
+										// 폼 태그 비우기.
+										// 힌트 : .val(넣을값);
+										$("#newR_reportReason").val("");
+										$("#newR_reportContent").val("");
+										
+									}
+								}
+							});		
+							
+						});
+					
+				    
+				    
+				    
+				    
+				    // 게시판 신고 버튼   boardReportBtn
+			
+								 window.onload = function() {
+									 
+						    function onClick() {
+						        document.querySelector('.modal_wrap').style.display ='block';
+						        document.querySelector('.black_bg').style.display ='block';
+						    }   
+						    function offClick() {
+						        document.querySelector('.modal_wrap').style.display ='none';
+						        document.querySelector('.black_bg').style.display ='none';
+						    }
+						 
+						   
+						    document.getElementById('boardReportBtn').addEventListener('click', onClick);
+						    document.querySelector('.modal_close').addEventListener('click', offClick);
+						 
+						};
 
-
-
-	///////////////////아래쪽 해본거
+/////////////////
+/////////////////
+/////////////////
+/////////////////
+/////////////////
+/////////////////
+/////////////////
+/////////////////
+/////////////////
+			//모달 게시판 글신고하기버튼
+		     $("#final_report").on("click", function(){
+				
+				// 폼이 없기때문에, input태그 내에 입력된 요소를 가져와야 합니다.
+				// 버튼을 누르는 시점에, 글쓴이와 내용 내부에 적힌 문자열을 변수에 저장합니다. 
+				 //var rno = $(".modal-title").html();
+				var reason = $("#newB_Reportreason").val();
+				var content = $("#newB_ReportContent").val();
+				
+				// $.ajax({내용물}); 이 기본형태
+				$.ajax({
+					type : 'post',		
+					url : '/B_report',
+					headers : {
+						"Content-Type" : "application/json",
+						"X-HTTP-Method-Override" : "POST"
+					},
+					dataType : 'text',
+					data : JSON.stringify({
+						bno : bno,
+						reason : reason,
+						content : content
+					}),
+				
+					success : function(result){
+						if(result == 'SUCCESS'){
+							alert("신고되었습니다.");
+							
+							//getAllList();// 댓글 등록 성공시, 다시 목록 갱신
+							// 폼 태그 비우기.
+							// 힌트 : .val(넣을값);
+						//	$("#newB_Reportreason").val("");
+						//	$("#newB_ReportContent").val("");
+							
+						}
+					}
+				});		
+				
+			});
 	
 	
 </script>
