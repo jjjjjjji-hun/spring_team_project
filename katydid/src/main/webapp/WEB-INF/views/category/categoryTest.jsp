@@ -70,6 +70,20 @@
 				</p>
         	</div>   	
         </div>
+        <div id="text">
+        	<form>
+	          <div class="mb-3">
+	            <label for="message-text" class="col-form-label">업체 이름 :</label>
+	            <textarea class="form-control" id="message-text"></textarea>
+	          </div>
+       		</form>
+       		<form>
+       		  <div class="mb-3">
+	            <label for="message-text" class="col-form-label">주소 :</label>
+	            <textarea class="form-control" id="message-text"></textarea>
+	          </div>
+	        </form>
+        </div>
       </div>
       <div class="modal-footer">
       	<button id="menu" class="btn btn-primary" data-bs-target="#exampleModalToggle3" data-bs-toggle="modal">업체 상품 등록하러가기</button>
