@@ -17,7 +17,7 @@
 			FROM l_kind_tbl l
 			/*JOIN s_kind_tbl s
 				ON
-			l.lno = s.lno*/
+			l.lno = s.lno*/ ORDER BY lno ASC
 	</select>
 	
 	<select id="getLkind" resultType="com.project.domain.L_kindVO">

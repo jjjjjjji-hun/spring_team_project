@@ -7,11 +7,11 @@
 	<resultMap type="com.project.domain.S_kindVO" id="s_kindMap">
 		<result property="sno" column="sno" />
 		<result property="lno" column="lno" />
-		<result property="sClass" column="class" />
+		<result property="s_class" column="class" />
 	</resultMap>
 	
 	<select id="getSkindList" resultMap="s_kindMap">
-		SELECT * FROM s_kind_tbl
+		SELECT * FROM s_kind_tbl ORDER BY sno ASC
 	</select>
 	
 	<select id="getSkind" resultMap="s_kindMap">
@@ -19,11 +19,11 @@
 	</select>
 	
 	<insert id="insertSkind">
-		INSERT INTO s_kind_tbl VALUES (s_kind_num.nextval, #{lno}, #{sClass})
+		INSERT INTO s_kind_tbl VALUES (s_kind_num.nextval, #{lno}, #{s_class})
 	</insert>
 	
 	<update id="updateSkind">
-		UPDATE s_kind_tbl SET lno=#{lno}, class=#{sClass} WHERE sno=#{sno}
+		UPDATE s_kind_tbl SET lno=#{lno}, class=#{s_class} WHERE sno=#{sno}
 	</update>
 	
 	<delete id="deleteSkind">

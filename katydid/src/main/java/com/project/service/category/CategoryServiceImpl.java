@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.domain.AreaVO;
+import com.project.domain.CategoryVO;
 import com.project.domain.L_kindVO;
 import com.project.domain.S_kindVO;
 import com.project.mapper.area.AreaMapper;
@@ -109,6 +110,35 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public void deleteSkind(S_kindVO vo) {
 		skindmapper.deleteSkind(vo);
+	}
+
+	// 카테고리
+	@Override
+	public List<CategoryVO> getCategoryList() {
+		return categorymapper.getCategoryList();
+	}
+
+	@Override
+	public CategoryVO getCategory(Long cno) {
+		return categorymapper.getCategory(cno);
+	}
+
+	@Override
+	public void insertCategory(CategoryVO vo) {
+		categorymapper.insertCategory(vo);
+		
+	}
+
+	@Override
+	public void updateCategory(CategoryVO vo) {
+		categorymapper.updateCategory(vo);
+		
+	}
+
+	@Override
+	public void deleteCategory(CategoryVO vo) {
+		categorymapper.deleteCategory(vo);
+		
 	}
 	
 	
