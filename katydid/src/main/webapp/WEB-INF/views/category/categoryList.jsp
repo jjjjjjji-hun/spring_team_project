@@ -6,10 +6,114 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+	#modDiv{
+			width: 450px;
+			height: 100px;
+			background-color: green;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-top: -50px;
+			margin-left: -150px;
+			padding:10px;
+			z-index:1000;
+		}
+</style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
+<div>
+	<h3 class="text-primary">지역</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">구분</th>
+      <th scope="col">지역</th>
+      <th scope="col">수정/삭제</th>
+    </tr>
+  </thead>
+  <tbody>
+  	<c:forEach var="area" items="${areaList}">
+    	<tr>
+    	  <th scope="row">
+      		${area.ano }
+     	 </th>
+     	 <td>
+      		<strong class=ward>${area.ward }</strong>
+     	 </td>
+     	 <td>
+      		<button type="button" class="areaModBtn">Modify</button>&nbsp;&nbsp;
+			<button type="button" class="areaDelBtn">Delete</button>
+     	 </td>
+   	 	</tr>
+    </c:forEach>
+  </tbody>
+</table>
+</div>
+
+<div>
+	<h3 class="text-primary">대분류</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">구분</th>
+      <th scope="col">종류</th>
+      <th scope="col">수정/삭제</th>
+    </tr>
+  </thead>
+  <tbody>
+  	<c:forEach var="l_kind" items="${l_kindList}">
+    	<tr>
+    	  <th scope="row">
+      		${l_kind.lno }
+     	 </th>
+     	 <td>
+      		<strong class=ward>${l_kind.k_group }</strong>
+     	 </td>
+     	 <td>
+      		<button type="button" class="areaModBtn">Modify</button>&nbsp;&nbsp;
+			<button type="button" class="areaDelBtn">Delete</button>
+     	 </td>
+   	 	</tr>
+    </c:forEach>
+  </tbody>
+</table>
+</div>
+
+<div>
+	<h3 class="text-primary">소분류</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">구분</th>
+      <th scope="col">종류</th>
+      <th scope="col">종류2</th>
+      <th scope="col">수정/삭제</th>
+    </tr>
+  </thead>
+  <tbody>
+  	<c:forEach var="s_kind" items="${s_kindList}">
+    	<tr>
+    	  <th scope="row">
+      		${s_kind.sno }
+     	 </th>
+     	 <td>
+      		<strong class=ward>${s_kind.s_class }</strong>
+     	 </td>
+     	 <td>
+      		<strong class=ward>${s_kind.lno }</strong>
+     	 </td>
+     	 <td>
+      		<button type="button" class="areaModBtn">Modify</button>&nbsp;&nbsp;
+			<button type="button" class="areaDelBtn">Delete</button>
+     	 </td>
+   	 	</tr>
+    </c:forEach>
+  </tbody>
+</table>
+</div>
 
 	<c:forEach var="area" items="${areaList}">
 		<div class="area" areaNum="${area.ano }">

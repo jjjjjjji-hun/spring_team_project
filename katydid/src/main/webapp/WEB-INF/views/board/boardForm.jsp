@@ -14,16 +14,20 @@
 			글 제목 : <input type="text" name="title" required/><br/>
 			글쓴이 : <input type="text" name="u_id" required/><br/>
 			카테고리 : <select class="L_kind">
-					<option name="stno">맛집</option>
-					<option name="stno">숙박</option>
+							<option value="">선택해주세요</option>
+								<c:forEach var="list" items="${category }">
+									<option value="${list }">${list }</option>
+								</c:forEach>
 					</select>&nbsp;&nbsp;
 			장소 : <select class="S_kind">
-					
+					<option value="">선택해주세요</option>
+								<c:forEach var="list" items="${category }">
+									<option value="${list }">${list.ano }</option>
+								</c:forEach>
 			 	  </select><br/>
 			본문 : <textarea name="content" rows="15" cols="30"></textarea>
 			<input type="submit" value="제출"/>&nbsp;&nbsp;&nbsp;<input type="reset" value="초기화"/>
 		</form>
 	</div>
-	<%var Lkind = document.querySelector('.L_kind');%>
 </body>
 </html>

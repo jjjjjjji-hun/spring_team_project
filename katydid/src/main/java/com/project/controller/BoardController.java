@@ -17,6 +17,7 @@ import com.project.domain.PageMaker;
 import com.project.domain.SearchCriteria;
 import com.project.domain.StoreVO;
 import com.project.service.board.BoardService;
+import com.project.service.category.CategoryService;
 
 import lombok.extern.log4j.Log4j;
 
@@ -27,6 +28,9 @@ public class BoardController {
 
 	@Autowired
 	private BoardService service;
+	
+	@Autowired
+	private CategoryService categoryservice;
 	
 	@GetMapping("/list")
 	public String getList(SearchCriteria cri, Model model) {
@@ -59,7 +63,8 @@ public class BoardController {
 	@GetMapping(value="/insert")
 	public String boardForm(CategoryVO vo, Model model) {
 		
-		//model.addAttribute("category", service.)
+		model.addAttribute("category", categoryservice.getCategoryList());
+		log.info("카테고리 들어온 데이터" + vo);
 		return "board/boardForm";
 	}
 	
