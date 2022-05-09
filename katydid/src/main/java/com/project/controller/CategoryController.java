@@ -43,9 +43,23 @@ public class CategoryController {
 	}
 	
 	@GetMapping("/")
-	public String categoryInsertForm() {
+	public String categoryInsertForm(Model model) {
+		model.addAttribute("areaList", categoryservice.getAreaList());
 		
+		model.addAttribute("l_kindList", categoryservice.getLkindList());
+		
+		model.addAttribute("s_kindList", categoryservice.getSkindList());
 		return "category/categoryForm";
+	}
+	
+	@GetMapping("/test")
+	public String categoryInsertFormTest(Model model) {
+		model.addAttribute("areaList", categoryservice.getAreaList());
+		
+		model.addAttribute("l_kindList", categoryservice.getLkindList());
+		
+		model.addAttribute("s_kindList", categoryservice.getSkindList());
+		return "category/categoryTest";
 	}
 	
 	// 분류 추가

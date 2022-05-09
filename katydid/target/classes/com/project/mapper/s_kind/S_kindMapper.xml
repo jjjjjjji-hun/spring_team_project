@@ -11,7 +11,7 @@
 	</resultMap>
 	
 	<select id="getSkindList" resultMap="s_kindMap">
-		SELECT * FROM s_kind_tbl
+		SELECT * FROM s_kind_tbl ORDER BY sno ASC
 	</select>
 	
 	<select id="getSkind" resultMap="s_kindMap">
