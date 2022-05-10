@@ -14,7 +14,17 @@
 	
 	<security:http>
 	
-		<security:form-login/>
+		<security:intercept-url pattern="/secu/all" access="permitAll" />
+	
+		<security:form-login login-page="/login"
+			authentication-success-handler-ref="userLoginSuccess"/>
+			
+		<security:access-denied-handler ref="userAccessDenied"/>
+		
+		<security:logout logout-url="/logout" invalidate-session="true"
+			delete-cookies="remember-me, JSESSIONID"/>
+		
+		<security:remember-me data-source-ref="dataSource" token-validity-seconds="604800"/>
 	
 	</security:http>
 	

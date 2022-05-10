@@ -7,17 +7,20 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
-public class Users extends User {
+import lombok.Getter;
+
+@Getter
+public class CustomUser extends User {
 
 	private static final long serialVersionUID = 1L;
 	
 	private UserVO user;
 	
-	public Users(String username, String password, Collection<? extends GrantedAuthority> auth) {
+	public CustomUser(String username, String password, Collection<? extends GrantedAuthority> auth) {
 		super(username, password, auth);
 	}
 	
-	public Users(UserVO vo) {
+	public CustomUser(UserVO vo) {
 		super(vo.getU_id(), vo.getUpw(), vo.getAuthList().stream().map(
 				author -> new SimpleGrantedAuthority(author.getAuth())).collect(Collectors.toList()));
 		this.user = vo;

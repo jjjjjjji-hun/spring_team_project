@@ -30,4 +30,19 @@
 			WHERE u.u_id = #{u_id} 
 	</select>
 	
+	<insert id="insertUser">
+		INSERT INTO USER_TBL(uno, u_id, upw, uname, pnum)
+			VALUES
+		(user_num.nextval, #{u_id}, #{upw}, #{uname}, #{pnum})
+	</insert>
+	
+	<update id="insertUserAuth">
+		INSERT
+		<foreach collection="authList" item="auth" separator=" ">
+			INTO USER_AUTH_TBL(uano, u_id, auth)
+				VALUES
+			(user_auth_num.nextval, #{auth.u_id}, #{auth.auth})
+		</foreach>
+	</update>
+	
 </mapper>
