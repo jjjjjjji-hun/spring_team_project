@@ -10,12 +10,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.project.domain.AreaVO;
+import com.project.domain.CategoryVO;
 import com.project.domain.L_kindVO;
 import com.project.domain.S_kindVO;
 import com.project.service.category.CategoryService;
@@ -53,14 +55,53 @@ public class CategoryController {
 	}
 	
 	@GetMapping("/test")
-	public String categoryInsertFormTest(Model model) {
+	public String categoryTest(Model model) {
 		model.addAttribute("areaList", categoryservice.getAreaList());
 		
 		model.addAttribute("l_kindList", categoryservice.getLkindList());
 		
 		model.addAttribute("s_kindList", categoryservice.getSkindList());
+		
+		model.addAttribute("categoryList", categoryservice.getCategoryList());
 		return "category/categoryTest";
 	}
+	
+	@GetMapping(value="/tests",
+			produces = {MediaType.APPLICATION_XML_VALUE,
+							MediaType.APPLICATION_JSON_UTF8_VALUE})
+		public ResponseEntity<List<CategoryVO>> list(){
+					ResponseEntity<List<CategoryVO>> entity = null;
+					
+					try {
+						entity = new ResponseEntity<>(categoryservice.getCategoryList(), HttpStatus.OK);
+					}catch(Exception e) {
+						e.printStackTrace();
+						entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+					}
+					return entity;
+			}
+	
+	// 카테고리 추가
+		@PostMapping(value="/insert", consumes="application/json",
+				produces= {MediaType.TEXT_PLAIN_VALUE})
+		public ResponseEntity<String> categoryInsert(@RequestBody CategoryVO vo) {
+			log.info(vo.getAno());
+			log.info(vo.getSno());
+			ResponseEntity<String> entity = null;
+			
+			try {
+				
+				categoryservice.insertCategory(vo);
+				
+				entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+				
+			} catch(Exception e) {
+				
+				entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			}
+			
+			return entity;
+		}
 	
 	// 분류 추가
 	@PostMapping(value="/area", consumes="application/json",

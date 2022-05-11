@@ -5,7 +5,7 @@
 	
 <!-- 식당 -->
 	<select id="getStoreList" resultType="com.project.domain.StoreVO">
-		SELECT * FROM store_tbl
+		SELECT * FROM store_tbl WHERE cno = #{cno} ORDER BY stno DESC
 	</select>
 	
 	<select id="getStore" resultType="com.project.domain.StoreVO">
@@ -13,7 +13,7 @@
 	</select>
 	
 	<insert id="insertStore">
-		INSERT INTO store_tbl VALUES (store_num.nextval, #{storeName}, #{address}, #{spNum})
+		INSERT INTO store_tbl (stno, cno, storeName, address, spNum) VALUES (store_num.nextval, #{cno}, #{storeName}, #{address}, #{spNum})
 	</insert>
 	
 	<update id="updateStore">

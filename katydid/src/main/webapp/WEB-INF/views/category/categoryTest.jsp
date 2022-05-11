@@ -22,19 +22,19 @@
         지역 : <select id="area">
 					<option value="">선택해주세요</option>
 						<c:forEach var="area" items="${areaList }">
-							<option value="${area }">${area.ward }</option>
+							<option value="${area.ano }">${area.ward }</option>
 						</c:forEach>
 			  </select><br/>
 		대분류 : <select id="l_kind">
 					<option value="">선택해주세요</option>
 						<c:forEach var="l_kind" items="${l_kindList }">
-							<option value="${l_kind }">${l_kind.k_group }</option>
+							<option value="${l_kind.lno }">${l_kind.k_group }</option>
 						</c:forEach>
 			 	</select><br/>
 		소분류 : <select id="s_kind">
 					<option value="">선택해주세요</option>
 						<c:forEach var="s_kind" items="${s_kindList }">
-							<option value="${s_kind }">${s_kind.s_class }</option>
+							<option value="${s_kind.sno }">${s_kind.s_class }</option>
 						</c:forEach>
 			 	  </select>
       </div>
@@ -53,6 +53,7 @@
       </div>
       <div class="modal-body">
         <div class="row">
+        <input type="hidden" id="newCategory" value="${categoryList }"/>
         카테고리 : 
         	<div class="col-md-3">
         		<p id="category1" style="display:inline">
@@ -70,17 +71,24 @@
 				</p>
         	</div>   	
         </div>
+        <hr/>
         <div id="text">
         	<form>
-	          <div class="mb-3">
+	          <div class="mb-1">
 	            <label for="message-text" class="col-form-label">업체 이름 :</label>
-	            <textarea class="form-control" id="message-text"></textarea>
+	            <textarea class="form-control" id="message-sname"></textarea>
 	          </div>
        		</form>
        		<form>
-       		  <div class="mb-3">
-	            <label for="message-text" class="col-form-label">주소 :</label>
-	            <textarea class="form-control" id="message-text"></textarea>
+       		  <div class="mb-1">
+	            <label for="message-text" class="col-form-label">업체 주소 :</label>
+	            <textarea class="form-control" id="message-address"></textarea>
+	          </div>
+	        </form>
+	        <form>
+       		  <div class="mb-1">
+	            <label for="message-text" class="col-form-label">업체 전화번호 :</label>
+	            <textarea class="form-control" id="message-spnum"></textarea>
 	          </div>
 	        </form>
         </div>
@@ -101,7 +109,50 @@
       </div>
       <div class="modal-body">
         <div id="store">
-        
+        <div class="row">
+        업체정보 : 
+        	<div class="col-md-3">
+        		<p id="category4" style="display:inline">
+			
+				</p>
+        	</div>
+			<div class="col-md-3">
+        		<p id="category5"  style="display:inline">
+			
+				</p>
+        	</div>  
+        	<div class="col-md-3">
+        		<p id="category6"  style="display:inline">
+			
+				</p>
+        	</div>   	
+        </div>
+        <hr/>
+	        <table class="table">
+			  <thead>
+			    <tr>
+			      <th scope="col">상품명</th>
+			      <th scope="col">금액</th>
+			      <th scope="col">대표 상품 여부</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			  	<c:forEach var="i" begin="0" end="4">
+				    <tr>
+				      <th scope="row"><textarea rows="2" cols="8"></textarea></th>
+				      <td><textarea rows="2" cols="8"></textarea></td>
+				      <td>
+				      	<div class="form-check">
+						  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+						  <label class="form-check-label" for="flexCheckDefault">
+						    
+						  </label>
+						</div>
+				      </td>
+				    </tr>
+				</c:forEach>
+			  </tbody>
+			</table>
         </div>
       </div>
       <div class="modal-footer">
@@ -123,24 +174,114 @@
 			$("#exampleModalToggle3").hide("slow");
 		});
 		
+		let sno = null;
+		let ano =  null;
+		let cno =  null;
+		
+		// 선택한 지역, 소분류 값 변수에 저장
+		$("#s_kind").on("change", function(){
+			sno = $("#s_kind option:selected").val()
+		});
+		$("#area").on("change", function(){
+			ano = $("#area option:selected").val()
+		});
+		
+		
 		// 카테고리 선택 후 -> 식당 등록할 시
 		$("#exampleModalToggle").on("click", ".modal-footer button", function(){
-			let strArea = $("#area option:selected").val("${area.ward}");
-			let strL_kind = $("#l_kind option:selected").val("${l_kind.k_group}");
-			let strS_kind = $("#s_kind option:selected").val("${s_kind.s_class}");
+			let strArea = $("#area option:selected").html();
+			let strL_kind = $("#l_kind option:selected").html();
+			let strS_kind = $("#s_kind option:selected").html();
 			$('#category1').html(strArea);
 			$('#category2').html(strL_kind);
 			$('#category3').html(strS_kind);
+
+			console.log(strArea);
+			console.log(strL_kind);
+			console.log(strS_kind);
+			
+			$.getJSON("/category/tests", function(data){
+				for (let i=0; i<data.length; i++) {
+					
+					if(data[i].sno == sno && data[i].ano == ano) {
+						cno = data[i].cno;
+						console.log(data[i]);
+					}
+					
+				}
+			});
+			
+			$.ajax({
+				type : 'post', 
+				url : '/category/insert', 
+				headers : {
+					"Content-type" : "application/json",
+					"X-HTTP-Method-Override" : "POST"},
+				dataType : 'text',
+				data : JSON.stringify({
+					sno : sno,
+					ano : ano
+				}),
+				success : function(result){
+					if(result == 'SUCCESS'){
+						alert("등록 되었습니다.");
+					}
+				},
+					error : function(result){
+						if(result != 'SUCCESS'){
+							alert("다시 등록해주세요.");
+						}
+					}
+			});
+		});
+				
+		
+		// 식당 등록 후 -> 메뉴 등록할 시
+		$("#menu").on("click", function(){
+			let strSname = $("#message-sname").val();
+			let strAddress = $("#message-address").val();
+			let strSpnum = $("#message-spnum").val();
+			$('#category4').html(strSname);
+			$('#category5').html(strAddress);
+			$('#category6').html(strSpnum);
+			
+			
+			$.ajax({
+				type : 'post', 
+				url : '/enterprise/store', 
+				headers : {
+					"Content-type" : "application/json",
+					"X-HTTP-Method-Override" : "POST"},
+				dataType : 'text',
+				data : JSON.stringify({
+					cno : cno,
+					storeName : strSname,
+					address : strAddress,
+					spNum : strSpnum
+				}),
+				success : function(result){
+					if(result == 'SUCCESS'){
+						alert("등록 되었습니다.");
+						// 폼 태그 비우기.
+						strSname = $("#message-sname").val("");
+						strAddress = $("#message-address").val("");
+						strSpnum = $("#message-spnum").val("");
+					}
+				}
+			});
 		});
 		
-		/* 식당 등록 후 -> 메뉴 등록할 시
-		$("#exampleModalToggle2").on("click", ".modal-footer button", function(){
-			let strArea = $("#area option:selected").val("${area.ward}");
-			let strL_kind = $("#l_kind option:selected").val("${l_kind.k_group}");
-			let strS_kind = $("#s_kind option:selected").val("${s_kind.s_class}");
-			let categoryList = [strArea, strL_kind, strS_kind];
-			$('#category').html(categoryList);
-		});*/
+		// 대표 상품 여부 체크 제한
+		$(document).ready(function(){
+			$("input[type='checkbox']").on("click", function(){
+				let count = $("input:checked[type='checkbox']").length;
+				
+				if(count > 3){
+					$(this).prop("checked", false);
+					alert("3개까지만 선택할 수 있습니다.");
+				}
+			});
+		});
 		
 	</script>
 </body>

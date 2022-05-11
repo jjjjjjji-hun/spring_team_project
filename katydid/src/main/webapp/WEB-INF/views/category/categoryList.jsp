@@ -12,7 +12,6 @@
 </style>
 <head>
 <style>
-<<<<<<< .merge_file_a14992
 	#modDiv{
 			width: 450px;
 			height: 100px;
@@ -25,26 +24,12 @@
 			padding:10px;
 			z-index:1000;
 		}
-=======
-	#modDiv {
-		width: 300px;
-		height: 100px;
-		background-color: green;
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		margin-top: -50px;
-		margin-left: -150px;
-		padding: 10px;
-		z-index: 1000;
-	}
->>>>>>> .merge_file_a10652
 </style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-<<<<<<< .merge_file_a14992
+
 <div>
 	<h3 class="text-primary">지역</h3>
 <table class="table">
@@ -94,8 +79,8 @@
       		<strong class=ward>${l_kind.k_group }</strong>
      	 </td>
      	 <td>
-      		<button type="button" class="areaModBtn">Modify</button>&nbsp;&nbsp;
-			<button type="button" class="areaDelBtn">Delete</button>
+      		<button type="button" class="lkindModBtn">Modify</button>&nbsp;&nbsp;
+			<button type="button" class="lkindDelBtn">Delete</button>
      	 </td>
    	 	</tr>
     </c:forEach>
@@ -127,8 +112,8 @@
       		<strong class=ward>${s_kind.lno }</strong>
      	 </td>
      	 <td>
-      		<button type="button" class="areaModBtn">Modify</button>&nbsp;&nbsp;
-			<button type="button" class="areaDelBtn">Delete</button>
+      		<button type="button" class="skindModBtn">Modify</button>&nbsp;&nbsp;
+			<button type="button" class="skindDelBtn">Delete</button>
      	 </td>
    	 	</tr>
     </c:forEach>
@@ -136,42 +121,6 @@
 </table>
 </div>
 
-=======
-	지역 :
->>>>>>> .merge_file_a10652
-	<c:forEach var="area" items="${areaList}">
-		<div class="area" areaNum="${area.ano }">
-			<strong class=ward>${area.ward }</strong>
-			<button type="button" class="areaModBtn">Modify</button>
-			<button type="button" class="areaDelBtn">Delete</button>
-		</div>
-		<br/>
-	</c:forEach>
-	
-	대분류 : 
-	<c:forEach var="l_kind" items="${l_kindList}">
-		<div class="lkind" lkindNum="${l_kind.lno }">
-			<strong class=k_group>${l_kind.k_group }</strong>
-			<button type="button" class="lkindModBtn">Modify</button>
-			<button type="button" class="lkindDelBtn">Delete</button>
-			
-			
-			<c:forEach var="s_kind" items="${s_kindList}">
-				<c:if test="${l_kind.lno eq s_kind.lno}">
-				<br/>
-				소분류 :
-					<div class="skind" skindNum="${s_kind.sno }" lkindNum="${s_kind.lno }">
-						<strong class=s_class>${s_kind.s_class }</strong>
-						<button type="button" class="skindModBtn">Modify</button>
-						<button type="button" class="skindDelBtn">Delete</button>
-					</div>
-				
-				</c:if>
-			</c:forEach>
-		</div>
-		<br/>
-	</c:forEach>
-	
 	
 	
 	<div class="row box-box-success">
@@ -361,7 +310,7 @@
 				$.ajax(params);
 			});
 			
-			$(".area").on("click", ".areaModBtn", function() {
+			$(".areaModBtn").on("click", function() {
 				let num = $(this).parent().attr("areaNum");
 				let area = $(this).siblings(".ward").text();
 				
@@ -370,7 +319,7 @@
 				$("#modDiv").show();
 			});
 			
-			$(".lkind").on("click", ".lkindModBtn", function() {
+			$(".lkindModBtn").on("click", function() {
 				let num = $(this).parent().attr("lkindNum");
 				let lkind = $(this).siblings(".k_group").text();
 				
@@ -379,7 +328,7 @@
 				$("#modDiv").show();
 			});
 			
-			$(".skind").on("click", ".skindModBtn", function() {
+			$(".skindModBtn").on("click", function() {
 				let num = $(this).parent().attr("skindNum");
 				let lno = $(this).parent().attr("lkindNum");
 				let skind = $(this).siblings(".s_class").text();
