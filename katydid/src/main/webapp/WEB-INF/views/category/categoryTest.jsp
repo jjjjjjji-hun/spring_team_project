@@ -139,8 +139,8 @@
 			  <tbody>
 			  	<c:forEach var="i" begin="0" end="4">
 				    <tr>
-				      <th scope="row"><textarea rows="2" cols="8"></textarea></th>
-				      <td><textarea rows="2" cols="8"></textarea></td>
+				      <th scope="row"><textarea id="items" rows="2" cols="8"></textarea></th>
+				      <td><textarea id="amount" rows="2" cols="8"></textarea></td>
 				      <td>
 				      	<div class="form-check">
 						  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
@@ -200,17 +200,6 @@
 			console.log(strL_kind);
 			console.log(strS_kind);
 			
-			$.getJSON("/category/tests", function(data){
-				for (let i=0; i<data.length; i++) {
-					
-					if(data[i].sno == sno && data[i].ano == ano) {
-						cno = data[i].cno;
-						console.log(data[i]);
-					}
-					
-				}
-			});
-			
 			$.ajax({
 				type : 'post', 
 				url : '/category/insert', 
@@ -233,6 +222,17 @@
 						}
 					}
 			});
+			
+			$.getJSON("/category/tests", function(data){
+				for (let i=0; i<data.length; i++) {
+					
+					if(data[i].sno == sno && data[i].ano == ano) {
+						cno = data[i].cno;
+						console.log(data[i]);
+					}
+				}
+			});
+			
 		});
 				
 		
@@ -245,10 +245,13 @@
 			$('#category5').html(strAddress);
 			$('#category6').html(strSpnum);
 			
+			console.log(strSname);
+			console.log(strAddress);
+			console.log(strSpnum);
 			
 			$.ajax({
 				type : 'post', 
-				url : '/enterprise/store', 
+				url : '/enterprise/storeinsert', 
 				headers : {
 					"Content-type" : "application/json",
 					"X-HTTP-Method-Override" : "POST"},
@@ -267,10 +270,65 @@
 						strAddress = $("#message-address").val("");
 						strSpnum = $("#message-spnum").val("");
 					}
+				},
+				error : function(result){
+					if(result != 'SUCCESS'){
+						alert("다시 등록해주세요.");
+					}
 				}
 			});
+			
+			$.getJSON("/enterprise/tests" + cno, function(data){
+				for (let j=0; j<data.length; j++) {
+					
+					if(data[j].cno == cno) {
+						stno = data[j].stno;
+						console.log(data[j]);
+					}
+					
+				}
+			});
+			
 		});
 		
+		// 메뉴 등록하고 버튼 클릭시
+		$("#submitBtn").on("click", function(){
+			let strmenuName = $("#items").val();
+			let strAmount = $("#amount").val();
+			
+			console.log(strmenuName);
+			console.log(strAmount);
+
+			$.ajax({
+				type : 'post', 
+				url : '/enterprise/menuinsert', 
+				headers : {
+					"Content-type" : "application/json",
+					"X-HTTP-Method-Override" : "POST"},
+				dataType : 'text',
+				data : JSON.stringify({
+					stno : stno,
+					menuName : strmenuName,
+					amount : strAmount,
+					represent : represent
+				}),
+				success : function(result){
+					if(result == 'SUCCESS'){
+						alert("등록 되었습니다.");
+						// 폼 태그 비우기.
+						strmenuName = $("#items").val("");
+						strAmount = $("#amount").val("");
+						
+					}
+				},
+				error : function(result){
+					if(result != 'SUCCESS'){
+						alert("다시 등록해주세요.");
+					}
+				}
+			});
+			
+		})
 		// 대표 상품 여부 체크 제한
 		$(document).ready(function(){
 			$("input[type='checkbox']").on("click", function(){
