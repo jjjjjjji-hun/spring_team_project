@@ -4,8 +4,16 @@
 <mapper namespace="com.project.mapper.b_report.B_reportMapper">
 
 <!-- 신고 -->
+   <!--  //게시글 신고 된 댓글 전체 가져오기--> 
+	<select id="getAllB_reportList" resultType="com.project.domain.B_reportVO">
+	     SELECT * FROM b_report_tbl
+	</select>
+	
+	
+	 
+	
 	<select id="getReportList" resultType="com.project.domain.B_reportVO">
-		SELECT * FROM r_report_tbl WHERE rno = #{rno} ORDER BY r_reno DESC
+		SELECT * FROM b_report_tbl WHERE rno = #{rno} ORDER BY r_reno DESC
 	</select>
 	
 	<select id="getReport" resultType="com.project.domain.B_reportVO">
@@ -13,7 +21,7 @@
 	</select>
 	
 	<insert id="insertReport">
-		INSERT INTO r_report_tbl(b_reno, bno, reason, content) VALUES
+		INSERT INTO b_report_tbl(b_reno, bno, reason, content) VALUES
 						(b_report_num.nextval, #{bno}, #{reason}, #{content})
 	</insert>
 	

@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http:/mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.project.mapper.r_report.R_reportMapper">
+<mapper namespace="com.project.mapper.R_report.R_reportMapper">
+
 
 <!-- 신고 -->
+	<select id="getAllR_reportList" resultType="com.project.domain.R_reportVO">
+		 SELECT * FROM r_report_tbl
+		
+	</select>
+	
 	<select id="getReportList" resultType="com.project.domain.R_reportVO">
 		SELECT * FROM r_report_tbl WHERE rno = #{rno} ORDER BY r_reno DESC
 	</select>

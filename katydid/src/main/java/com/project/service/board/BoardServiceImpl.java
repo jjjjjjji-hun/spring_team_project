@@ -28,8 +28,7 @@ public class BoardServiceImpl implements BoardService {
 	@Autowired
 	private ReplyMapper replymapper;
 	
-	@Autowired
-	private B_reportMapper b_reportmapper;
+	
 	
 	@Autowired
 	private StoreMapper storemapper;
@@ -69,29 +68,5 @@ public class BoardServiceImpl implements BoardService {
 	}
    
 	
-	//게시판 신고
-
-	@Override
-	public void addB_report(B_reportVO vo) {
-		b_reportmapper.insertReport(vo);
-		
-	}
-
-	@Override
-	public List<B_reportVO> listB_Report(Long bno) {
-		
-		return b_reportmapper.getRepoerList(bno);
-	}
-
-	@Override
-	public void modifyB_report(B_reportVO vo) {
-		b_reportmapper.updateRepoer(vo);
-		
-	}
-
-	@Override
-	public void removeB_report(Long b_reno) {
-		b_reportmapper.deleteReport(b_reno);
-		
-	}
+	
 }

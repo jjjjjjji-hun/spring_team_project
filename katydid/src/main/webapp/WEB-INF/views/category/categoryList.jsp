@@ -90,7 +90,7 @@
 
 <div>
 	<h3 class="text-primary">소분류</h3>
-<table class="table">
+<table class="table" >
   <thead>
     <tr>
       <th scope="col">구분</th>
@@ -143,7 +143,7 @@
 		<div class="box-body">
 			<strong>소분류</strong><br/>
 				<select class='lno' required>
-					<option value="" disabled selected>대분류 구분</option>
+					<option id="kind" value="" disabled selected>대분류 구분</option>
 						<c:forEach var="l_kind" items="${l_kindList}">
 						    <option value='${l_kind.lno }'>${l_kind.k_group }</option>
 						</c:forEach>
@@ -251,6 +251,7 @@
 	
 							alert("등록 되었습니다.");
 							$("#newsClass").val("");
+							location.reload(true);
 						}
 					}
 				});
@@ -322,6 +323,7 @@
 				}
 				
 				$.ajax(params);
+				Location.reload();
 			});
 			
 			$(".areaModBtn").on("click", function() {
@@ -341,6 +343,9 @@
 				$("#value").val(lkind);
 				$("#modDiv").show();
 			});
+			
+			
+			
 			
 			$(".skindModBtn").on("click", function() {
 				let num = $(this).parent().attr("skindNum");
