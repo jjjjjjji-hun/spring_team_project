@@ -330,22 +330,7 @@
 				$("#modDiv").show();
 			});
 			
-			function getOptiond(){
-				let option = "";
-				
-				$(l_kindList).each(function(){
-					
-					option += "<c:if test = 'true'>"
-					<c:if test="true">
-					<select class='lno' required>
-						<option value="" disabled selected>대분류 구분</option>
-						<c:forEach var="l_kind" items="${l_kindList}">
-							<option value='${l_kind.lno }' ${l_kind.lno eq lno ? 'selected' : ''}>${l_kind.k_group }</option>
-						</c:forEach>
-					</select>
-				</c:if>
-				});
-			}
+			
 			
 			
 			$(".skindModBtn").on("click", function() {
