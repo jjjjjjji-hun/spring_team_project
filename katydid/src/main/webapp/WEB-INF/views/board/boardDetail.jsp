@@ -153,7 +153,7 @@
 			</div>
 			<div class="col-md-3">
 				<button class="btn btn-danger" type="button" id="boardReportBtn">신고하기</button>
-				 <div class="black_bg"></div>
+				 <div class="black_bg">
 				  <div class="modal_wrap">
 				    <div class="modal_close"><a href="#">close</a></div>
 					   <div>
@@ -167,10 +167,10 @@
 				      
 							
 						</div>						    
-						 
+					</div>	 
 				  </div>							   
 			</div>									      
-	</div>
+	
 </div>													 	   													 																																																						   													   
 	<hr/>			
 	
@@ -196,6 +196,7 @@
 				</div><!-- body -->
 				<div class="box-footer">
 					<button type="button" id="replyAddBtn" class="btn btn-success">댓글 추가</button>
+					<a href="/board/insert" class="btn btn-success">전체댓글조회하기</a><br/>
 				</div><!-- footer -->
 	</div><!-- row -->
 	
@@ -432,10 +433,7 @@
 		 })
 	 })
 	 
-		
-	   ///////////////////////////////////////////////////////////////////
-	   ///////////////////////////////////////////////////////////////////
-	   ///////////////////////////////////////////////////////////////////
+	  
 	                     //이벤트위임
 					     // 댓글신고 버튼
 					     $("#replies").on("click", ".report button", function(){
@@ -465,11 +463,9 @@
 						$("#newR_reportContent").val("");
 					});
 					
-					   
-				    
-                     ////////////////////////////////////////
-					 ////////////////////////////////////////
-					 ////////////////////////////////////////
+
+                  
+					
 					     //모달 신고하기버튼(댓글 신고하기)
 					     $("#replyReportBtn").on("click", function(){
 							
@@ -497,7 +493,7 @@
 								success : function(result){
 									if(result == 'SUCCESS'){
 										alert("신고되었습니다.");
-										
+										$("#modRep").hide("slow");
 										getAllList();// 댓글 등록 성공시, 다시 목록 갱신
 										// 폼 태그 비우기.
 										// 힌트 : .val(넣을값);
@@ -513,7 +509,7 @@
 				    
 				    
 				    
-				    
+				  
 				    // 게시판 신고 버튼   boardReportBtn
 			
 								 window.onload = function() {
@@ -533,24 +529,17 @@
 						 
 						};
 
-/////////////////
-/////////////////
-/////////////////
-/////////////////
-/////////////////
-/////////////////
-/////////////////
-/////////////////
-/////////////////
+
+         
 			//모달 게시판 글신고하기버튼
 		     $("#final_report").on("click", function(){
 				
 				// 폼이 없기때문에, input태그 내에 입력된 요소를 가져와야 합니다.
 				// 버튼을 누르는 시점에, 글쓴이와 내용 내부에 적힌 문자열을 변수에 저장합니다. 
-				 //var rno = $(".modal-title").html();
+				var bno = $("#board_bno").val();
 				var reason = $("#newB_Reportreason").val();
 				var content = $("#newB_ReportContent").val();
-				
+				console.log(bno);
 				// $.ajax({내용물}); 이 기본형태
 				$.ajax({
 					type : 'post',		
@@ -569,7 +558,7 @@
 					success : function(result){
 						if(result == 'SUCCESS'){
 							alert("신고되었습니다.");
-							
+							$(".black_bg").hide("slow");
 							//getAllList();// 댓글 등록 성공시, 다시 목록 갱신
 							// 폼 태그 비우기.
 							// 힌트 : .val(넣을값);

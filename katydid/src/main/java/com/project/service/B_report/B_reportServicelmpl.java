@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.domain.B_reportVO;
+import com.project.domain.SearchCriteria;
 import com.project.mapper.b_report.B_reportMapper;
 import com.project.mapper.board.BoardMapper;
 
@@ -24,7 +25,7 @@ public class B_reportServicelmpl implements B_reportService {
 	}
 	@Override
 	public List<B_reportVO> listB_Report(Long bno) {
-		// TODO Auto-generated method stub
+		
 		return b_reportmapper.getRepoerList(bno);
 	}
 	@Override
@@ -36,6 +37,22 @@ public class B_reportServicelmpl implements B_reportService {
 		b_reportmapper.deleteReport(b_reno);
 		
 	}
+	@Override
+	public B_reportVO getReport(Long B_reno) {
+		
+		return b_reportmapper.getReport(B_reno);
+	}
+	@Override
+	public List<B_reportVO> getAllB_reportList() {
+		
+		return b_reportmapper.getAllB_reportList( );
+	}
+	@Override
+	public int countPageNum(SearchCriteria cri) {
+		
+		return b_reportmapper.countPageNum(cri);
+	}
+	
 	
 	
 	

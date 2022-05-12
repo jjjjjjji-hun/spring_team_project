@@ -24,4 +24,9 @@ public interface R_reportMapper {
 	
 	// 댓글 번호에 달린 신고를 삭제
 	public void deleteAllReport(Long rno);
+	
+	//신고리스트 가져오기
+	public List<R_reportVO> getAllR_reportList();
+	
+	
 }
