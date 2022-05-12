@@ -25,50 +25,57 @@ public class StoreServiceImpl implements StoreService{
 	
 	@Override
 	public void addStore(StoreVO vo) {
-		// TODO Auto-generated method stub
-		
+		storemapper.insertStore(vo);
 	}
 
 	@Override
-	public List<StoreVO> listStore(Long stno) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<StoreVO> listStore(Long cno) {
+		return storemapper.getStoreList(cno);
 	}
 
 	@Override
 	public void modifyStore(StoreVO vo) {
-		// TODO Auto-generated method stub
+		storemapper.updateStore(vo);
 		
 	}
 
 	@Override
 	public void removeStore(Long stno) {
-		// TODO Auto-generated method stub
+		storemapper.deleteStore(stno);
 		
 	}
 
 	@Override
+	public StoreVO selectStore(Long stno) {
+		return storemapper.getStore(stno);
+	}
+	
+	@Override
 	public void addMenu(MenuVO vo) {
-		// TODO Auto-generated method stub
+		menumapper.insertMenu(vo);
 		
 	}
 
 	@Override
 	public List<MenuVO> listMenu(Long stno) {
-		// TODO Auto-generated method stub
-		return null;
+		return menumapper.getMenuList(stno);
 	}
 
 	@Override
 	public void modifyMenu(MenuVO vo) {
-		// TODO Auto-generated method stub
+		menumapper.updateMenu(vo);
 		
 	}
 
 	@Override
 	public void removeMenu(Long mno) {
-		// TODO Auto-generated method stub
+		menumapper.deleteMenu(mno);
 		
+	}
+
+	@Override
+	public MenuVO selectMenu(Long mno) {
+		return menumapper.getMenu(mno);
 	}
 
 }

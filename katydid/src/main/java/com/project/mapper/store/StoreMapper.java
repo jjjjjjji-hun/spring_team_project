@@ -7,7 +7,7 @@ import com.project.domain.StoreVO;
 public interface StoreMapper {
 	// 식당
 	// 식당 목록 가져오기
-	public List<StoreVO> getStoreList();
+	public List<StoreVO> getStoreList(Long cno);
 	
 	// 식당 하나 가져오기
 	public StoreVO getStore(Long stno);
@@ -19,5 +19,5 @@ public interface StoreMapper {
 	public void updateStore(StoreVO vo);
 	
 	// 식당 삭제하기
-	public void deleteStore(StoreVO vo);
+	public void deleteStore(Long stno);
 }

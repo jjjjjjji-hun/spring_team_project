@@ -9,7 +9,9 @@ public interface StoreService {
 	// 식당
 	public void addStore(StoreVO vo);
 	
-	public List<StoreVO> listStore(Long stno);
+	public List<StoreVO> listStore(Long cno);
+	
+	public StoreVO selectStore(Long stno);
 	
 	public void modifyStore(StoreVO vo);
 	
@@ -20,6 +22,8 @@ public interface StoreService {
 	public void addMenu(MenuVO vo);
 	
 	public List<MenuVO> listMenu(Long stno);
+	
+	public MenuVO selectMenu(Long mno);
 	
 	public void modifyMenu(MenuVO vo);
 	
