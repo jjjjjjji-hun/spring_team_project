@@ -5,6 +5,7 @@ import java.util.List;
 import com.project.domain.B_reportVO;
 import com.project.domain.BoardVO;
 import com.project.domain.SearchCriteria;
+import com.project.domain.StoreVO;
 
 public interface BoardService {
 
@@ -14,7 +15,7 @@ public interface BoardService {
 	
 	public BoardVO select(long bno);
 	
-	public void insert(BoardVO vo);
+	public void insert(BoardVO vo, StoreVO svo);
 
 	public void delete(long bno);
 	

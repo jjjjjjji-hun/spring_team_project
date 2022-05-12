@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http:/mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mapper.store.StoreMapper">
+	
+<!-- 식당 -->
+	<select id="getStoreList" resultType="com.project.domain.StoreVO">
+		SELECT * FROM store_tbl WHERE cno = #{cno} ORDER BY stno DESC
+	</select>
+	
+	<select id="getStore" resultType="com.project.domain.StoreVO">
+		SELECT * FROM store_tbl WHERE stno = #{stno}
+	</select>
+	
+	<insert id="insertStore">
+		INSERT INTO store_tbl (stno, cno, storeName, address, spNum) VALUES (store_num.nextval, #{cno}, #{storeName}, #{address}, #{spNum})
+	</insert>
+	
+	<update id="updateStore">
+		UPDATE store_tbl SET storeName=#{storeName}, address=#{address}, spNum=#{spNum} WHERE stno=#{stno}
+	</update>
+	
+	<delete id="deleteStore">
+		 DELETE FROM store_tbl WHERE stno = #{stno}
+	</delete>
+</mapper>

@@ -12,7 +12,6 @@ public class BoardVO {
 	private String content;
 	private String u_id;
 	private long hit;
-	private Long cno;
 	private Long stno;
 	private Date regdate;
 	private Date updatedate;

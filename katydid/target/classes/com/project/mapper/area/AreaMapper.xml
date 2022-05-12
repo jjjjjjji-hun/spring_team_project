@@ -5,7 +5,7 @@
 
 <!-- 지역 -->
 	<select id="getAreaList" resultType="com.project.domain.AreaVO">
-		SELECT * FROM area_tbl
+		SELECT * FROM area_tbl ORDER BY ano ASC
 	</select>
 	
 	<select id="getArea" resultType="com.project.domain.AreaVO">
