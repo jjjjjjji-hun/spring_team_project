@@ -196,7 +196,6 @@
 				</div><!-- body -->
 				<div class="box-footer">
 					<button type="button" id="replyAddBtn" class="btn btn-success">댓글 추가</button>
-					<a href="/board/insert" class="btn btn-success">전체댓글조회하기</a><br/>
 				</div><!-- footer -->
 	</div><!-- row -->
 	
