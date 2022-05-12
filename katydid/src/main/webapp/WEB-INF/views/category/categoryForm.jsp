@@ -28,6 +28,7 @@
 									<option value="${s_kind }">${s_kind.s_class }</option>
 								</c:forEach>
 			 	  </select><br/>
+			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/><br/>
 			<input type="submit" value="제출"/>&nbsp;&nbsp;&nbsp;<input type="reset" value="초기화"/>
 		</form>
 	</div>
