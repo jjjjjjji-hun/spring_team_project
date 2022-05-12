@@ -20,6 +20,7 @@
 			<input type="hidden" name="pageNum" value="${param.pageNum}"/>
 			<input type="hidden" name="searchType" value="${param.searchType}"/>
 			<input type="hidden" name="keyword" value="${param.keyword}"/>
+			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
 			<input type="submit" value="수정"/>&nbsp;&nbsp;&nbsp;<input type="reset" value="초기화"/>
 		</form>
 	</div>

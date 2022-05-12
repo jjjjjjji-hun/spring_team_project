@@ -26,6 +26,7 @@
 								</c:forEach>
 			 	  </select><br/>
 			본문 : <textarea name="content" rows="15" cols="30"></textarea>
+			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
 			<input type="submit" value="제출"/>&nbsp;&nbsp;&nbsp;<input type="reset" value="초기화"/>
 		</form>
 	</div>
