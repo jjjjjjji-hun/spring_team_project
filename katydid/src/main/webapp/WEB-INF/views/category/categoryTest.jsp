@@ -20,18 +20,18 @@
       </div>
       <div class="modal-body">
         지역 : <select id="area">
-					<option value="">선택해주세요</option>
+					<option value="" disabled selected>선택해주세요</option>
 						<c:forEach var="area" items="${areaList }">
 							<option value="${area.ano }">${area.ward }</option>
 						</c:forEach>
 			  </select><br/>
 		대분류 : <select id="l_kind">
-					<option value="">선택해주세요</option>
+					<option value="" disabled selected>선택해주세요</option>
 						<c:forEach var="l_kind" items="${l_kindList }">
 							<option value="${l_kind.lno }">${l_kind.k_group }</option>
 						</c:forEach>
 			 	</select><br/>
-		소분류 : <select id="s_kind">
+		소분류 : <select id="s_kind" disabled selected>
 					<option value="">선택해주세요</option>
 						<c:forEach var="s_kind" items="${s_kindList }">
 							<option value="${s_kind.sno }">${s_kind.s_class }</option>
@@ -54,22 +54,19 @@
       <div class="modal-body">
         <div class="row">
         <input type="hidden" id="newCategory" value="${categoryList }"/>
-        카테고리 : 
-        	<div class="col-md-3">
+         
+        	<div class="col-md-12">
+        		카테고리 :
         		<p id="category1" style="display:inline">
 			
 				</p>
+				<p id="category2"  style="display:inline">
+			
+				</p>
+				<p id="category3"  style="display:inline">
+			
+				</p>  	
         	</div>
-			<div class="col-md-3">
-        		<p id="category2"  style="display:inline">
-			
-				</p>
-        	</div>  
-        	<div class="col-md-3">
-        		<p id="category3"  style="display:inline">
-			
-				</p>
-        	</div>   	
         </div>
         <hr/>
         <div id="text">
@@ -156,7 +153,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary" id="submitBtn">업체 등록하기</button>
+        <button class="btn btn-primary" id="submitBtn" data-bs-dismiss="modal" aria-label="Close">업체 등록하기</button>
         <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">뒤로가기</button>
       </div>
     </div>
@@ -169,14 +166,10 @@
 	
 	<script id="text/javascript">
 		
-		// 모달 창닫기
-		$("#submitBtn").on("click", function(){
-			$("#exampleModalToggle3").hide("slow");
-		});
-		
 		let sno = null;
 		let ano =  null;
 		let cno =  null;
+		let stno = null;
 		
 		// 선택한 지역, 소분류 값 변수에 저장
 		$("#s_kind").on("change", function(){
@@ -202,7 +195,7 @@
 			
 			$.ajax({
 				type : 'post', 
-				url : '/category/insert', 
+				url : '/category/insert', // insert에서 getList로 변경해야함
 				headers : {
 					"Content-type" : "application/json",
 					"X-HTTP-Method-Override" : "POST"},
@@ -269,6 +262,7 @@
 						strSname = $("#message-sname").val("");
 						strAddress = $("#message-address").val("");
 						strSpnum = $("#message-spnum").val("");
+						
 					}
 				},
 				error : function(result){
@@ -278,7 +272,7 @@
 				}
 			});
 			
-			$.getJSON("/enterprise/tests" + cno, function(data){
+			$.getJSON("/enterprise/tests/" + cno, function(data){
 				for (let j=0; j<data.length; j++) {
 					
 					if(data[j].cno == cno) {
@@ -295,10 +289,11 @@
 		$("#submitBtn").on("click", function(){
 			let strmenuName = $("#items").val();
 			let strAmount = $("#amount").val();
-			
+			let represent = $("input[type='checkbox']").is(":checked");
 			console.log(strmenuName);
 			console.log(strAmount);
-
+			console.log(represent);
+			
 			$.ajax({
 				type : 'post', 
 				url : '/enterprise/menuinsert', 
@@ -318,7 +313,6 @@
 						// 폼 태그 비우기.
 						strmenuName = $("#items").val("");
 						strAmount = $("#amount").val("");
-						
 					}
 				},
 				error : function(result){
