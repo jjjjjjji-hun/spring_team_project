@@ -13,7 +13,7 @@
 	</select>
 	
 	<insert id="insertMenu">
-		INSERT INTO menu_tbl VALUES (menu_num.nextval, #{menuName}, #{amount}, #{represent})
+		INSERT INTO menu_tbl (mno, stno, menuName, amount, represent) VALUES (menu_num.nextval, #{stno}, #{menuName}, #{amount}, #{represent})
 	</insert>
 	
 	<update id="updateMenu">
