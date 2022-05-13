@@ -66,8 +66,8 @@
 
     <header>
         <h1>Katydid</h1>&emsp;&emsp;&emsp;&emsp;&emsp;<img src="logo.png" width="30" height="30" />
-            <button type="button" class="btn btn-light" href="#">Login</button>
-            <button type="button" class="btn btn-light" href="#">회원가입</button>
+            <button type="button" class="btn btn-light" onclick="location.href='/login' ">Login</button>
+            <button type="button" class="btn btn-light"onclick="location.href='/user/join' ">회원가입</button>   
         
     </header>
     <hr>
