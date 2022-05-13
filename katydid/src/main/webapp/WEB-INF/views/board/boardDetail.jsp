@@ -139,6 +139,7 @@
 					<input type="hidden" value="${param.pageNum}" name="pageNum"/>
 					<input type="hidden" value="${param.searchType}" name="searchType"/>
 					<input type="hidden" value="${param.keyword}" name="keyword"/>
+					<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
 					<input type="submit" value="글 수정하기" class="btn btn-warning"/>
 				</form>
 			</div>
@@ -148,12 +149,13 @@
 					<input type="hidden" value="${param.pageNum}" name="pageNum"/>
 					<input type="hidden" value="${param.searchType}" name="searchType"/>
 					<input type="hidden" value="${param.keyword}" name="keyword"/>
+					<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
 					<input type="submit" value="글 삭제하기" class="btn btn-primary"/>
 				</form>
 			</div>
 			<div class="col-md-3">
 				<button class="btn btn-danger" type="button" id="boardReportBtn">신고하기</button>
-				 <div class="black_bg"></div>
+				 <div class="black_bg">
 				  <div class="modal_wrap">
 				    <div class="modal_close"><a href="#">close</a></div>
 					   <div>
@@ -167,10 +169,10 @@
 				      
 							
 						</div>						    
-						 
+					</div>	 
 				  </div>							   
 			</div>									      
-	</div>
+	
 </div>													 	   													 																																																						   													   
 	<hr/>			
 	
@@ -249,7 +251,8 @@
     <!-- 여기부터 댓글 비동기 처리 자바스크립트 처리 영역 -->
     <script>
       let bno = ${board.bno}; 
-       
+      var csrfHeaderName = "${_csrf.headerName}"
+	  var csrfTokenValue="${_csrf.token}"
    // 전체 댓글 가져오기
 		function getAllList(){
 			// $.getJSON은 입력한 주소에 get방식으로 요청을 넣습니다.
@@ -309,7 +312,10 @@
 			
 			// $.ajax({내용물}); 이 기본형태
 			$.ajax({
-				type : 'post',		
+				type : 'post',
+				beforeSend : function(xhr) {
+			        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			    },
 				url : '/replies',
 				headers : {
 					"Content-Type" : "application/json",
@@ -386,6 +392,9 @@
 			
 			$.ajax({
 				type : 'delete',
+				beforeSend : function(xhr) {
+			        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			    },
 				url : '/replies/' + rno,
 				header : {
 					"X-HTTP-Method-Override" : "DELETE"
@@ -410,6 +419,9 @@
 		 
 		 $.ajax({
 			 type : 'patch',
+			 beforeSend : function(xhr) {
+			        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			 },
 			 url : '/replies/' + rno,
 			 header : {
 				 "Content-Type" : "application/json",
@@ -432,10 +444,7 @@
 		 })
 	 })
 	 
-		
-	   ///////////////////////////////////////////////////////////////////
-	   ///////////////////////////////////////////////////////////////////
-	   ///////////////////////////////////////////////////////////////////
+	  
 	                     //이벤트위임
 					     // 댓글신고 버튼
 					     $("#replies").on("click", ".report button", function(){
@@ -465,11 +474,9 @@
 						$("#newR_reportContent").val("");
 					});
 					
-					   
-				    
-                     ////////////////////////////////////////
-					 ////////////////////////////////////////
-					 ////////////////////////////////////////
+
+                  
+					
 					     //모달 신고하기버튼(댓글 신고하기)
 					     $("#replyReportBtn").on("click", function(){
 							
@@ -481,7 +488,10 @@
 							
 							// $.ajax({내용물}); 이 기본형태
 							$.ajax({
-								type : 'post',		
+								type : 'post',
+								beforeSend : function(xhr) {
+							        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+							    },
 								url : '/R_report',
 								headers : {
 									"Content-Type" : "application/json",
@@ -497,7 +507,7 @@
 								success : function(result){
 									if(result == 'SUCCESS'){
 										alert("신고되었습니다.");
-										
+										$("#modRep").hide("slow");
 										getAllList();// 댓글 등록 성공시, 다시 목록 갱신
 										// 폼 태그 비우기.
 										// 힌트 : .val(넣을값);
@@ -513,7 +523,7 @@
 				    
 				    
 				    
-				    
+				  
 				    // 게시판 신고 버튼   boardReportBtn
 			
 								 window.onload = function() {
@@ -533,27 +543,23 @@
 						 
 						};
 
-/////////////////
-/////////////////
-/////////////////
-/////////////////
-/////////////////
-/////////////////
-/////////////////
-/////////////////
-/////////////////
+
+         
 			//모달 게시판 글신고하기버튼
 		     $("#final_report").on("click", function(){
 				
 				// 폼이 없기때문에, input태그 내에 입력된 요소를 가져와야 합니다.
 				// 버튼을 누르는 시점에, 글쓴이와 내용 내부에 적힌 문자열을 변수에 저장합니다. 
-				 //var rno = $(".modal-title").html();
+				var bno = $("#board_bno").val();
 				var reason = $("#newB_Reportreason").val();
 				var content = $("#newB_ReportContent").val();
-				
+				console.log(bno);
 				// $.ajax({내용물}); 이 기본형태
 				$.ajax({
-					type : 'post',		
+					type : 'post',	
+					beforeSend : function(xhr) {
+				        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+				    },
 					url : '/B_report',
 					headers : {
 						"Content-Type" : "application/json",
@@ -569,7 +575,7 @@
 					success : function(result){
 						if(result == 'SUCCESS'){
 							alert("신고되었습니다.");
-							
+							$(".black_bg").hide("slow");
 							//getAllList();// 댓글 등록 성공시, 다시 목록 갱신
 							// 폼 태그 비우기.
 							// 힌트 : .val(넣을값);

@@ -47,4 +47,16 @@ public class R_reportServicelmpl implements R_reportService{
 			
 		}
 
+		@Override
+		public R_reportVO getReport(Long r_reno) {
+			
+			return r_reportmapper.getReport(r_reno);
+		}
+
+		@Override
+		public List<R_reportVO> getAllR_reportList() {
+			
+			return r_reportmapper.getAllR_reportList();
+		}
+
 }

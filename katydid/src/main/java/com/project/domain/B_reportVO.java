@@ -1,5 +1,8 @@
 package com.project.domain;
 
+import lombok.Data;
+
+@Data
 public class B_reportVO {
 	
 	private Long b_reno;

@@ -32,7 +32,6 @@ public class BoardMapperTest {
 	public void insertTest() {
 		BoardVO vo = new BoardVO();
 		
-		
 		vo.setU_id("id");
 		vo.setTitle("1");
 		vo.setContent("1");

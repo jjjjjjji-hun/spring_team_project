@@ -24,18 +24,6 @@
 			padding:10px;
 			z-index:1000;
 		}
-	#modDiv2{
-		width: 450px;
-		height: 100px;
-		background-color: green;
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		margin-top: -50px;
-		margin-left: -150px;
-		padding:10px;
-		z-index:1000;
-		}
 </style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -184,7 +172,14 @@
 	<div id="modDiv" style="display:none;">
 		<div>
 			<input type="hidden" class="num" />
-			
+			<c:if test="true">
+				<select class='lno' required>
+					<option value="" disabled selected>대분류 구분</option>
+					<c:forEach var="l_kind" items="${l_kindList}">
+						<option value='${l_kind.lno }' ${l_kind.lno eq lno ? 'selected' : ''}>${l_kind.k_group }</option>
+					</c:forEach>
+				</select>
+			</c:if>
 			<input type="text" id="value" />
 		</div>
 		<div>
@@ -193,30 +188,12 @@
 		</div>
 	</div>
 	
-	<!-- 소분류 modify 버튼 누를때 -->
-	<div id="modDiv2" style="display:none;">
-		<div>
-			<input type="hidden" class="num" />
-			<c:if test="true">
-				<select class='lno' required>
-					<option value="" disabled selected>대분류 구분</option>
-					<c:forEach var="l_kind" items="${l_kindList}">
-						<option value='${l_kind.lno }' ${l_kind.lno eq lno ? 'selected' : ''}>${l_kind.k_group }</option>
-					</c:forEach> 
-				</select>
-			</c:if>
-			<input type="text" id="value" />
-		</div>
-		<div>
-			<button type="button" id="ModBtn2">Modify</button>
-			<button type="button" id="closeBtn2">Close</button>
-		</div>
-	</div>
-	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	
 	<script>
 		
+		var csrfHeaderName = "${_csrf.headerName}"
+		var csrfTokenValue="${_csrf.token}"
 		var isArea = false;
 		var isLkind = false;
 		var isSkind = false;
@@ -228,6 +205,9 @@
 				
 					$.ajax({
 						type : 'post',
+						beforeSend : function(xhr) {
+					        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+					    },
 						url : '/category/area',
 						headers : {
 							"Content-Type" : "application/json",
@@ -241,7 +221,6 @@
 							if(result == 'SUCCESS') {
 								alert("등록 되었습니다.");
 								$("#newArea").val("");
-								Location.reload();
 							}
 						}
 					});
@@ -254,6 +233,9 @@
 	
 				$.ajax({
 					type : 'post',
+					beforeSend : function(xhr) {
+				        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+				    },
 					url : '/category/skind',
 					headers : {
 						"Content-Type" : "application/json",
@@ -282,6 +264,9 @@
 			
 				$.ajax({
 					type : 'post',
+					beforeSend : function(xhr) {
+				        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+				    },
 					url : '/category/lkind',
 					headers : {
 						"Content-Type" : "application/json",
@@ -295,7 +280,6 @@
 						if(result == 'SUCCESS') {
 							alert("등록 되었습니다.");
 							$("#newK_group").val("");
-							Location.reload();
 						}
 					}
 				});
@@ -311,6 +295,9 @@
 				
 				let params = {
 						type : 'patch',
+						beforeSend : function(xhr) {
+					        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+					    },
 						headers : {
 							"Content-Type" : "application/json",
 							"X-HTTP-Method-Overrride" : "PATCH"
@@ -357,24 +344,7 @@
 				$("#modDiv").show();
 			});
 			
-			/*function getOption(){
-				$.getJSON("/category/l_kindList", function(data){
-				let option = "";
-				let lno = $(".lno").val();
-				console.log(data);
-				$(data).each(function(){
-					
-					option += "<select class='lno' required>"
-							+ "<option value='' disabled selected>대분류 구분</option>"
-							+ "<option value='" + this.lno + "'" + this.lno == lno ? 'selected' : '' + this.k_group + "</option>"
-							+ "</select>";
-				
-						console.log(option);
-						$("#option").html(option);
-							
-				});
-				});
-			}*/
+			
 			
 			
 			$(".skindModBtn").on("click", function() {
@@ -385,55 +355,14 @@
 				$(".num").val(num);
 				$(".lno").val(lno);
 				$("#value").val(skind);
-				$("#modDiv2").show();
+				$("#modDiv").show();
 			});
 			
 			$("#closeBtn").on("click", () => {
 				$("#modDiv").hide();
 			});
 		
-			$("#ModBtn2").on("click", function() {
-				
-				let num = $(".num").val();
-				console.log(num);
-				let lno = $(".lno").val();
-				console.log(lno);
-				let value = $("#value").val();
-				
-				let params = {
-						type : 'patch',
-						headers : {
-							"Content-Type" : "application/json",
-							"X-HTTP-Method-Overrride" : "PATCH"
-						},
-						contentType: "application/json",
-						dataType : 'text',
-						success : function(result) {
-							if(result == 'SUCCESS') {
-								alert("수정 되었습니다.");
-								$("#modDiv").hide();		
-							}
-						}
-				}
-				if (isArea) {
-					params.url = '/category/updateArea';
-					params.data = JSON.stringify({ano : num, ward : value});
-				} else if(isLkind) {
-					params.url = '/category/updateLkind';
-					params.data = JSON.stringify({lno : num, k_group : value});
-				} else if (isSkind) {
-					params.url = '/category/updateSkind';
-					params.data = JSON.stringify({sno : num, lno : lno, s_class : value});
-				}
-				
-				$.ajax(params);
-				Location.reload();
-			});
 		
-			$("#closeBtn2").on("click", () => {
-				$("#modDiv2").hide();
-			});
-			
 	</script>
 	
 </body>

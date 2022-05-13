@@ -5,6 +5,11 @@
 
 
 <!-- 신고 -->
+	<select id="getAllR_reportList" resultType="com.project.domain.R_reportVO">
+		 SELECT * FROM r_report_tbl
+		
+	</select>
+	
 	<select id="getReportList" resultType="com.project.domain.R_reportVO">
 		SELECT * FROM r_report_tbl WHERE rno = #{rno} ORDER BY r_reno DESC
 	</select>
