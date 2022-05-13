@@ -31,8 +31,8 @@
 							<option value="${l_kind.lno }">${l_kind.k_group }</option>
 						</c:forEach>
 			 	</select><br/>
-		소분류 : <select id="s_kind" disabled selected>
-					<option value="">선택해주세요</option>
+		소분류 : <select id="s_kind">
+					<option value=""disabled selected>선택해주세요</option>
 						<c:forEach var="s_kind" items="${s_kindList }">
 							<option value="${s_kind.sno }">${s_kind.s_class }</option>
 						</c:forEach>

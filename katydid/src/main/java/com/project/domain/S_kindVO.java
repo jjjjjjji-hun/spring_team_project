@@ -6,7 +6,7 @@ import lombok.Data;
 public class S_kindVO {
 
 	private Long sno;
-	private Long lno;
+	private String k_group;
 	private String s_class;
 	
 }

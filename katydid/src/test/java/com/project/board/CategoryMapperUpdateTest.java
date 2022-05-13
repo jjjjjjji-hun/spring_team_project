@@ -46,8 +46,8 @@ public class CategoryMapperUpdateTest {
 	public void updateCategoryTest() {
 		CategoryVO vo = new CategoryVO();
 		vo.setCno(1L);
-		vo.setAno(1L);
-		vo.setSno(1L);
+		vo.setC_class("ㅇ");
+		vo.setWard("노원");
 		categorymapper.updateCategory(vo);
 	}
 	
@@ -64,7 +64,7 @@ public class CategoryMapperUpdateTest {
 		S_kindVO vo = new S_kindVO();
 		vo.setSno(1L);
 		vo.setS_class("�ѽ�");
-		vo.setLno(1L);
+		vo.setK_group("맛집");
 		s_kindmapper.updateSkind(vo);
 	}
 	

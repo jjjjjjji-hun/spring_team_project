@@ -13,11 +13,11 @@
 	</select>
 	
 	<insert id="insertCategory">
-		INSERT INTO category_tbl VALUES (category_num.nextval, #{sno}, #{ano})
+		INSERT INTO category_tbl VALUES (category_num.nextval, #{c_class}, #{ward})
 	</insert>
 	
 	<update id="updateCategory">
-		UPDATE category_tbl SET sno=#{sno}, ano=#{ano} WHERE cno=#{cno}
+		UPDATE category_tbl SET class=#{c_class}, ward=#{ward} WHERE cno=#{cno}
 	</update>
 	
 	<delete id="deleteCategory">

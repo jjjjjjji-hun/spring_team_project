@@ -40,6 +40,8 @@ public class CategoryController {
 		model.addAttribute("l_kindList", categoryservice.getLkindList());
 		
 		model.addAttribute("s_kindList", categoryservice.getSkindList());
+
+		model.addAttribute("categoryList", categoryservice.getCategoryList());
 		
 		return "category/categoryList";
 	}
@@ -100,8 +102,8 @@ public class CategoryController {
 		@PostMapping(value="/insert", consumes="application/json",
 				produces= {MediaType.TEXT_PLAIN_VALUE})
 		public ResponseEntity<String> categoryInsert(@RequestBody CategoryVO vo) {
-			log.info(vo.getAno());
-			log.info(vo.getSno());
+			log.info(vo.getWard());
+			log.info(vo.getC_class());
 			ResponseEntity<String> entity = null;
 			
 			try {
