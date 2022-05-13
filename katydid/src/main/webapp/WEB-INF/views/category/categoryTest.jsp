@@ -170,6 +170,8 @@
 		let ano =  null;
 		let cno =  null;
 		let stno = null;
+		var csrfHeaderName = "${_csrf.headerName}"
+		var csrfTokenValue="${_csrf.token}" 
 		
 		// 선택한 지역, 소분류 값 변수에 저장
 		$("#s_kind").on("change", function(){
@@ -194,7 +196,10 @@
 			console.log(strS_kind);
 			
 			$.ajax({
-				type : 'post', 
+				type : 'post',
+				beforeSend : function(xhr) {
+				        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+				},
 				url : '/category/insert', // insert에서 getList로 변경해야함
 				headers : {
 					"Content-type" : "application/json",
@@ -243,7 +248,10 @@
 			console.log(strSpnum);
 			
 			$.ajax({
-				type : 'post', 
+				type : 'post',
+				beforeSend : function(xhr) {
+			        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			    },
 				url : '/enterprise/storeinsert', 
 				headers : {
 					"Content-type" : "application/json",
@@ -295,7 +303,10 @@
 			console.log(represent);
 			
 			$.ajax({
-				type : 'post', 
+				type : 'post',
+				beforeSend : function(xhr) {
+			        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			    },
 				url : '/enterprise/menuinsert', 
 				headers : {
 					"Content-type" : "application/json",

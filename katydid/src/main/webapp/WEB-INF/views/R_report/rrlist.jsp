@@ -51,5 +51,7 @@
 		}		
 		getAllList();// 댓글 전체 들고와서 #replies에 심어주는 로직 실행
 		
+	</script>
+	
 </body>
 </html>

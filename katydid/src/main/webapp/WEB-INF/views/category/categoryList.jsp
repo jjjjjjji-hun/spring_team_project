@@ -217,6 +217,8 @@
 	
 	<script>
 		
+		var csrfHeaderName = "${_csrf.headerName}"
+		var csrfTokenValue="${_csrf.token}"
 		var isArea = false;
 		var isLkind = false;
 		var isSkind = false;
@@ -228,6 +230,9 @@
 				
 					$.ajax({
 						type : 'post',
+						beforeSend : function(xhr) {
+					        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+					    },
 						url : '/category/area',
 						headers : {
 							"Content-Type" : "application/json",
@@ -254,6 +259,9 @@
 	
 				$.ajax({
 					type : 'post',
+					beforeSend : function(xhr) {
+				        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+				    },
 					url : '/category/skind',
 					headers : {
 						"Content-Type" : "application/json",
@@ -282,6 +290,9 @@
 			
 				$.ajax({
 					type : 'post',
+					beforeSend : function(xhr) {
+				        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+				    },
 					url : '/category/lkind',
 					headers : {
 						"Content-Type" : "application/json",
@@ -311,6 +322,9 @@
 				
 				let params = {
 						type : 'patch',
+						beforeSend : function(xhr) {
+					        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+					    },
 						headers : {
 							"Content-Type" : "application/json",
 							"X-HTTP-Method-Overrride" : "PATCH"

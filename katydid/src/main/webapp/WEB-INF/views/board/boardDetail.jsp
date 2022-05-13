@@ -139,6 +139,7 @@
 					<input type="hidden" value="${param.pageNum}" name="pageNum"/>
 					<input type="hidden" value="${param.searchType}" name="searchType"/>
 					<input type="hidden" value="${param.keyword}" name="keyword"/>
+					<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
 					<input type="submit" value="글 수정하기" class="btn btn-warning"/>
 				</form>
 			</div>
@@ -148,6 +149,7 @@
 					<input type="hidden" value="${param.pageNum}" name="pageNum"/>
 					<input type="hidden" value="${param.searchType}" name="searchType"/>
 					<input type="hidden" value="${param.keyword}" name="keyword"/>
+					<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
 					<input type="submit" value="글 삭제하기" class="btn btn-primary"/>
 				</form>
 			</div>
@@ -249,7 +251,8 @@
     <!-- 여기부터 댓글 비동기 처리 자바스크립트 처리 영역 -->
     <script>
       let bno = ${board.bno}; 
-       
+      var csrfHeaderName = "${_csrf.headerName}"
+	  var csrfTokenValue="${_csrf.token}"
    // 전체 댓글 가져오기
 		function getAllList(){
 			// $.getJSON은 입력한 주소에 get방식으로 요청을 넣습니다.
@@ -309,7 +312,10 @@
 			
 			// $.ajax({내용물}); 이 기본형태
 			$.ajax({
-				type : 'post',		
+				type : 'post',
+				beforeSend : function(xhr) {
+			        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			    },
 				url : '/replies',
 				headers : {
 					"Content-Type" : "application/json",
@@ -386,6 +392,9 @@
 			
 			$.ajax({
 				type : 'delete',
+				beforeSend : function(xhr) {
+			        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			    },
 				url : '/replies/' + rno,
 				header : {
 					"X-HTTP-Method-Override" : "DELETE"
@@ -410,6 +419,9 @@
 		 
 		 $.ajax({
 			 type : 'patch',
+			 beforeSend : function(xhr) {
+			        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			 },
 			 url : '/replies/' + rno,
 			 header : {
 				 "Content-Type" : "application/json",
@@ -476,7 +488,10 @@
 							
 							// $.ajax({내용물}); 이 기본형태
 							$.ajax({
-								type : 'post',		
+								type : 'post',
+								beforeSend : function(xhr) {
+							        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+							    },
 								url : '/R_report',
 								headers : {
 									"Content-Type" : "application/json",
@@ -541,7 +556,10 @@
 				console.log(bno);
 				// $.ajax({내용물}); 이 기본형태
 				$.ajax({
-					type : 'post',		
+					type : 'post',	
+					beforeSend : function(xhr) {
+				        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+				    },
 					url : '/B_report',
 					headers : {
 						"Content-Type" : "application/json",
