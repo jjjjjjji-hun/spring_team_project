@@ -6,8 +6,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.project.domain.UserVO;
-import com.project.domain.CustomUser;
 import com.project.mapper.user.UserMapper;
+import com.project.domain.CustomUser;
 
 import lombok.extern.log4j.Log4j;
 
@@ -20,7 +20,7 @@ public class UserDetailService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-		log.warn("유저 이름 확인 : " + username);
+		log.info("유저 이름 확인 : " + username);
 		
 		UserVO vo = mapper.read(username);
 		

@@ -15,8 +15,9 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import lombok.extern.log4j.Log4j;
 
 @Log4j
-public class UserLoginSuccessHandler implements AuthenticationSuccessHandler {@Override
+public class UserLoginSuccessHandler implements AuthenticationSuccessHandler {
 	
+	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 		
@@ -29,11 +30,11 @@ public class UserLoginSuccessHandler implements AuthenticationSuccessHandler {@O
 		
 		log.warn("부여받은 권한들 : " + roleList);
 		if(roleList.contains("ROLE_ADMIN")) {
-			response.sendRedirect("/secu/admin");
+			response.sendRedirect("/user/admin");
 			return;
 		}
 		if(roleList.contains("ROLE_MEMBER")) {
-			response.sendRedirect("/secu/member");
+			response.sendRedirect("/user/member");
 			return;
 		}
 		

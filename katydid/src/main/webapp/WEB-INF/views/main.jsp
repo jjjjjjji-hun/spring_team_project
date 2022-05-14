@@ -66,8 +66,13 @@
 
     <header>
         <h1>Katydid</h1>&emsp;&emsp;&emsp;&emsp;&emsp;<img src="logo.png" width="30" height="30" />
-            <button type="button" class="btn btn-light" href="#">Login</button>
-            <button type="button" class="btn btn-light" href="#">회원가입</button>
+            <form action="/login" method="post">
+				아이디 : <input type="text" name="u_id" value="" />&nbsp;
+				비밀번호 : <input type="password" name="upw" value="" /> &nbsp;&nbsp;&nbsp;
+				<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+				<input type="submit" value="로그인" />
+			</form>
+            <a href="/user/join">회원가입</a>
         
     </header>
     <hr>
