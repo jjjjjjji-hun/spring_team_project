@@ -99,7 +99,7 @@
       		${l_kind.lno }
      	 </th>
      	 <td>
-      		<strong class=ward>${l_kind.k_group }</strong>
+      		<strong class=k_group>${l_kind.k_group }</strong>
      	 </td>
      	 <td>
       		<button type="button" class="lkindModBtn">Modify</button>&nbsp;&nbsp;
@@ -132,7 +132,7 @@
       		<strong class=ward>${s_kind.s_class }</strong>
      	 </td>
      	 <td>
-      		<strong class=ward>${s_kind.k_group }</strong>
+      		<strong class=k_group>${s_kind.k_group }</strong>
      	 </td>
      	 <td>
       		<button type="button" class="skindModBtn">Modify</button>&nbsp;&nbsp;
@@ -162,7 +162,7 @@
       		${category.cno }
      	 </th>
      	 <td>
-      		<strong class=ward>${category.c_class}</strong>
+      		<strong class=ward>${category.c_class }</strong>
      	 </td>
      	 <td>
       		<strong class=ward>${category.ward }</strong>
@@ -290,7 +290,7 @@
 					</c:forEach> 
 				</select>
 			</c:if>
-			<input type="text" id="value" />
+			<input type="text" id="value2" />
 		</div>
 		<div>
 			<button type="button" id="ModBtn2">Modify</button>
@@ -430,6 +430,8 @@
 					success : function(result){
 						if(result == 'SUCCESS'){
 							alert("등록 되었습니다.");
+							$("#categoryModDiv").hide();
+							location.reload();
 						}
 					},
 						error : function(result){
@@ -438,7 +440,7 @@
 							}
 						}
 				});
-				location.reload();
+	
 			});
 			
 			$("#ModBtn").on("click", function() {
@@ -486,7 +488,7 @@
 				let num = $(this).parent().attr("areaNum");
 				let area = $(this).siblings(".ward").text();
 				
-				$(".num").val(num);
+				$(".num").html(num);
 				$("#value").val(area);
 				$("#modDiv").show();
 			});
@@ -508,7 +510,7 @@
 				
 				$(".num").val(num);
 				$(".lno").val(lno);
-				$("#value").val(skind);
+				$("#value2").val(skind);
 				$("#modDiv2").show();
 			});
 			

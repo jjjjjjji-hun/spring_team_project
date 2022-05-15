@@ -46,15 +46,6 @@ public class CategoryController {
 		return "category/categoryList";
 	}
 	
-	@GetMapping("/")
-	public String categoryInsertForm(Model model) {
-		model.addAttribute("areaList", categoryservice.getAreaList());
-		
-		model.addAttribute("l_kindList", categoryservice.getLkindList());
-		
-		model.addAttribute("s_kindList", categoryservice.getSkindList());
-		return "category/categoryForm";
-	}
 	
 	@GetMapping("/test")
 	public String categoryTest(Model model) {

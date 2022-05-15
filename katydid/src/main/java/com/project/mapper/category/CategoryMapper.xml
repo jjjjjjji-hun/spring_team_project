@@ -4,11 +4,17 @@
 <mapper namespace="com.project.mapper.category.CategoryMapper">
 	
 <!-- 카테고리 -->
-	<select id="getCategoryList" resultType="com.project.domain.CategoryVO">
-		SELECT * FROM category_tbl
+	<resultMap type="com.project.domain.CategoryVO" id="categoryMap">
+		<result property="cno" column="cno" />
+		<result property="c_class" column="class" />
+		<result property="ward" column="ward" />
+	</resultMap>
+
+	<select id="getCategoryList" resultMap="categoryMap">
+		SELECT * FROM category_tbl ORDER BY cno ASC
 	</select>
 	
-	<select id="getCategory" resultType="com.project.domain.CategoryVO">
+	<select id="getCategory" resultMap="categoryMap">
 		SELECT * FROM category_tbl WHERE cno = #{cno}
 	</select>
 	
