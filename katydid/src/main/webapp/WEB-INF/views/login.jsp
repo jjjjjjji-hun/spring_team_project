@@ -56,7 +56,7 @@
           float: center;
         }
         #loginForm > h1 {
-            font-size: 30px;
+            font-size: 60px;
             text-align: center;
         }
        
@@ -125,7 +125,7 @@
 
         <div id="container">
             <div id="loginForm">
-                <h1>ID_Login</h1>
+                <h1><span style="font-family: 'Nanum Pen Script', cursive;">ID_Login</h1>
                 <h2>${error }</h2>
                 <h2>${logout }</h2>
 
