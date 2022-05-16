@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -24,9 +24,7 @@
     position: relative;
     font-family: 'Noto Sans KR', sans-serif;
     list-style: none;}
-    h1{
-        font-size: 80px;
-    }
+   
 
     
     body{background-color: white; width: 100%; max-width:1200px; margin: 0 auto;}
@@ -99,10 +97,10 @@
 
     <div class="row header">
         <div class="col-md-7">
-            <h1><span style="font-family: 'Nanum Pen Script', cursive;">Katydid</span></h1>
+            <a href="/"><img src="resources2/img/katydidtitle.png" width="230px" height="90px"  border="0"></a>
         </div>
         <div class="col-md-5">
-            <img width="50px" height="50px" src="img/Katydid.gif">
+            <img width="50px" height="50px" src="resources2/img/Katydid.gif">
             <button type="button" class="btn btn-light" onclick="location.href='/login' ">Login</button>
             <button type="button" class="btn btn-light" onclick="location.href='/user/join' ">Sign_up</button>
 
@@ -201,3 +199,9 @@
 </footer>
 </body>
 </html>
+
+
+
+
+
+
