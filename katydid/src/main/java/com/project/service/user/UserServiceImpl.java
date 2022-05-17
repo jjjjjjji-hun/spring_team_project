@@ -1,5 +1,7 @@
 package com.project.service.user;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +26,12 @@ public class UserServiceImpl implements UserService {
 		
 		mapper.insertUserAuth(vo);
 		
+	}
+
+	@Override
+	public List<UserVO> selectAllUser(UserVO vo) {
+		List<UserVO> userlist = mapper.selectAllUser(vo);
+		return userlist;
 	}
 
 }

@@ -12,8 +12,8 @@
 	<h2>${logout }</h2>
 	
 	<form action="/login" method="post">
-		아이디 : <input type="text" name="u_id" value="" /><br/>
-		비밀번호 : <input type="password" name="upw" value="" /> <br/>
+		아이디 : <input type="text" name="username" value="" /><br/>
+		비밀번호 : <input type="password" name="password" value="" /> <br/>
 		<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
 		<input type="submit" value="로그인" />
 	</form>
