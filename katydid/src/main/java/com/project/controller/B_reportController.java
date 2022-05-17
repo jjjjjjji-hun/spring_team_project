@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,11 +16,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.domain.B_reportVO;
 import com.project.domain.BoardVO;
+import com.project.domain.L_kindVO;
 import com.project.domain.PageMaker;
 import com.project.domain.R_reportVO;
 import com.project.domain.SearchCriteria;
@@ -30,7 +32,7 @@ import lombok.extern.log4j.Log4j;
 
 
 @Log4j
-@RestController
+@Controller
 @RequestMapping("/B_report")
 public class B_reportController {
 	
@@ -43,6 +45,7 @@ public class B_reportController {
 	//insert
 		@PostMapping(value="", consumes="application/json",
 				produces= {MediaType.TEXT_PLAIN_VALUE})
+		@ResponseBody
 				public ResponseEntity<String> register
 					(@RequestBody B_reportVO vo){
 				ResponseEntity<String> entity = null;
@@ -58,49 +61,57 @@ public class B_reportController {
 				}
 		
 		
+		
+		@PostMapping("/delete")
+		public String BreportDelete(long b_reno) {
+			
+			service.removeB_report(b_reno);
+				
+		
+			
+			return "redirect:B_relist";	
+		}
+		
+		
+		
+		
+		// 게시판 신고 목록 조회
+		@GetMapping("/B_relist")
+		public String getList(Model model) {
+			
+			List<B_reportVO> b_reportList = service.getAllB_reportList();
+			
+			model.addAttribute("b_reportList", b_reportList );
+		
+			
+			return "B_report/brlist";
+			
+		}
+		
+	/*	
+
+		// 게시판 신고 목록 조회(전체)
+	@GetMapping(value="/all", produces= {MediaType.APPLICATION_XML_VALUE,
+									MediaType.APPLICATION_JSON_UTF8_VALUE})
+	@ResponseBody
+	public ResponseEntity<List<B_reportVO>> list(){
+		ResponseEntity<List<B_reportVO>> entity = null;
+		try {
+			entity = new ResponseEntity<>(service.getAllB_reportList(), HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}		
 	
-		
-      
-		
-		     // 게시판 신고글 삭제
-				@DeleteMapping(value="{b_reno}", produces = {MediaType.TEXT_PLAIN_VALUE})
-				public ResponseEntity<String> remove(@PathVariable("b_reno") Long b_reno){
-					ResponseEntity<String> entity = null;
-					try {
-						service.removeB_report(b_reno);
-						entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-					}catch(Exception e) {
-						entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-					}
-					return entity;
-				}
-		
-				
-				
-				// 게시판 신고 글 수정
-				@RequestMapping(method= {RequestMethod.PUT, RequestMethod.PATCH},
-									value="/{b_reno}",
-									consumes="application/json",
-									produces= {MediaType.TEXT_PLAIN_VALUE})
-				public ResponseEntity<String> modify(@RequestBody B_reportVO vo, @PathVariable("b_reno") Long b_reno){
-					ResponseEntity<String> entity = null;
-					try {
-						vo.setB_reno(b_reno);
-						service.modifyB_report(vo);
-						entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-					}catch(Exception e) {
-						e.printStackTrace();
-						entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-					}
-					return entity;
-				}
-				
-				
-				// 게시판 신고 목록 조회(전체)
-				@GetMapping(value="/all", produces= {MediaType.APPLICATION_XML_VALUE,
-												MediaType.APPLICATION_JSON_UTF8_VALUE})
-				public ResponseEntity<List<B_reportVO>> list(){
+	
+	@GetMapping(value="/b_reportList",
+			produces = {MediaType.APPLICATION_XML_VALUE,
+							MediaType.APPLICATION_JSON_UTF8_VALUE})
+		public ResponseEntity<List<B_reportVO>> getb_reportList(){
 					ResponseEntity<List<B_reportVO>> entity = null;
+					
 					try {
 						entity = new ResponseEntity<>(service.getAllB_reportList(), HttpStatus.OK);
 					}catch(Exception e) {
@@ -108,23 +119,71 @@ public class B_reportController {
 						entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 					}
 					return entity;
-				}				
-				
-				// 게시판 신고 1개 받아오기
-				@GetMapping(value="/B_Bport/{b_reno}", produces= {MediaType.APPLICATION_XML_VALUE,
-												MediaType.APPLICATION_JSON_UTF8_VALUE})
-				public ResponseEntity<B_reportVO> b_report(@PathVariable("b_reno")Long b_reno){
-					ResponseEntity<B_reportVO> entity = null;
-					try {
-						entity = new ResponseEntity<>(service.getReport(b_reno), HttpStatus.OK);
-					}catch(Exception e) {
-						e.printStackTrace();
-						entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-					}
-					return entity;
-				}				
+			}
 	
-
+	*/
+	
+	
+		
+		// 게시판 신고 1개 받아오기
+		@GetMapping(value="/B_Bport/{b_reno}", produces= {MediaType.APPLICATION_XML_VALUE,
+										MediaType.APPLICATION_JSON_UTF8_VALUE})
+		@ResponseBody
+		public ResponseEntity<B_reportVO> b_report(@PathVariable("b_reno")Long b_reno){
+			ResponseEntity<B_reportVO> entity = null;
+			try {
+				entity = new ResponseEntity<>(service.getReport(b_reno), HttpStatus.OK);
+			}catch(Exception e) {
+				e.printStackTrace();
+				entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+			return entity;
+		}
 		
 		
+		
+		
+		//게시판 신고 디테일
+		@GetMapping("/list/{b_reno}")
+		public String getRreportDetail(@PathVariable long b_reno, Model model) {
+			
+			model.addAttribute("b_report", service.getReport(b_reno));
+			
+		
+			
+			return "B_report/b_reportDetail";
+		}			
+		
+		
+	
+		
+		
+		@PostMapping("/updateForm")
+		public String b_reportUpdateForm(long b_reno,  Model model) {
+			
+			B_reportVO b_reportvo = service.getReport(b_reno);
+			
+			model.addAttribute("b_report", b_reportvo);
+			
+			
+			
+			return "B_report/b_reportUpdateForm";
+		}
+		
+		
+		
+		@PostMapping("/update")
+		public String b_reportUpdate(B_reportVO vo, Model model) {
+			
+			service.modifyB_report(vo);
+			
+		
+			
+			return "redirect:list/" + vo.getB_reno();
+		}
+		
+		
+		
+		
+				
 }

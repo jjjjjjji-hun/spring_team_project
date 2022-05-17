@@ -19,9 +19,7 @@ public class R_reportServicelmpl implements R_reportService{
 	@Autowired
 	private R_reportMapper r_reportmapper;
 	
-	@Autowired
-	private BoardMapper boardmapper;
-	
+
 	
 	
 	// 신고
@@ -38,7 +36,7 @@ public class R_reportServicelmpl implements R_reportService{
 
 		@Override
 		public void modifyR_report(R_reportVO vo) {
-			r_reportmapper.updateReport(vo);
+			r_reportmapper.modifyR_report(vo);
 		}
 
 		@Override

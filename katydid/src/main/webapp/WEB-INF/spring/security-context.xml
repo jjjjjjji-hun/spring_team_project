@@ -10,7 +10,7 @@
 	<bean id="userAccessDenied" class="com.project.security.user.UserAccessDeniedHandler" />
 	<bean id="userLoginSuccess" class="com.project.security.user.UserLoginSuccessHandler" />
 	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
-	<bean id="userDetailsService" class="com.project.security.user.UserDetailService" />
+	<bean id="userDetailService" class="com.project.security.user.UserDetailService" />
 	
 	<security:http>
 	
@@ -30,7 +30,7 @@
 	
 	<security:authentication-manager>
 	
-		<security:authentication-provider user-service-ref="userDetailsService">
+		<security:authentication-provider user-service-ref="userDetailService">
 			
 			<security:password-encoder ref="bcryptPasswordEncoder"/>
 		

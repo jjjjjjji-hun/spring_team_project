@@ -246,7 +246,7 @@
 							if(result == 'SUCCESS') {
 								alert("등록 되었습니다.");
 								$("#newArea").val("");
-								Location.reload();
+								location.reload();
 							}
 						}
 					});
@@ -306,7 +306,7 @@
 						if(result == 'SUCCESS') {
 							alert("등록 되었습니다.");
 							$("#newK_group").val("");
-							Location.reload();
+							location.reload();
 						}
 					}
 				});
@@ -350,7 +350,7 @@
 				}
 				
 				$.ajax(params);
-				Location.reload();
+				location.reload();
 			});
 			
 			$(".areaModBtn").on("click", function() {
@@ -441,7 +441,7 @@
 				}
 				
 				$.ajax(params);
-				Location.reload();
+				location.reload();
 			});
 		
 			$("#closeBtn2").on("click", () => {
