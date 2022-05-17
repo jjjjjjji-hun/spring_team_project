@@ -44,8 +44,8 @@ public class CategoryMapperInsertTest {
 	@Test
 	public void insertCategoryTest() {
 		CategoryVO vo = new CategoryVO();
-		vo.setSno(1L);
-		vo.setAno(1L);
+		vo.getC_class();
+		vo.setWard("노원");
 		categorymapper.insertCategory(vo);
 	}
 	
@@ -59,7 +59,7 @@ public class CategoryMapperInsertTest {
 	@Test
 	public void insertSkindTest() {
 		S_kindVO vo = new S_kindVO();
-		vo.setLno(1L);
+		vo.setK_group("맛집");
 		vo.setS_class("김밥천국");
 		s_kindmapper.insertSkind(vo);
 	}

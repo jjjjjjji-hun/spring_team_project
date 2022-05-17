@@ -6,7 +6,7 @@ import lombok.Data;
 public class CategoryVO {
 
 	private Long cno;
-	private Long sno;
-	private Long ano;
+	private String c_class;
+	private String ward;
 	
 }

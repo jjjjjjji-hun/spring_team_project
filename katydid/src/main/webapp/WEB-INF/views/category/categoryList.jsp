@@ -24,10 +24,21 @@
 			padding:10px;
 			z-index:1000;
 		}
+		
 	#modDiv2{
 		width: 450px;
 		height: 100px;
 		background-color: green;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin-top: -50px;
+		margin-left: -150px;
+		padding:10px;
+		z-index:1000;
+		}
+		
+	#categoryModDiv{
 		position: absolute;
 		top: 50%;
 		left: 50%;
@@ -88,7 +99,7 @@
       		${l_kind.lno }
      	 </th>
      	 <td>
-      		<strong class=ward>${l_kind.k_group }</strong>
+      		<strong class=k_group>${l_kind.k_group }</strong>
      	 </td>
      	 <td>
       		<button type="button" class="lkindModBtn">Modify</button>&nbsp;&nbsp;
@@ -121,7 +132,7 @@
       		<strong class=ward>${s_kind.s_class }</strong>
      	 </td>
      	 <td>
-      		<strong class=ward>${s_kind.lno }</strong>
+      		<strong class=k_group>${s_kind.k_group }</strong>
      	 </td>
      	 <td>
       		<button type="button" class="skindModBtn">Modify</button>&nbsp;&nbsp;
@@ -133,6 +144,38 @@
 </table>
 </div>
 
+<div>
+	<h3 class="text-primary">카테고리</h3>
+<table class="table" >
+  <thead>
+    <tr>
+      <th scope="col">구분</th>
+      <th scope="col">소분류</th>
+      <th scope="col">지역</th>
+      <th scope="col">수정/삭제</th>
+    </tr>
+  </thead>
+  <tbody>
+  	<c:forEach var="category" items="${categoryList}">
+    	<tr>
+    	  <th scope="row">
+      		${category.cno }
+     	 </th>
+     	 <td>
+      		<strong class=ward>${category.c_class }</strong>
+     	 </td>
+     	 <td>
+      		<strong class=ward>${category.ward }</strong>
+     	 </td>
+     	 <td>
+      		<button type="button" class="categoryModBtn">Modify</button>&nbsp;&nbsp;
+			<button type="button" class="categoryDelBtn">Delete</button>
+     	 </td>
+   	 	</tr>
+    </c:forEach>
+  </tbody>
+</table>
+</div>
 	
 	
 	<div class="row box-box-success">
@@ -157,7 +200,7 @@
 				<select class='lno' required>
 					<option id="kind" value="" disabled selected>대분류 구분</option>
 						<c:forEach var="l_kind" items="${l_kindList}">
-						    <option value='${l_kind.lno }'>${l_kind.k_group }</option>
+						    <option value='${l_kind.k_group }'>${l_kind.k_group }</option>
 						</c:forEach>
 				</select>
 				
@@ -180,6 +223,48 @@
 			<button type="button" class="btn btn-success" id="l_kindAddBtn">대분류 추가</button>
 		</div><!-- footer -->
 	</div><!-- row -->
+	
+	<div class="row box-box-success">
+		<div class="box-header">
+			<h2 class="text-primary">카테고리 추가</h2>
+		</div><!-- header -->
+		<div class="box-footer">
+			<button type="button" class="btn btn-success" id="categoryAddBtn">카테고리 추가</button>
+		</div><!-- footer -->
+	</div><!-- row -->
+	
+	<!-- 모달 -->
+	<div id="categoryModDiv" style="display:none;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">카테고리를 선택해주세요.</h5>
+        <button type="button" class="btn-close"></button>
+      </div>
+      <div class="modal-body">
+        지역 : <select id="area">
+					<option value="" disabled selected>선택해주세요</option>
+						<c:forEach var="area" items="${areaList }">
+							<option value="${area.ward }">${area.ward }</option>
+						</c:forEach>
+			  </select><br/>
+		대분류 : <select id="l_kind">
+					<option value="" disabled selected>선택해주세요</option>
+						<c:forEach var="l_kind" items="${l_kindList }">
+							<option value="${l_kind.k_group }">${l_kind.k_group }</option>
+						</c:forEach>
+			 	</select><br/>
+		소분류 : <select id="s_kind">
+					<option value=""disabled selected>선택해주세요</option>
+						<c:forEach var="s_kind" items="${s_kindList }">
+							<option value="${s_kind.s_class }">${s_kind.s_class }</option>
+						</c:forEach>
+			 	  </select>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-bs-toggle="modal" id="categoryAdd">카테고리 추가하기</button>
+      </div>
+    </div>
+</div>
 	
 	<div id="modDiv" style="display:none;">
 		<div>
@@ -205,7 +290,7 @@
 					</c:forEach> 
 				</select>
 			</c:if>
-			<input type="text" id="value" />
+			<input type="text" id="value2" />
 		</div>
 		<div>
 			<button type="button" id="ModBtn2">Modify</button>
@@ -270,7 +355,7 @@
 					dataType : 'text',
 					data : JSON.stringify({
 						s_class : s_class,
-						lno : lno
+						k_group : lno
 					}),
 					success : function(result) {
 						if(result == 'SUCCESS') {
@@ -311,7 +396,53 @@
 					}
 				});
 			});
+			
+			$("#categoryAddBtn").on("click", function() {
+				$("#categoryModDiv").show();
+			});
 				
+			let sno = null;
+			let ano = null;
+			
+			$("#s_kind").on("change", function(){
+				sno = $("#s_kind option:selected").val()
+			});
+			$("#area").on("change", function(){
+				ano = $("#area option:selected").val()
+			});
+			
+			$("#categoryAdd").on("click", function(){
+				
+				$.ajax({
+					type : 'post',
+					beforeSend : function(xhr) {
+					        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+					},
+					url : '/category/insert',
+					headers : {
+						"Content-type" : "application/json",
+						"X-HTTP-Method-Override" : "POST"},
+					dataType : 'text',
+					data : JSON.stringify({
+						c_class : sno,
+						ward : ano
+					}),
+					success : function(result){
+						if(result == 'SUCCESS'){
+							alert("등록 되었습니다.");
+							$("#categoryModDiv").hide();
+							location.reload();
+						}
+					},
+						error : function(result){
+							if(result != 'SUCCESS'){
+								alert("다시 등록해주세요.");
+							}
+						}
+				});
+	
+			});
+			
 			$("#ModBtn").on("click", function() {
 				
 				let num = $(".num").val();
@@ -346,7 +477,7 @@
 					params.data = JSON.stringify({lno : num, k_group : value});
 				} else if (isSkind) {
 					params.url = '/category/updateSkind';
-					params.data = JSON.stringify({sno : num, lno : lno, s_class : value});
+					params.data = JSON.stringify({sno : num, k_group : lno, s_class : value});
 				}
 				
 				$.ajax(params);
@@ -357,7 +488,7 @@
 				let num = $(this).parent().attr("areaNum");
 				let area = $(this).siblings(".ward").text();
 				
-				$(".num").val(num);
+				$(".num").html(num);
 				$("#value").val(area);
 				$("#modDiv").show();
 			});
@@ -371,25 +502,6 @@
 				$("#modDiv").show();
 			});
 			
-			/*function getOption(){
-				$.getJSON("/category/l_kindList", function(data){
-				let option = "";
-				let lno = $(".lno").val();
-				console.log(data);
-				$(data).each(function(){
-					
-					option += "<select class='lno' required>"
-							+ "<option value='' disabled selected>대분류 구분</option>"
-							+ "<option value='" + this.lno + "'" + this.lno == lno ? 'selected' : '' + this.k_group + "</option>"
-							+ "</select>";
-				
-						console.log(option);
-						$("#option").html(option);
-							
-				});
-				});
-			}*/
-			
 			
 			$(".skindModBtn").on("click", function() {
 				let num = $(this).parent().attr("skindNum");
@@ -398,7 +510,7 @@
 				
 				$(".num").val(num);
 				$(".lno").val(lno);
-				$("#value").val(skind);
+				$("#value2").val(skind);
 				$("#modDiv2").show();
 			});
 			
@@ -437,7 +549,7 @@
 					params.data = JSON.stringify({lno : num, k_group : value});
 				} else if (isSkind) {
 					params.url = '/category/updateSkind';
-					params.data = JSON.stringify({sno : num, lno : lno, s_class : value});
+					params.data = JSON.stringify({sno : num, k_group : lno, s_class : value});
 				}
 				
 				$.ajax(params);
@@ -446,6 +558,10 @@
 		
 			$("#closeBtn2").on("click", () => {
 				$("#modDiv2").hide();
+			});
+			
+			$(".btn-close").on("click", () => {
+				$("#categoryModDiv").hide();
 			});
 			
 	</script>

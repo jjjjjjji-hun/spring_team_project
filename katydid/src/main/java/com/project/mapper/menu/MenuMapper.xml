@@ -23,4 +23,12 @@
 	<delete id="deleteMenu">
 		 DELETE FROM menu_tbl WHERE mno = #{mno}
 	</delete>
+	
+	<update id="insertMenuList" parameterType="java.util.List">
+		INSERT ALL
+		<foreach collection="list" item="item" separator=" ">
+			INTO menu_tbl (mno, stno, menuName, amount, represent) VALUES (menu_num.nextval, #{stno}, #{menuName}, #{amount}, #{represent})
+		</foreach>
+		SELECT * FROM DUAL
+	</update>
 </mapper>
