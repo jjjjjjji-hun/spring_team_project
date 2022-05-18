@@ -81,6 +81,21 @@ public class CategoryController {
 					return entity;
 			}
 	
+	@GetMapping(value="/l_kindList",
+			produces = {MediaType.APPLICATION_XML_VALUE,
+							MediaType.APPLICATION_JSON_UTF8_VALUE})
+		public ResponseEntity<List<L_kindVO>> getL_kindList(){
+					ResponseEntity<List<L_kindVO>> entity = null;
+					
+					try {
+						entity = new ResponseEntity<>(categoryservice.getLkindList(), HttpStatus.OK);
+					}catch(Exception e) {
+						e.printStackTrace();
+						entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+					}
+					return entity;
+			}
+	
 	// 카테고리 추가
 		@PostMapping(value="/insert", consumes="application/json",
 				produces= {MediaType.TEXT_PLAIN_VALUE})
