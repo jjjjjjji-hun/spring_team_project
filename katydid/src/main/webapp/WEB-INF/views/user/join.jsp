@@ -123,18 +123,18 @@
         <h1><span style="font-family: 'Nanum Pen Script', cursive;">Sign_up</span></h1>
         <form id="join" name="join" action="/user/join" method="post">	
             <div class="mb-3">
-                <input type="text" name="u_id" value="" class="form-control" id="formGroupExampleInput" placeholder="ID"><br/>
+                <input type="text" name="u_id" value="" class="form-control" id="formGroupExampleInput" placeholder="ID" required><br/>
                 <button type="button" class="idconfirm" >아이디 확인하기</button><br/>
-                <input type="password" name="upw" value="" class="form-control" id="formGroupExampleInput2" placeholder="Password"><br/>
+                <input type="password" name="upw" value="" class="form-control" id="formGroupExampleInput2" placeholder="Password" required><br/>
                 <input type="password" name="upwCheck" class="form-control" placeholder="PasswordCheck" required /><br/>
-                <input type="text" name="uname" value="" class="form-control" id="formGroupExampleInput2" placeholder="Name"><br/>
-                <input type="text" name="pnum" value="" class="form-control" id="formGroupExampleInput2" placeholder="P-Num"><br/>
-                &emsp;&emsp;&emsp;<input type="radio" name="role" value="ROLE_ADMIN">어드민 권한&nbsp;&nbsp;&nbsp;
+                <input type="text" name="uname" value="" class="form-control" id="formGroupExampleInput2" placeholder="Name" required><br/>
+                <input type="text" name="pnum" value="" class="form-control" id="formGroupExampleInput2" placeholder="P-Num" required><br/>
+                &emsp;&emsp;&emsp;<input type="radio" name="role" value="ROLE_ADMIN" required>어드민 권한&nbsp;&nbsp;&nbsp;
                 &emsp;&emsp;&emsp;<input type="radio" name="role" value="ROLE_MEMBER">정회원 권한&nbsp;&nbsp;&nbsp;
                 &emsp;&emsp;&emsp;<input type="radio" name="role" value="ROLE_USER">준회원<br/>
                 <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/><br/>
-                <input type="hidden" name="idCheck" id="idCheck"/><br/>
-                <input type="submit" style="display:block; width:100%; text-align:center; font-size:1em;" class="btn btn-secondary" value="Sign_in"></input>
+                <input type="hidden" name="idCheck" id="idCheck" required/><br/>
+                <button type="button" style="display:block; width:100%; text-align:center; font-size:1em;" class="btn btn-secondary">Sign_in</button>
             </div>
         </form>
     </div> 
@@ -158,13 +158,13 @@
 	
 	<script type="text/javascript">
 	
-		let userid = document.getElementsByName("u_id")[0].value;
 		var csrfHeaderName = "${_csrf.headerName}"
 		var csrfTokenValue="${_csrf.token}"
 		let form = document.join;
 		
 		$(".idconfirm").on("click", function() {
 			
+			let userid = form.u_id.value;
 			console.log(userid);
 			
 			$.ajax({
@@ -193,27 +193,57 @@
 		
 		});
 		
-		$(".btn btn-secondary").on("click", function(e) {
-			e.preventDefault();
+		$(".btn-secondary").on("click", function check(e) {
 			
+			console.log(!$("#idCheck").val());
+			
+			userid = form.u_id.value;
 			let pw = form.upw.value;
 			let pwCheck = form.upwCheck.value;
+			let uname = form.uname.value;
+			let pnum = form.pnum.value;
 			
-			if(!pw.equals(pwCheck)) {
+			console.log(!(pw === pwCheck));
+			
+			if(!userid) {
+				alert("아이디를 입력해주세요!")
+				return false;
+			}
+
+			if(!$("#idCheck").val()) {
+				alert("아이디를 확인해주세요.");
+				return false;
+			}
+			
+			if(!pw) {
+				alert("비밀번호를 입력해주세요!")
+				return false;
+			}
+
+			if(!(pw == pwCheck)) {
 				form.upw.focus();
 				form.upw.select();
 				form.upw.value = "";
 				form.upwCheck.value = "";
 				alert("패스워드가 서로 다릅니다.");
-			} else {
-				if($("#idCheck").val()) {
-					$("#join").submit();
-				} else {
-					alert("아이디를 확인해주세요.");
-				}
+				return false;
 			}
 			
-			$(this).unbind('click').click();
+			if(!uname) {
+				alert("이름을 입력해주세요!")
+				form.uname.focus();
+				form.uname.select();
+				return false;
+			}
+			
+			if(!pnum) {
+				alert("전화번호를 입력해주세요!")
+				form.pnum.focus();
+				form.pnum.select();
+				return false;
+			}
+			
+			form.submit();
 		});
 	
 	</script>

@@ -3,8 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/resources2/css/bootstrap.min.css" rel="stylesheet"/>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <meta charset="UTF-8">
@@ -159,9 +158,9 @@
 				<input type="text" name="username" value="" placeholder="ID"/>
 				<input type="password" name="password" value="" placeholder="PW"/>
 				<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-				
+				<input type="submit" class="btn btn-light" value="Login" />
 			</form>
-			<input type="submit" class="btn btn-light" value="Login" />
+			
                 <a href="/user/join">회원가입</a>
             
             
