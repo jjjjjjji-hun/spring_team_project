@@ -39,8 +39,10 @@
 	
 	.modal-title{color:white;}
 	
-	
-	 		
+  
+	 	#newB_Reportreason{
+	 	    width:300px;
+	 	}	
 	                         	
 		.modal_wrap{
 		display: none;
@@ -160,8 +162,8 @@
 				    <div class="modal_close"><a href="#">close</a></div>
 					   <div>
 						  <input type="hidden" value="${board.bno}" name="bno" id="board_bno"/>
-						  <select class='lno' required>
-					        <option id="newB_Reportreason" value="" disabled selected>신고사유</option>
+						  <select id="newB_Reportreason" required>
+					        <option value="" disabled selected>신고사유</option>
 							<option value="거짓말">거짓말</option>
 							<option value="허위">허위</option>
 							<option value="상이한 내용">상이한 내용</option>
@@ -176,6 +178,7 @@
 					</div>	 
 				  </div>							   
 			</div>									      
+		</div>									      
 	      
 	
 </div>													 	   													 																																																						   													   
@@ -549,8 +552,6 @@
 						    document.querySelector('.modal_close').addEventListener('click', offClick);
 						 
 						};
-
-
          
 			//모달 게시판 글신고하기버튼
 		     $("#final_report").on("click", function(){
@@ -562,7 +563,8 @@
 			            //var replyContent = $(this).prev().text();//button의 직전태그인.reply의 내용물 가져오기
 					//var reason = $(this).siblings(".reply").text();// button의 형제중.reply의 내용물 가져오기
 				
-				var reason =  $("#newR_reportReason").val();
+				var reason =  $("#newB_Reportreason option:selected").val();
+					console.log(reason);
 				var content = $("#newB_ReportContent").val();
 				console.log(bno);
 				// $.ajax({내용물}); 이 기본형태

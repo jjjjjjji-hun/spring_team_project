@@ -129,8 +129,8 @@
 
                 <form action="/login" method="post">
                     <div class="mb-3">
-                        <input type="text" name="u_id" value="" class="form-control" id="formGroupExampleInput" placeholder="ID">
-                        <input type="password" name="upw" value="" class="form-control" id="formGroupExampleInput2" placeholder="Password">
+                        <input type="text" name="username" value="" class="form-control" id="formGroupExampleInput" placeholder="ID">
+                        <input type="password" name="password" value="" class="form-control" id="formGroupExampleInput2" placeholder="Password">
                     </div>
                     <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
                     <button type="button" style="display:block; width:100%; text-align:center; font-size:1em;" class="btn btn-secondary" onclick="location.href='/main' ">Sign_in</button>

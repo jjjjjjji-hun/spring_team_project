@@ -135,7 +135,7 @@
                 &emsp;&emsp;&emsp;<input type="radio" name="role" value="ROLE_USER">준회원<br/>
                 <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/><br/>
                 <input type="hidden" name="idCheck" id="idCheck"/><br/>
-                <button type="button" style="display:block; width:100%; text-align:center; font-size:1em;" class="btn btn-secondary" onclick="location.href='#' ">Sign_in</button>
+                <input type="submit" style="display:block; width:100%; text-align:center; font-size:1em;" class="btn btn-secondary" ></input>
             </div>
         </form>
     </div> 
@@ -155,68 +155,6 @@
     </div>
 </footer>
 
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-	
-	<script type="text/javascript">
-		
-		var csrfHeaderName = "${_csrf.headerName}"
-		var csrfTokenValue="${_csrf.token}"
-		let form = document.join;
-		
-		$(".idconfirm").on("click", function() {
-			let userid = $(".userid").val();
-			console.log(userid);
-			
-			$.ajax({
-				type : 'post',
-				beforeSend : function(xhr) {
-			        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-			    },
-				url : '/user/idConfirm',
-				headers : {
-					"Content-Type" : "application/json",
-					"X-HTTP-Method-Override" : "POST"
-				},
-				dataType : 'text',
-				data : JSON.stringify({
-					u_id : userid
-				}),
-				success : function(result){
-					if(result == 'SUCCESS'){
-						alert("회원가입이 가능합니다!");
-						$("#idCheck").val(true);
-					} else {
-						alert("해당 아이디가 이미 존재합니다.");
-					}
-				}
-			});	
-		
-		});
-		
-		$("#submit").on("click", function(e) {
-			e.preventDefault();
-			
-			let pw = form.upw.value;
-			let pwCheck = form.upwCheck.value;
-			
-			if(pw != pwCheck) {
-				form.upw.focus();
-				form.upw.select();
-				form.upw.value = "";
-				form.upwCheck.value = "";
-				alert("패스워드가 서로 다릅니다.");
-			} else {
-				if(!$("#idCheck").val()) {
-					alert("아이디를 확인해주세요.");
-				} else {
-					$("#join").submit();
-				}
-			}
-			
-			$(this).unbind('click').click();
-		});
-	
-	</script>
 
 </body>
 </html>

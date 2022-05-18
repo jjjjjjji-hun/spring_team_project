@@ -27,6 +27,7 @@ import com.project.domain.R_reportVO;
 import com.project.domain.SearchCriteria;
 import com.project.service.B_report.B_reportService;
 import com.project.service.R_report.R_reportService;
+import com.project.service.category.CategoryService;
 
 import lombok.extern.log4j.Log4j;
 
@@ -39,6 +40,9 @@ public class B_reportController {
 
 	@Autowired
 	private B_reportService service;
+	
+	@Autowired
+	private CategoryService categoryservice;
 	
 	
 	//게시판 신고
@@ -77,13 +81,19 @@ public class B_reportController {
 		
 		// 게시판 신고 목록 조회
 		@GetMapping("/B_relist")
-		public String getList(Model model) {
+		public String getList(SearchCriteria cri, Model model) {
 			
-			List<B_reportVO> b_reportList = service.getAllB_reportList();
+			List<B_reportVO> b_reportList = service.getAllB_reportList(cri);
 			
 			model.addAttribute("b_reportList", b_reportList );
 		
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCri(cri);
+			pageMaker.setTotalBoard(service.countPageNum(cri));
 			
+			model.addAttribute("pageMaker", pageMaker);
+			log.info("b_reportList");
+			System.out.println("리스트 : " + b_reportList);
 			return "B_report/brlist";
 			
 		}

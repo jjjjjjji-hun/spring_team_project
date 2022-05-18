@@ -27,9 +27,9 @@ public interface B_reportService {
 		public B_reportVO getReport(Long B_reno);
 		
 		//게시글 신고 전체 가져오기
-		public List<B_reportVO> getAllB_reportList();
+		public List<B_reportVO> getAllB_reportList(SearchCriteria cri);
 		
-	//	public List<B_reportVO> getList(SearchCriteria cri);
+	
 		
 		
 		

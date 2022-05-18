@@ -43,9 +43,9 @@ public class B_reportServicelmpl implements B_reportService {
 		return b_reportmapper.getReport(B_reno);
 	}
 	@Override
-	public List<B_reportVO> getAllB_reportList() {
+	public List<B_reportVO> getAllB_reportList(SearchCriteria cri) {
 		
-		return b_reportmapper.getAllB_reportList( );
+		return b_reportmapper.getAllB_reportList(cri );
 	}
 	@Override
 	public int countPageNum(SearchCriteria cri) {

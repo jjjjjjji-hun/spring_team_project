@@ -27,7 +27,7 @@ public interface B_reportMapper {
 		public void deleteAllReport(Long bno);
 		
 		// 전제 게시글 신고 내역 가져오기
-		public List<B_reportVO> getAllB_reportList();
+		public List<B_reportVO> getAllB_reportList(SearchCriteria cri);
 		
 		
 		

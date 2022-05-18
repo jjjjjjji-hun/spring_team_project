@@ -63,7 +63,7 @@ public class UserController {
 		log.info("암호화 후 비밀번호 : " + pw);
 		service.insertUser(vo);
 		
-		return "redirect:/";
+		return "redirect:/localhost:8181";
 	}
 	
 	@PostMapping(value="/idConfirm",consumes="application/json",

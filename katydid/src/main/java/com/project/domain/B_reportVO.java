@@ -9,5 +9,6 @@ public class B_reportVO {
 	private Long bno;
 	private String reason;
 	private String content;
+	private String u_id;
 
 }

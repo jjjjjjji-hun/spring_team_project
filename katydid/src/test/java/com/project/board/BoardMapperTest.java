@@ -28,7 +28,7 @@ public class BoardMapperTest {
 		mapper.getList(cri);
 	}
 	
-	//@Test
+	@Test
 	public void insertTest() {
 		BoardVO vo = new BoardVO();
 		
