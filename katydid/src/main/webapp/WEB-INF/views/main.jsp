@@ -102,12 +102,13 @@
         <div class="col-md-5">
             <img width="50px" height="50px" src="resources2/img/Katydid.gif">
             <form action="/login" method="post">
-				아이디 : <input type="text" name="u_id" value="" />&nbsp;
-				비밀번호 : <input type="password" name="upw" value="" /> &nbsp;&nbsp;&nbsp;
-				<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+				<input type="text" name="username" value="" placeholder="ID"/><br/>
+				<input type="password" name="password" value="" placeholder="PW"/>
+				<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" /><br/>
 				<input type="submit" value="로그인" />
+                <a href="/user/join">회원가입</a>
 			</form>
-            <a href="/user/join">회원가입</a>
+            
 
         </div>
     </div>
