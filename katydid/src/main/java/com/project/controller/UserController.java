@@ -71,10 +71,16 @@ public class UserController {
 	@ResponseBody
 	public ResponseEntity<String> idConfirm(@RequestBody UserVO vo) {
 		
+		
+		
 		ResponseEntity<String> entity = null;
 		
+		log.info("확인할 아이디 : " + vo.getU_id());
+		
 		List<UserVO> userlist = service.selectAllUser(vo);
+		
 		log.info(userlist);
+		
 		if(userlist.isEmpty()) {
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} else {

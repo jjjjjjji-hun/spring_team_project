@@ -3,8 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/resources2/css/bootstrap.min.css" rel="stylesheet"/>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <meta charset="UTF-8">
@@ -27,15 +26,20 @@
    
 
     
-    body{background-color: white; width: 100%; max-width:1200px; margin: 0 auto;}
+    body{background-color: white; width: 100%; max-width:1500px; margin: 0 auto;}
 
-    .col-md-7{
+    .col-md-5{
         margin-top: 20px;
         text-align: right;
     }
-    .col-md-5{
-        margin-top: 50px;
-        text-align: right;
+    .col-md-3{
+        margin-top: 20px;
+        text-align: left;
+    }
+    .col-md-4{
+        margin-top: 30px;
+        text-align: center;
+        padding: 10px;
     }
 
     .row-nav1{
@@ -48,13 +52,20 @@
 
 
     #container {
-      width: 1200px;
+      width: 1500px;
       margin: 0px auto;
       padding: 20px;
     }
     #container2 {
-      width: 1200px;
-  
+      width: 1500px;
+    
+    }
+    #container3 {
+      width: 1500px;
+    
+    }
+    .h1 {
+       text-align: center;
     }
 
     #sidebar-left {
@@ -65,21 +76,61 @@
       float: left;
     }
     #content {
-      width: 1000px;
-      padding: 20px;
+      width: 400px;
+      padding: 10px;
       margin-bottom: 20px;
-      margin-right: 60px;
-      float: right;
+      margin-left: 40px;
+      margin-right: 40px;
+      float: left;
       border: 1px solid #bcbcbc;
     }
     #content2 {
-      width: 1000px;
-      padding: 20px;
+      width: 400px;
+      padding: 10px;
       margin-bottom: 20px;
-      margin-right: 60px;
-      float: right;
+      margin-right: 40px;
+      float: left;
       border: 1px solid #bcbcbc;
     }
+
+    #content3 {
+      width: 400px;
+      padding: 10px;
+      margin-bottom: 20px;
+      margin-right: 40px;
+      float: left;
+      border: 1px solid #bcbcbc;
+    }
+    #content4 {
+      width: 400px;
+      padding: 10px;
+      margin-bottom: 20px;
+      margin-left: 170px;
+      margin-right: 40px;
+      float: left;
+      border: 1px solid #bcbcbc;
+    }
+    #content5 {
+      width: 400px;
+      padding: 10px;
+      margin-bottom: 20px;
+      margin-right: 40px;
+      float: left;
+      border: 1px solid #bcbcbc;
+    }
+    #content6 {
+      width: 400px;
+      padding: 10px;
+      margin-bottom: 20px;
+      margin-right: 40px;
+      float: left;
+      border: 1px solid #bcbcbc;
+    }
+
+    
+
+
+
     .footer { text-align: center; clear : both;} 
   </style>
   <script>
@@ -96,18 +147,23 @@
 <body>
 
     <div class="row header">
-        <div class="col-md-7">
-            <a href="/"><img src="resources2/img/katydidtitle.png" width="230px" height="90px"  border="0"></a>
-        </div>
         <div class="col-md-5">
-            <img width="50px" height="50px" src="resources2/img/Katydid.gif">
+            <img width="90px" height="90px" src="resources2/img/Katydid.gif">
+        </div>
+        <div class="col-md-3">
+            <a href="/"><img src="resources2/img/katydidtitle.png" width="250px" height="90px"  border="0"></a>
+        </div>
+        <div class="col-md-4">
             <form action="/login" method="post">
-				아이디 : <input type="text" name="u_id" value="" />&nbsp;
-				비밀번호 : <input type="password" name="upw" value="" /> &nbsp;&nbsp;&nbsp;
+				<input type="text" name="username" value="" placeholder="ID"/>
+				<input type="password" name="password" value="" placeholder="PW"/>
 				<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-				<input type="submit" value="로그인" />
+				<input type="submit" class="btn btn-light" value="Login" />
 			</form>
-            <a href="/user/join">회원가입</a>
+			
+                <a href="/user/join">회원가입</a>
+            
+            
 
         </div>
     </div>
@@ -179,12 +235,34 @@
                 <li><a class="dropdown-item" href="#">이태원</a></li>
             </ul>
     </div>
+    
     <div id="container2">
+        <h4>&emsp;&ensp;<a href="/user/join">맛집보러가기</a></h4>
         <div id="content">
         <h2>Content</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies. Mauris id odio pretium, sollicitudin sapien eget, adipiscing risus.</p>
         </div>
         <div id="content2">
+            <h2>Content</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies. Mauris id odio pretium, sollicitudin sapien eget, adipiscing risus.</p>
+        </div>
+        <div id="content3">
+            <h2>Content</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies. Mauris id odio pretium, sollicitudin sapien eget, adipiscing risus.</p>
+        </div>
+    </div>
+
+    <div id="container3">
+        <h4>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a href="/user/join">숙박보러가기</a></h4>
+        <div id="content4">
+            <h2>Content</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies. Mauris id odio pretium, sollicitudin sapien eget, adipiscing risus.</p>
+        </div>
+        <div id="content5">
+            <h2>Content</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies. Mauris id odio pretium, sollicitudin sapien eget, adipiscing risus.</p>
+        </div>
+        <div id="content6">
             <h2>Content</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies. Mauris id odio pretium, sollicitudin sapien eget, adipiscing risus.</p>
         </div>

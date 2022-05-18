@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http:/mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mapper.message.MessageMapper">
+
+	<select id="getBySendId" resultType="com.project.domain.MessageVO">
+		SELECT * FROM message_tbl WHERE sendid = #{sendId}
+	</select>
+	
+	<select id="getByReceiveId" resultType="com.project.domain.MessageVO">
+		SELECT * FROM message_tbl WHERE receiveid = #{receiveId}
+	</select>
+	
+	<insert id="sendMessage">
+		INSERT INTO message_tbl (meno, sendid, receiveid, content) VALUES (message_num.nextval, #{sendId}, #{receiveId}, #{content})
+	</insert>
+	
+</mapper>

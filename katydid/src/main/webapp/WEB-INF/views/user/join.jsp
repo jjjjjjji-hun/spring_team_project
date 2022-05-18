@@ -3,8 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-        <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/resources2/css/bootstrap.min.css" rel="stylesheet"/>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
             <meta charset="UTF-8">
@@ -121,21 +120,21 @@
 
   <div id="container">
       <div id="joinForm">
-        <h1><span style="font-family: 'Nanum Pen Script', cursive;">Sign_up</h1>
+        <h1><span style="font-family: 'Nanum Pen Script', cursive;">Sign_up</span></h1>
         <form id="join" name="join" action="/user/join" method="post">	
             <div class="mb-3">
-                <input type="text" name="u_id" value="" class="form-control" id="formGroupExampleInput" placeholder="ID"><br/>
+                <input type="text" name="u_id" value="" class="form-control" id="formGroupExampleInput" placeholder="ID" required><br/>
                 <button type="button" class="idconfirm" >아이디 확인하기</button><br/>
-                <input type="password" name="upw" value="" class="form-control" id="formGroupExampleInput2" placeholder="Password"><br/>
-                비밀번호 확인 : <input type="password" name="upwCheck" required /><br/>
-                <input type="text" name="uname" value="" class="form-control" id="formGroupExampleInput2" placeholder="Name"><br/>
-                <input type="text" name="pnum" value="" class="form-control" id="formGroupExampleInput2" placeholder="P-Num"><br/>
-                &emsp;&emsp;&emsp;<input type="radio" name="role" value="ROLE_ADMIN">어드민 권한&nbsp;&nbsp;&nbsp;
+                <input type="password" name="upw" value="" class="form-control" id="formGroupExampleInput2" placeholder="Password" required><br/>
+                <input type="password" name="upwCheck" class="form-control" placeholder="PasswordCheck" required /><br/>
+                <input type="text" name="uname" value="" class="form-control" id="formGroupExampleInput2" placeholder="Name" required><br/>
+                <input type="text" name="pnum" value="" class="form-control" id="formGroupExampleInput2" placeholder="P-Num" required><br/>
+                &emsp;&emsp;&emsp;<input type="radio" name="role" value="ROLE_ADMIN" required>어드민 권한&nbsp;&nbsp;&nbsp;
                 &emsp;&emsp;&emsp;<input type="radio" name="role" value="ROLE_MEMBER">정회원 권한&nbsp;&nbsp;&nbsp;
                 &emsp;&emsp;&emsp;<input type="radio" name="role" value="ROLE_USER">준회원<br/>
                 <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/><br/>
-                <input type="hidden" name="idCheck" id="idCheck"/><br/>
-                <input type="submit" style="display:block; width:100%; text-align:center; font-size:1em;" class="btn btn-secondary" ></input>
+                <input type="hidden" name="idCheck" id="idCheck" required/><br/>
+                <button type="button" style="display:block; width:100%; text-align:center; font-size:1em;" class="btn btn-secondary">Sign_in</button>
             </div>
         </form>
     </div> 
@@ -155,6 +154,99 @@
     </div>
 </footer>
 
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	
+	<script type="text/javascript">
+	
+		var csrfHeaderName = "${_csrf.headerName}"
+		var csrfTokenValue="${_csrf.token}"
+		let form = document.join;
+		
+		$(".idconfirm").on("click", function() {
+			
+			let userid = form.u_id.value;
+			console.log(userid);
+			
+			$.ajax({
+				type : 'post',
+				beforeSend : function(xhr) {
+			        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			    },
+				url : '/user/idConfirm',
+				headers : {
+					"Content-Type" : "application/json",
+					"X-HTTP-Method-Override" : "POST"
+				},
+				dataType : 'text',
+				data : JSON.stringify({
+					u_id : userid
+				}),
+				success : function(result){
+					if(result == 'SUCCESS'){
+						alert("회원가입이 가능합니다!");
+						$("#idCheck").val(true);
+					} else {
+						alert("해당 아이디가 이미 존재합니다.");
+					}
+				}
+			});	
+		
+		});
+		
+		$(".btn-secondary").on("click", function check(e) {
+			
+			console.log(!$("#idCheck").val());
+			
+			userid = form.u_id.value;
+			let pw = form.upw.value;
+			let pwCheck = form.upwCheck.value;
+			let uname = form.uname.value;
+			let pnum = form.pnum.value;
+			
+			console.log(!(pw === pwCheck));
+			
+			if(!userid) {
+				alert("아이디를 입력해주세요!")
+				return false;
+			}
+
+			if(!$("#idCheck").val()) {
+				alert("아이디를 확인해주세요.");
+				return false;
+			}
+			
+			if(!pw) {
+				alert("비밀번호를 입력해주세요!")
+				return false;
+			}
+
+			if(!(pw == pwCheck)) {
+				form.upw.focus();
+				form.upw.select();
+				form.upw.value = "";
+				form.upwCheck.value = "";
+				alert("패스워드가 서로 다릅니다.");
+				return false;
+			}
+			
+			if(!uname) {
+				alert("이름을 입력해주세요!")
+				form.uname.focus();
+				form.uname.select();
+				return false;
+			}
+			
+			if(!pnum) {
+				alert("전화번호를 입력해주세요!")
+				form.pnum.focus();
+				form.pnum.select();
+				return false;
+			}
+			
+			form.submit();
+		});
+	
+	</script>
 
 </body>
 </html>
