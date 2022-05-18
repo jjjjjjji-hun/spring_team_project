@@ -73,7 +73,7 @@
   </script>
 </head>
 <body>
-
+    
     <div class="row header">
         <div class="col-md-7">
             <a href="/"><img src="resources2/img/katydidtitle.png" width="230px" height="90px"  border="0"></a>
@@ -122,16 +122,19 @@
   <div id="container">
       <div id="joinForm">
         <h1><span style="font-family: 'Nanum Pen Script', cursive;">Sign_up</h1>
-        <form action="/user/join" method="post">	
+        <form id="join" name="join" action="/user/join" method="post">	
             <div class="mb-3">
                 <input type="text" name="u_id" value="" class="form-control" id="formGroupExampleInput" placeholder="ID"><br/>
+                <button type="button" class="idconfirm" >아이디 확인하기</button><br/>
                 <input type="password" name="upw" value="" class="form-control" id="formGroupExampleInput2" placeholder="Password"><br/>
+                비밀번호 확인 : <input type="password" name="upwCheck" required /><br/>
                 <input type="text" name="uname" value="" class="form-control" id="formGroupExampleInput2" placeholder="Name"><br/>
                 <input type="text" name="pnum" value="" class="form-control" id="formGroupExampleInput2" placeholder="P-Num"><br/>
                 &emsp;&emsp;&emsp;<input type="radio" name="role" value="ROLE_ADMIN">어드민 권한&nbsp;&nbsp;&nbsp;
                 &emsp;&emsp;&emsp;<input type="radio" name="role" value="ROLE_MEMBER">정회원 권한&nbsp;&nbsp;&nbsp;
                 &emsp;&emsp;&emsp;<input type="radio" name="role" value="ROLE_USER">준회원<br/>
                 <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/><br/>
+                <input type="hidden" name="idCheck" id="idCheck"/><br/>
                 <button type="button" style="display:block; width:100%; text-align:center; font-size:1em;" class="btn btn-secondary" onclick="location.href='#' ">Sign_in</button>
             </div>
         </form>
@@ -151,5 +154,69 @@
         </address>
     </div>
 </footer>
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	
+	<script type="text/javascript">
+		
+		var csrfHeaderName = "${_csrf.headerName}"
+		var csrfTokenValue="${_csrf.token}"
+		let form = document.join;
+		
+		$(".idconfirm").on("click", function() {
+			let userid = $(".userid").val();
+			console.log(userid);
+			
+			$.ajax({
+				type : 'post',
+				beforeSend : function(xhr) {
+			        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			    },
+				url : '/user/idConfirm',
+				headers : {
+					"Content-Type" : "application/json",
+					"X-HTTP-Method-Override" : "POST"
+				},
+				dataType : 'text',
+				data : JSON.stringify({
+					u_id : userid
+				}),
+				success : function(result){
+					if(result == 'SUCCESS'){
+						alert("회원가입이 가능합니다!");
+						$("#idCheck").val(true);
+					} else {
+						alert("해당 아이디가 이미 존재합니다.");
+					}
+				}
+			});	
+		
+		});
+		
+		$("#submit").on("click", function(e) {
+			e.preventDefault();
+			
+			let pw = form.upw.value;
+			let pwCheck = form.upwCheck.value;
+			
+			if(pw != pwCheck) {
+				form.upw.focus();
+				form.upw.select();
+				form.upw.value = "";
+				form.upwCheck.value = "";
+				alert("패스워드가 서로 다릅니다.");
+			} else {
+				if(!$("#idCheck").val()) {
+					alert("아이디를 확인해주세요.");
+				} else {
+					$("#join").submit();
+				}
+			}
+			
+			$(this).unbind('click').click();
+		});
+	
+	</script>
+
 </body>
 </html>

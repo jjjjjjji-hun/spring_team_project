@@ -23,7 +23,7 @@
 						(r_report_num.nextval, #{rno}, #{reason}, #{content})
 	</insert>
 	
-	<update id="updateReport">
+	<update id="modifyR_report">
 		UPDATE r_report_tbl SET reason = #{reason}, content = #{content} WHERE r_reno = #{r_reno}
 	</update>
 	

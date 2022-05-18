@@ -20,4 +20,7 @@ public interface MenuMapper {
 	
 	// 메뉴 삭제하기
 	public void deleteMenu(Long mno);
+	
+	// 메뉴 리스트 생성하기
+	public void insertMenuList(MenuVO vo);
 }

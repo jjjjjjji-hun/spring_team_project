@@ -18,7 +18,7 @@ public interface B_reportMapper {
 		public void insertReport(B_reportVO vo);
 		
 		//게시글 신고 수정하기
-		public void updateRepoer(B_reportVO vo);
+		public void updateReport(B_reportVO vo);
 		
 		//게시글 신고 삭제하기
 		public void deleteReport(Long B_reno);

@@ -38,6 +38,14 @@
 	</table>
 	<a href="/R_report/insert" class="btn btn-success">글쓰기</a><br/>
 	</div>
+ <!-- 밑에 깔아줄 버튼들 -->
+		    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
+		    	<li class="page-item${pageMaker.cri.pageNum eq idx ? ' active' : '' }">
+		    		<a class="page-link" href="/board/boardList?pageNum=${idx}&searchType=${pageMaker.cri.searchType }&keyword=${pageMaker.cri.keyword}">
+		    			${idx}
+		    		</a>
+		    	</li>
+		    </c:forEach>
 
 </body>
 </html>

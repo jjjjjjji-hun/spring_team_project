@@ -17,7 +17,7 @@ public interface R_reportMapper {
 	public void insertReport(R_reportVO vo);
 	
 	// 댓글(후기) 신고 수정하기
-	public void updateReport(R_reportVO vo);
+	public void modifyR_report(R_reportVO vo);
 	
 	// 댓글(후기) 신고 삭제하기
 	public void deleteReport(Long r_reno);

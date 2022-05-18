@@ -22,19 +22,19 @@
         지역 : <select id="area">
 					<option value="" disabled selected>선택해주세요</option>
 						<c:forEach var="area" items="${areaList }">
-							<option value="${area.ano }">${area.ward }</option>
+							<option value="${area.ward }">${area.ward }</option>
 						</c:forEach>
 			  </select><br/>
 		대분류 : <select id="l_kind">
 					<option value="" disabled selected>선택해주세요</option>
 						<c:forEach var="l_kind" items="${l_kindList }">
-							<option value="${l_kind.lno }">${l_kind.k_group }</option>
+							<option value="${l_kind.k_group }">${l_kind.k_group }</option>
 						</c:forEach>
 			 	</select><br/>
-		소분류 : <select id="s_kind" disabled selected>
-					<option value="">선택해주세요</option>
+		소분류 : <select id="s_kind">
+					<option value=""disabled selected>선택해주세요</option>
 						<c:forEach var="s_kind" items="${s_kindList }">
-							<option value="${s_kind.sno }">${s_kind.s_class }</option>
+							<option value="${s_kind.s_class }">${s_kind.s_class }</option>
 						</c:forEach>
 			 	  </select>
       </div>
@@ -107,22 +107,20 @@
       <div class="modal-body">
         <div id="store">
         <div class="row">
-        업체정보 : 
-        	<div class="col-md-3">
+        
+        	<div class="col-md-12">
+        	업체정보 : 
         		<p id="category4" style="display:inline">
 			
 				</p>
+				<p id="category5"  style="display:inline">
+			
+				</p>
+				<p id="category6"  style="display:inline">
+			
+				</p>
         	</div>
-			<div class="col-md-3">
-        		<p id="category5"  style="display:inline">
-			
-				</p>
-        	</div>  
-        	<div class="col-md-3">
-        		<p id="category6"  style="display:inline">
-			
-				</p>
-        	</div>   	
+			 	
         </div>
         <hr/>
 	        <table class="table">
@@ -153,6 +151,7 @@
         </div>
       </div>
       <div class="modal-footer">
+      <button class="btn btn-primary" id ="menuAddBtn" data-bs-target="#exampleModalToggle3">메뉴 추가하기</button>
         <button class="btn btn-primary" id="submitBtn" data-bs-dismiss="modal" aria-label="Close">업체 등록하기</button>
         <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">뒤로가기</button>
       </div>
@@ -166,8 +165,8 @@
 	
 	<script id="text/javascript">
 		
-		let sno = null;
-		let ano =  null;
+		let c_class = null;
+		let ward =  null;
 		let cno =  null;
 		let stno = null;
 		var csrfHeaderName = "${_csrf.headerName}"
@@ -175,10 +174,10 @@
 		
 		// 선택한 지역, 소분류 값 변수에 저장
 		$("#s_kind").on("change", function(){
-			sno = $("#s_kind option:selected").val()
+			c_class = $("#s_kind option:selected").val()
 		});
 		$("#area").on("change", function(){
-			ano = $("#area option:selected").val()
+			ward = $("#area option:selected").val()
 		});
 		
 		
@@ -195,36 +194,10 @@
 			console.log(strL_kind);
 			console.log(strS_kind);
 			
-			$.ajax({
-				type : 'post',
-				beforeSend : function(xhr) {
-				        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-				},
-				url : '/category/insert', // insert에서 getList로 변경해야함
-				headers : {
-					"Content-type" : "application/json",
-					"X-HTTP-Method-Override" : "POST"},
-				dataType : 'text',
-				data : JSON.stringify({
-					sno : sno,
-					ano : ano
-				}),
-				success : function(result){
-					if(result == 'SUCCESS'){
-						alert("등록 되었습니다.");
-					}
-				},
-					error : function(result){
-						if(result != 'SUCCESS'){
-							alert("다시 등록해주세요.");
-						}
-					}
-			});
-			
 			$.getJSON("/category/tests", function(data){
 				for (let i=0; i<data.length; i++) {
 					
-					if(data[i].sno == sno && data[i].ano == ano) {
+					if(data[i].c_class == c_class && data[i].ward == ward) {
 						cno = data[i].cno;
 						console.log(data[i]);
 					}
@@ -271,6 +244,17 @@
 						strAddress = $("#message-address").val("");
 						strSpnum = $("#message-spnum").val("");
 						
+						$.getJSON("/enterprise/tests/" + cno, function(data){
+							for (let j=0; j<data.length; j++) {
+								
+								if(data[j].cno == cno) {
+									stno = data[j].stno;
+									console.log(data[j]);
+								}
+								
+							}
+						});
+						
 					}
 				},
 				error : function(result){
@@ -280,21 +264,10 @@
 				}
 			});
 			
-			$.getJSON("/enterprise/tests/" + cno, function(data){
-				for (let j=0; j<data.length; j++) {
-					
-					if(data[j].cno == cno) {
-						stno = data[j].stno;
-						console.log(data[j]);
-					}
-					
-				}
-			});
-			
 		});
 		
 		// 메뉴 등록하고 버튼 클릭시
-		$("#submitBtn").on("click", function(){
+		$("#menuAddBtn").on("click", function(){
 			let strmenuName = $("#items").val();
 			let strAmount = $("#amount").val();
 			let represent = $("input[type='checkbox']").is(":checked");
@@ -324,6 +297,7 @@
 						// 폼 태그 비우기.
 						strmenuName = $("#items").val("");
 						strAmount = $("#amount").val("");
+						represent = $("input:checkbox[id='flexCheckDefault']").prop("checked", false);
 					}
 				},
 				error : function(result){
@@ -333,7 +307,7 @@
 				}
 			});
 			
-		})
+		});
 		// 대표 상품 여부 체크 제한
 		$(document).ready(function(){
 			$("input[type='checkbox']").on("click", function(){

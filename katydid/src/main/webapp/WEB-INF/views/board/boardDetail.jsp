@@ -160,9 +160,13 @@
 				    <div class="modal_close"><a href="#">close</a></div>
 					   <div>
 						  <input type="hidden" value="${board.bno}" name="bno" id="board_bno"/>
-						  
-						  <input type="text" name="reason" id="newB_Reportreason" placeholder="신고사유" class="form-control"/>
-						  <input type="text" name="content" id="newB_ReportContent" placeholder="자세한 신고내용" class="form-control"/>
+						  <select class='lno' required>
+					        <option id="newB_Reportreason" value="" disabled selected>신고사유</option>
+							<option value="거짓말">거짓말</option>
+							<option value="허위">허위</option>
+							<option value="상이한 내용">상이한 내용</option>
+						 </select>
+						<input type="text" name="content" id="newB_ReportContent" placeholder="자세한 신고내용" class="form-control"/>
 					   </div>	
 					    <div>
 							<button type="button" id="final_report"  class="btn btn-warning">글 신고하기</button>  
@@ -172,6 +176,7 @@
 					</div>	 
 				  </div>							   
 			</div>									      
+	      
 	
 </div>													 	   													 																																																						   													   
 	<hr/>			
@@ -309,7 +314,7 @@
 			// 버튼을 누르는 시점에, 글쓴이와 내용 내부에 적힌 문자열을 변수에 저장합니다. 
 			var replyer = $("#newReplyWriter").val();
 			var reply = $("#newReplyText").val();
-			
+			           
 			// $.ajax({내용물}); 이 기본형태
 			$.ajax({
 				type : 'post',
@@ -366,7 +371,7 @@
 			
 			// 클릭한 버튼과 연계된 li태그의 data-rno에 든 값 가져와 변수 rno에 저장하기
 			var rno = replytag.attr("data-rno");
-		//	console.log(rno);
+		   //	console.log(rno);
 			
 			// rno뿐만 아니라 본문도 가져와야함
 			//var reply = replytag.text();// 내부 text를 가져옴
@@ -486,6 +491,8 @@
 							var reason = $("#newR_reportReason").val();
 							var content = $("#newR_reportContent").val();
 							
+								
+							
 							// $.ajax({내용물}); 이 기본형태
 							$.ajax({
 								type : 'post',
@@ -551,7 +558,11 @@
 				// 폼이 없기때문에, input태그 내에 입력된 요소를 가져와야 합니다.
 				// 버튼을 누르는 시점에, 글쓴이와 내용 내부에 적힌 문자열을 변수에 저장합니다. 
 				var bno = $("#board_bno").val();
-				var reason = $("#newB_Reportreason").val();
+				//var reason = $("#newB_Reportreason").val();
+			            //var replyContent = $(this).prev().text();//button의 직전태그인.reply의 내용물 가져오기
+					//var reason = $(this).siblings(".reply").text();// button의 형제중.reply의 내용물 가져오기
+				
+				var reason =  $("#newR_reportReason").val();
 				var content = $("#newB_ReportContent").val();
 				console.log(bno);
 				// $.ajax({내용물}); 이 기본형태
@@ -579,8 +590,9 @@
 							//getAllList();// 댓글 등록 성공시, 다시 목록 갱신
 							// 폼 태그 비우기.
 							// 힌트 : .val(넣을값);
-						//	$("#newB_Reportreason").val("");
-						//	$("#newB_ReportContent").val("");
+							$("#newB_Reportreason").val("");
+							$("#newB_ReportContent").val("");
+							
 							
 						}
 					}
