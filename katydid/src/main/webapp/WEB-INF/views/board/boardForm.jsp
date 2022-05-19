@@ -22,7 +22,7 @@
 			장소 : <select class="S_kind">
 					<option value="">선택해주세요</option>
 								<c:forEach var="list" items="${category }">
-									<option value="${list }">${list.ano }</option>
+									<option value="${list }">${list.ward }</option>
 								</c:forEach>
 			 	  </select><br/>
 			본문 : <textarea name="content" rows="15" cols="30"></textarea>

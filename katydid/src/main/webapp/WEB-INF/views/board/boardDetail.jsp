@@ -122,7 +122,7 @@
 		<h1 class="text text=primary">${board.bno}번 게시글 상세 페이지</h1>
 		글 번호 : <input type="text" class="form-control" value="${board.bno}" readonly/>
 		글 제목 : <input type="text" value="${board.title}" readonly/>
-		글쓴이 : <input type="text" value="${board.u_id}" readonly/><br/><br/>
+		글쓴이 : <span class="message">${board.u_id}</span><br/><br/>
 		글 본문 : <textarea rows="15" class="form-control" readonly>${board.content}</textarea>
 		<div class="row">
 			<div class="col-md-6">쓴날짜 : ${board.regdate}&nbsp;&nbsp;&nbsp;</div>
@@ -240,6 +240,14 @@
 			</div>
 		</div>
 		
+		<!-- 쪽지 모달 -->
+		<div id="MessageModal" style="display:none;">
+			<span class="receiveId" ></span>
+			<input type="text" class="content" />
+			<button type="button" class="send">쪽지 보내기</button>
+			<button type="button" class="close">창닫기</button>
+		</div>
+		
 	
 	
 	
@@ -252,7 +260,6 @@
 	
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	
-   
     <!-- 여기부터 댓글 비동기 처리 자바스크립트 처리 영역 -->
     <script>
       let bno = ${board.bno}; 
@@ -599,6 +606,63 @@
 				});		
 				
 			});
+			
+		// 메세지 기능
+		$(".message").on("click", function() {
+			console.log($(this).html());
+			$(".receiveId").html($(this).html());
+			$("#MessageModal").show();
+			
+		});
+		
+		$(".send").on("click", function() {
+			sendMessage();
+		});
+	
+		$(".close").on("click", function() {
+			$(".content").val("");
+			$(".receiveId").html("");
+			$("#MessageModal").hide();
+		});
+	
+		function sendMessage() {
+			
+			let content = $(".content").val();
+			let receiveId = $(".receiveId").html();
+			
+			if(!(content)) {
+				alert("보낼 내용을 입력해주세요!");
+				return false;
+			}
+			
+			$.ajax({
+					type : 'post',
+					beforeSend : function(xhr) {
+				        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+				    },
+					url : '/message/send',
+					headers : {
+						"Content-Type" : "application/json",
+						"X-HTTP-Method-Override" : "POST"
+					},
+					dataType : 'text',
+					data : JSON.stringify({
+						receiveId : receiveId,
+						content : content
+					}),
+					success : function(result){
+						if(result == 'SUCCESS'){
+							alert("쪽지가 전달되었습니다.");
+							
+							// 내용 초기화
+							$(".content").val("");
+							$(".receiveId").html("");
+							// 모달 닫힘
+							$(".messageModal").hide();
+						}
+					}
+				});	
+		}
 	
 	
 </script>
