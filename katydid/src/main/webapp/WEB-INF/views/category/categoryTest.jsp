@@ -47,7 +47,7 @@
 
 
     .footer { text-align: center; clear : both;} 
-      </style>
+    </style>
 
 </head>
 <body>
