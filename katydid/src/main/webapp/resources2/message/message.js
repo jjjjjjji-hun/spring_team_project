@@ -1,5 +1,28 @@
 
+	$(".message").on("click", function() {
+		$(".receiveId").val("$(this).html()");
+		$("#messageModal").show();
+	});
+	
+	$(".send").on("click", function() {
+		sendMessage();
+	});
+
+	$(".close").on("click", function() {
+		$(".content").val("");
+		$(".receiveId").val("");
+		$("#messageModal").hide();
+	});
+
 	function sendMessage() {
+		
+		let content = $(".content").val();
+		let receiveId = $(".receiveId").val();
+		
+		if(!(content)) {
+			alert("보낼 내용을 입력해주세요!");
+			return false;
+		}
 		
 		$.ajax({
 				type : 'post',
@@ -13,7 +36,6 @@
 				},
 				dataType : 'text',
 				data : JSON.stringify({
-					sendId : sendId,
 					receiveId : receiveId,
 					content : content
 				}),
@@ -22,8 +44,10 @@
 						alert("쪽지가 전달되었습니다.");
 						
 						// 내용 초기화
-						
+						$(".content").val("");
+						$(".receiveId").val("");
 						// 모달 닫힘
+						$(".messageModal").hide();
 					}
 				}
 			});	

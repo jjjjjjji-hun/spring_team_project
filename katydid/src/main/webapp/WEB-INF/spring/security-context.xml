@@ -23,8 +23,8 @@
 		
 		<security:logout logout-url="/logout" invalidate-session="true"
 			delete-cookies="remember-me, JSESSIONID"/>
-		
-		<security:remember-me data-source-ref="dataSource" token-validity-seconds="604800"/>
+		<!-- 12시간동안 자동 로그인 -->
+		<security:remember-me data-source-ref="dataSource" token-validity-seconds="43200"/>
 	
 	</security:http>
 	

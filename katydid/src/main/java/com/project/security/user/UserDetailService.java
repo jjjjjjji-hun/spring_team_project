@@ -1,5 +1,7 @@
 package com.project.security.user;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -25,6 +27,17 @@ public class UserDetailService implements UserDetailsService {
 		UserVO vo = mapper.read(username);
 		
 		log.info("확인된 유저 이름으로 얻어온 정보 : " + vo);
+		
+		/* Date now = new Date();
+		
+		if(vo.getDate() == null || vo.getDate().after(now)) {
+			return null;
+		}
+		
+		if(vo.getBanned() == 1) {
+			return null;
+		}
+		*/
 		
 		return vo == null ? null : new CustomUser(vo);
 	}
