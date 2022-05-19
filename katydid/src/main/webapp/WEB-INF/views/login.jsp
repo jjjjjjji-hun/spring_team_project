@@ -18,111 +18,102 @@
     
     <style>
     *{
-        margin: 0;
-        padding: 0;
-        position: relative;
-        font-family: 'Noto Sans KR', sans-serif;
-        list-style: none;}
-      
+    margin: 0;
+    padding: 0;
+    position: relative;
+    font-family: 'Noto Sans KR', sans-serif;
+    list-style: none;}
+   
+
     
-        
-        body{background-color: white; width: 100%; max-width:1200px; margin: 0 auto;}
+    body{background-color: white; width: 100%; max-width:1500px; margin: 0 auto;}
+
+    .col-md-12{
+        margin-top: 20px;
+        text-align: center;
+    }
     
-        .col-md-7{
-            margin-top: 20px;
-            text-align: right;
-        }
-        .col-md-5{
-            margin-top: 50px;
-            text-align: right;
-        }
+
+    .row-nav1{
+        text-align: center;
+    }
+    .row-nav2{
+        text-align: center;
+    }
+
+
+
+    #container {
+      width: 400px;
+      margin: 0px auto;
+      padding: 20px;
+    }
     
-        .row-nav1{
-            text-align: center;
-        }
-        .row-nav2{
-            text-align: center;
-        }
-    
-    
-    
-        #container {
-          width: 400px;
-          margin: 0px auto;
-          padding: 20px;
-          float: center;
-        }
-        #loginForm > h1 {
-            font-size: 60px;
-            text-align: center;
-        }
+    #loginForm > h1 {
+    	font-size: 60px;
+       text-align: center;
        
+    }
 
 
-
-        .footer { text-align: center; clear : both;} 
-      </style>
-      <script>
-          $(()=>{
-            $(".hover").hover(function(){
-                        $(this).css("color", "red");
-                    }, function(){
-                        $(this).css("color", "red");
-                    });
     
-            });
-      </script>
+
+
+
+    .footer { text-align: center; clear : both;} 
+      </style>
+     
     </head>
     <body>
     
-     <div class="row header">
-        <div class="col-md-7">
-            <a href="/"><img src="resources2/img/katydidtitle.png" width="230px" height="90px"  border="0"></a>
+      <div class="row header">
+        <div class="col-md-12">
+            <img width="90px" height="90px" src="resources2/img/Katydid.gif">
+            <a href="/"><img src="resources2/img/katydidtitle.png" width="250px" height="90px"  border="0"></a>
         </div>
-        <div class="col-md-5">
-            <img width="50px" height="50px" src="resources2/img/Katydid.gif">
-            <button type="button" class="btn btn-light" onclick="location.href='/login' ">Login</button>
-            <button type="button" class="btn btn-light" onclick="location.href='/user/join' ">Sign_up</button>
+        
+    	</div>
+    <hr/>
 
-        </div>
-    </div>
-        <hr/>
-    
-        <div class="row-nav1">
-            <div class="col-md-12">
-                <div class="row">
-                    <!-- 검색창 부분 -->
-                    <form action="/board/boardList" method="get">
-                        <!--  select 태그를 이용해 클릭해 검색조건을 선택할수있도록 처리합니다.  -->
-                        <select name="searchType">
-                            <!-- 검색조건을 option태그를 이용해 만듭니다.  -->
-                            <option value="n">-</option>
-                            <option value="t" ${pageMaker.cri.searchType eq 't' ? 'selected' : '' }>제목</option>
-                            <option value="c" ${pageMaker.cri.searchType eq 'c' ? 'selected' : '' }>본문</option>
-                            <option value="w" ${pageMaker.cri.searchType eq 'w' ? 'selected' : '' }>글쓴이</option>
-                            <option value="tc" ${pageMaker.cri.searchType eq 'tc' ? 'selected' : '' }>제목+본문</option>
-                            <option value="cw" ${pageMaker.cri.searchType eq 'cw' ? 'selected' : '' }>본문+글쓴이</option>
-                            <option value="tcw" ${pageMaker.cri.searchType eq 'tcw' ? 'selected' : '' }>제목+본문+글쓴이</option>
-                        </select>
-                        <input type="text" name="keyword" placeholder="검색어" value="${pageMaker.cri.keyword }">
-                        <input type="submit" value="검색하기">&emsp;
-                                <a href="#" class="hover">공지사항</a>&emsp;<a href="#" class="hover">맛집등록</a>
-                        
-                    </form>
-                </div>
+     <div class="row-nav1">
+        <div class="col-md-12">
+            <div class="row">
+                <!-- 검색창 부분 -->
+                <form action="/board/boardList" method="get">
+                    <!--  select 태그를 이용해 클릭해 검색조건을 선택할수있도록 처리합니다.  -->
+                    <select name="searchType">
+                        <!-- 검색조건을 option태그를 이용해 만듭니다.  -->
+                        <option value="n">-</option>
+                        <option value="t" ${pageMaker.cri.searchType eq 't' ? 'selected' : '' }>제목</option>
+                        <option value="c" ${pageMaker.cri.searchType eq 'c' ? 'selected' : '' }>본문</option>
+                        <option value="w" ${pageMaker.cri.searchType eq 'w' ? 'selected' : '' }>글쓴이</option>
+                        <option value="tc" ${pageMaker.cri.searchType eq 'tc' ? 'selected' : '' }>제목+본문</option>
+                        <option value="cw" ${pageMaker.cri.searchType eq 'cw' ? 'selected' : '' }>본문+글쓴이</option>
+                        <option value="tcw" ${pageMaker.cri.searchType eq 'tcw' ? 'selected' : '' }>제목+본문+글쓴이</option>
+                    </select>
+                    <input type="text" name="keyword" placeholder="검색어" value="${pageMaker.cri.keyword }">
+                    <input type="submit" class="btn btn-outline-secondary" value="검색하기">&nbsp;
+                    <button type="button" class="btn btn-outline-danger" onclick="location.href='#' ">공지사항</button>&nbsp;
+                    <button type="button" class="btn btn-secondary" onclick="location.href='/category/test' ">맛집등록</button>
+                    
+                    
+                </form>
             </div>
         </div>
-        <hr/>
-        <div class="row-nav2">
-            <div class="col-md-12">이것은 공지사항이다.</div> 
-        </div>
-        <hr>
+    </div>
+    <hr/>
+    <div class="row-nav2">
+        <div class="col-md-12">이것은 공지사항이다.</div>
+        
+    </div>
+    
+   
+    <hr>
     
 
-
-        <div id="container">
+		<div id="container">
             <div id="loginForm">
-                <h1><span style="font-family: 'Nanum Pen Script', cursive;">ID_Login</h1>
+                <h1><span style="font-family: 'Nanum Pen Script', cursive;">ID_login</span></h1>
                 <h2>${error }</h2>
                 <h2>${logout }</h2>
 
@@ -131,10 +122,11 @@
                         <input type="text" name="u_id" value="" class="form-control" id="formGroupExampleInput" placeholder="ID">
                         <input type="password" name="upw" value="" class="form-control" id="formGroupExampleInput2" placeholder="Password">
                     	<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                    	<input type="submit" class="btn btn-light" value="Login" />
+                    	<br/>
+                    	<input type="submit" class="btn btn-secondary" value="Login" style="display:block; width:100%; text-align:center; font-size:1em;" />
   					</div>
                 </form>
-                <button type="button" style="display:block; width:100%; text-align:center; font-size:1em;" class="btn btn-secondary" onclick="location.href='/user/join' ">Sign_in</button>
+                <button type="button" style="display:block; width:100%; text-align:center; font-size:1em;" class="btn btn-light" onclick="location.href='/user/join' ">Sign_up</button>
             </div>
         </div>
 

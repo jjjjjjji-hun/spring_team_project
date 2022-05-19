@@ -23,19 +23,16 @@
     position: relative;
     font-family: 'Noto Sans KR', sans-serif;
     list-style: none;}
-
+   
 
     
-    body{background-color: white; width: 100%; max-width:1200px; margin: 0 auto;}
+    body{background-color: white; width: 100%; max-width:1500px; margin: 0 auto;}
 
-    .col-md-7{
+    .col-md-12{
         margin-top: 20px;
-        text-align: right;
+        text-align: center;
     }
-    .col-md-5{
-        margin-top: 50px;
-        text-align: right;
-    }
+    
 
     .row-nav1{
         text-align: center;
@@ -59,34 +56,22 @@
 
     
     .footer { text-align: center; clear : both;} 
+    
   </style>
-  <script>
-      $(()=>{
-        $(".hover").hover(function(){
-                    $(this).css("color", "red");
-                }, function(){
-                    $(this).css("color", "red");
-                });
-
-        });
-  </script>
+  
 </head>
 <body>
     
     <div class="row header">
-        <div class="col-md-7">
-            <a href="/"><img src="resources2/img/katydidtitle.png" width="230px" height="90px"  border="0"></a>
+        <div class="col-md-12">
+            <img width="90px" height="90px" src="resources2/img/Katydid.gif">
+            <a href="/"><img src="resources2/img/katydidtitle.png" width="250px" height="90px"  border="0"></a>
         </div>
-        <div class="col-md-5">
-            <img width="50px" height="50px" src="resources2/img/Katydid.gif">
-            <button type="button" class="btn btn-light" onclick="location.href='/login' ">Login</button>
-            <button type="button" class="btn btn-light" onclick="location.href='/user/join' ">Sign_up</button>
-
-        </div>
-    </div>
+        
+    	</div>
     <hr/>
 
-    <div class="row-nav1">
+     <div class="row-nav1">
         <div class="col-md-12">
             <div class="row">
                 <!-- 검색창 부분 -->
@@ -103,8 +88,10 @@
                         <option value="tcw" ${pageMaker.cri.searchType eq 'tcw' ? 'selected' : '' }>제목+본문+글쓴이</option>
                     </select>
                     <input type="text" name="keyword" placeholder="검색어" value="${pageMaker.cri.keyword }">
-                    <input type="submit" value="검색하기">&emsp;
-                            <a href="#" class="hover">공지사항</a>&emsp;<a href="#" class="hover">맛집등록</a>
+                    <input type="submit" class="btn btn-outline-secondary" value="검색하기">&nbsp;
+                    <button type="button" class="btn btn-outline-danger" onclick="location.href='#' ">공지사항</button>&nbsp;
+                    <button type="button" class="btn btn-secondary" onclick="location.href='/category/test' ">맛집등록</button>
+                    
                     
                 </form>
             </div>
@@ -115,6 +102,7 @@
         <div class="col-md-12">이것은 공지사항이다.</div>
         
     </div>
+    
    
     <hr>
 
@@ -123,20 +111,19 @@
         <h1><span style="font-family: 'Nanum Pen Script', cursive;">Sign_up</span></h1>
         <form id="join" name="join" action="/user/join" method="post">	
             <div class="mb-3">
-                <input type="text" name="u_id" value="" class="form-control" id="formGroupExampleInput" placeholder="ID" required><br/>
-                <button type="button" class="idconfirm" >아이디 확인하기</button><br/>
+                <input type="text" name="u_id" value="" class="form-control" id="formGroupExampleInput" placeholder="ID" required>
+                <button type="button" class="idconfirm" style="float: right" >ID check</button><br/>
                 <input type="password" name="upw" value="" class="form-control" id="formGroupExampleInput2" placeholder="Password" required><br/>
                 <input type="password" name="upwCheck" class="form-control" placeholder="PasswordCheck" required /><br/>
                 <input type="text" name="uname" value="" class="form-control" id="formGroupExampleInput2" placeholder="Name" required><br/>
                 <input type="text" name="pnum" value="" class="form-control" id="formGroupExampleInput2" placeholder="P-Num" required><br/>
-                &emsp;&emsp;&emsp;<input type="radio" name="role" value="ROLE_MEMBER">업체&nbsp;&nbsp;&nbsp;
-                &emsp;&emsp;&emsp;<input type="radio" name="role" value="ROLE_USER">일반회원<br/>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<input type="radio" name="role" value="ROLE_MEMBER">업체&emsp;&emsp;
+                <input type="radio" name="role" value="ROLE_USER">일반회원
                 <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/><br/>
                 <input type="hidden" name="idCheck" id="idCheck" required/><br/>
                 <button type="button" style="display:block; width:100%; text-align:center; font-size:1em;" class="btn btn-secondary">Sign_in</button>
             </div>
         </form>
-    </div> 
   </div>
 
 
