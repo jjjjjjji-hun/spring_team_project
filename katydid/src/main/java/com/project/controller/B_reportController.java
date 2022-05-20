@@ -1,5 +1,6 @@
 package com.project.controller;
 
+import java.security.Principal;
 import java.security.Provider.Service;
 import java.util.List;
 
@@ -51,9 +52,12 @@ public class B_reportController {
 				produces= {MediaType.TEXT_PLAIN_VALUE})
 		@ResponseBody
 				public ResponseEntity<String> register
-					(@RequestBody B_reportVO vo){
+					(@RequestBody B_reportVO vo, Principal principal){
 				ResponseEntity<String> entity = null;
 				log.info("입력전 : " + vo.getBno());
+				log.info(principal.getName());
+				vo.setReportId(principal.getName());
+				
 				try {
 				service.addB_report(vo);
 				entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
@@ -191,6 +195,46 @@ public class B_reportController {
 			
 			return "redirect:list/" + vo.getB_reno();
 		}
+		
+		
+		
+		
+		
+		  // 게시판 댓글 관리차 체크 업데이트
+		@RequestMapping(method= {RequestMethod.PUT, RequestMethod.PATCH},
+		         value="/checkUpdate/{b_reno}",
+		         consumes="application/json",
+		         produces= {MediaType.TEXT_PLAIN_VALUE})
+       public ResponseEntity<String> modify (
+    		   @PathVariable("b_reno") Long b_reno){
+    	   
+    	   ResponseEntity<String> entity = null;
+    	   
+    	   try {
+    		   B_reportVO vo = new B_reportVO();
+    		   vo.setB_reno(b_reno);
+    		   
+    		   vo.setVerified(1);
+    		   log.info("확인할 게시글 신고 번호 : " + b_reno);
+    		   
+    		   service.checkUpdate(vo);
+    		   entity = new ResponseEntity<String>(
+    				   "SUCCESS",HttpStatus.OK);
+    	   }catch (Exception e) {
+    		  
+    		   e.printStackTrace();
+    		   entity = new ResponseEntity<String>(
+    				   e.getMessage(), HttpStatus.BAD_REQUEST);
+    				   
+    				   
+    	   }
+    	   return entity;
+    	   
+       }
+       
+		
+		
+		
 		
 		
 		

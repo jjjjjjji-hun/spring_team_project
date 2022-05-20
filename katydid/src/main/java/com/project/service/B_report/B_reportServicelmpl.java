@@ -52,6 +52,12 @@ public class B_reportServicelmpl implements B_reportService {
 		
 		return b_reportmapper.countPageNum(cri);
 	}
+	@Override
+	public void checkUpdate(B_reportVO vo) {
+		
+		b_reportmapper.checkUpdate(vo);
+		
+	}
 	
 	
 	

@@ -64,8 +64,8 @@
 	</select>
 	
 	<insert id="insertReport">
-		INSERT INTO b_report_tbl(b_reno, bno, reason, content) VALUES
-						(b_report_num.nextval, #{bno}, #{reason}, #{content})
+		INSERT INTO b_report_tbl(b_reno, bno, reason, content, reportId, reportedId) VALUES
+						(b_report_num.nextval, #{bno}, #{reason}, #{content}, #{reportId}, #{reportedId})
 	</insert>
 	
 	<update id="updateReport">
@@ -89,4 +89,15 @@
 			b_reno > 0
 			]]>
 	</select>
+	
+	<!-- 관리자 체크 업데이트 -->
+	<update id="checkUpdate">
+		UPDATE b_report_tbl SET verified = #{verified} WHERE b_reno= #{b_reno}
+	</update>
+	
+	
+	
+	
+	
+	
 </mapper>
