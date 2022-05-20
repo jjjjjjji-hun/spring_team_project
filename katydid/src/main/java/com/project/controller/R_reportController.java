@@ -142,12 +142,19 @@ public class R_reportController {
 		
 		// 댓글 신고 목록 조회
 		@GetMapping("/R_relist")
-		public String getList(Model model) {
+		public String getList(SearchCriteria cri, Model model) {
 			
-			List<R_reportVO> r_reportList = service.getAllR_reportList();
+			List<R_reportVO> r_reportList = service.getAllR_reportList(cri);
 			
 			model.addAttribute("r_reportList", r_reportList );
 		
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCri(cri);
+			pageMaker.setTotalBoard(service.countPageNum(cri));
+			
+			model.addAttribute("pageMaker", pageMaker);
+			log.info("R_reportList");
+			System.out.println("리스트 : " + r_reportList);
 			
 			return "R_report/rrlist";
 			

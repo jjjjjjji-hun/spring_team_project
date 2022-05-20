@@ -2,11 +2,54 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http:/mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.mapper.b_report.B_reportMapper">
+<sql id="search">
+		<if test="searchType != null">
+				<if test="searchType == 't'.toString()">
+					(TITLE like '%'||#{keyword}||'%') AND
+				</if>
+				<if test="searchType == 'c'.toString()">
+					(CONTENT like '%'||#{keyword}||'%') AND
+				</if>
+				<if test="searchType == 'w'.toString()">
+					(WRITER like '%'||#{keyword}||'%') AND
+				</if>
+				<if test="searchType == 'tc'.toString()">
+					((TITLE like '%'||#{keyword}||'%') 
+					OR
+					(CONTENT like '%'||#{keyword}||'%')) AND
+				</if>
+				<if test="searchType == 'cw'.toString()">
+					((CONTENT like '%'||#{keyword}||'%') 
+					OR
+					(WRITER like '%'||#{keyword}||'%')) AND
+				</if>
+				<if test="searchType == 'tcw'.toString()">
+					((TITLE like '%'||#{keyword}||'%') 
+					OR
+					(CONTENT like '%'||#{keyword}||'%')
+					OR
+					(WRITER like '%'||#{keyword}||'%')) AND
+				</if>
+			</if>
+	</sql>
+
 
 <!-- 신고 -->
    <!--  //게시글 신고 된 댓글 전체 가져오기--> 
 	<select id="getAllB_reportList" resultType="com.project.domain.B_reportVO">
-	     SELECT * FROM b_report_tbl
+	   <!--  SELECT * FROM b_report_tbl--> 
+	   
+	   <![CDATA[
+			SELECT * FROM
+				(SELECT /*+ INDEX_DESC(b_report_tbl pk_b_report) */
+				rownum rn, b_report_tbl.* FROM b_report_tbl WHERE
+			]]>	
+			
+				<include refid="search"></include>
+		<![CDATA[		
+				 rownum <= #{pageEnd})
+					WHERE rn > #{pageStart}
+		]]>
 	</select>
 	
 	
@@ -21,8 +64,8 @@
 	</select>
 	
 	<insert id="insertReport">
-		INSERT INTO b_report_tbl(b_reno, bno, reason, content) VALUES
-						(b_report_num.nextval, #{bno}, #{reason}, #{content})
+		INSERT INTO b_report_tbl(b_reno, bno, reason, content, reportId, reportedId) VALUES
+						(b_report_num.nextval, #{bno}, #{reason}, #{content}, #{reportId}, #{reportedId})
 	</insert>
 	
 	<update id="updateReport">
@@ -36,4 +79,25 @@
 	<delete id="deleteALLReport">
 		DELETE FROM b_report_tbl WHERE bno = #{bno}
 	</delete>
+	
+	<select id="countPageNum" resultType="int">
+	<![CDATA[
+		SELECT COUNT(*) FROM b_report_tbl WHERE
+		]]>
+			<include refid="search"></include>
+		<![CDATA[	
+			b_reno > 0
+			]]>
+	</select>
+	
+	<!-- 관리자 체크 업데이트 -->
+	<update id="checkUpdate">
+		UPDATE b_report_tbl SET verified = #{verified} WHERE b_reno= #{b_reno}
+	</update>
+	
+	
+	
+	
+	
+	
 </mapper>
