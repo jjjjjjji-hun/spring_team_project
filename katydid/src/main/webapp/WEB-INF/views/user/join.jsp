@@ -129,9 +129,8 @@
                 <input type="password" name="upwCheck" class="form-control" placeholder="PasswordCheck" required /><br/>
                 <input type="text" name="uname" value="" class="form-control" id="formGroupExampleInput2" placeholder="Name" required><br/>
                 <input type="text" name="pnum" value="" class="form-control" id="formGroupExampleInput2" placeholder="P-Num" required><br/>
-                &emsp;&emsp;&emsp;<input type="radio" name="role" value="ROLE_ADMIN" required>어드민 권한&nbsp;&nbsp;&nbsp;
-                &emsp;&emsp;&emsp;<input type="radio" name="role" value="ROLE_MEMBER">정회원 권한&nbsp;&nbsp;&nbsp;
-                &emsp;&emsp;&emsp;<input type="radio" name="role" value="ROLE_USER">준회원<br/>
+                &emsp;&emsp;&emsp;<input type="radio" name="role" value="ROLE_MEMBER">업체&nbsp;&nbsp;&nbsp;
+                &emsp;&emsp;&emsp;<input type="radio" name="role" value="ROLE_USER">일반회원<br/>
                 <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/><br/>
                 <input type="hidden" name="idCheck" id="idCheck" required/><br/>
                 <button type="button" style="display:block; width:100%; text-align:center; font-size:1em;" class="btn btn-secondary">Sign_in</button>

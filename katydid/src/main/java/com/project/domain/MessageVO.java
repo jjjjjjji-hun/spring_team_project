@@ -5,9 +5,9 @@ import lombok.Data;
 @Data
 public class MessageVO {
 
-	Long meno;
-	String sendId;
-	String receiveId;
-	String content;
+	private Long meno;
+	private String sendId;
+	private String receiveId;
+	private String content;
 	
 }

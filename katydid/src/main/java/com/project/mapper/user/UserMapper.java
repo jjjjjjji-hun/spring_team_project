@@ -13,5 +13,9 @@ public interface UserMapper {
 	public void insertUser(UserVO vo);
 	
 	public void insertUserAuth(UserVO vo);
+	
+	// public void resetDate(String u_id);
 
+	// public void resetBanned(String u_id);
+	
 }

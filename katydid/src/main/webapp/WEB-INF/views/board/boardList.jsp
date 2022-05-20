@@ -36,7 +36,7 @@
 			</c:forEach>
 		</tbody>
 	</table>
-	<a href="/R_report/insert" class="btn btn-success">글쓰기</a><br/>
+	<a href="/board/insert" class="btn btn-success">글쓰기</a><br/>
 	</div>
  
 </body>

@@ -35,7 +35,33 @@
 			padding:10px;
 			z-index:1000;
 		}
-		
+
+   
+   
+    .modal_close> a{
+        display: block;
+        width: 100%;
+        height: 100%;
+        background:url(https://img.icons8.com/metro/26/000000/close-window.png);
+        text-indent: -9999px;
+    }
+
+  .boardReportText{
+     width: 250px;
+		height: 100px;
+		background-color: red;
+		position: static;
+		top: 70%;
+		left: 70%;
+		margin-top: 40px;
+		margin-left: 20px;
+		padding:30px;
+		z-index:1000;
+		font-size:25px;
+		word-wrap:break-word
+
+   }
+
 		
 		.modal-title{color:white;}
 		
@@ -350,9 +376,63 @@
 				});		
 				
 			});
+			
+		// 메세지 기능
+		$(".message").on("click", function() {
+			console.log($(this).html());
+			$(".receiveId").html($(this).html());
+			$("#MessageModal").show();
+			
+		});
 		
+		$(".send").on("click", function() {
+			sendMessage();
+		});
+	
+		$(".close").on("click", function() {
+			$(".content").val("");
+			$(".receiveId").html("");
+			$("#MessageModal").hide();
+		});
+	
+		function sendMessage() {
 			
+			let content = $(".content").val();
+			let receiveId = $(".receiveId").html();
 			
+			if(!(content)) {
+				alert("보낼 내용을 입력해주세요!");
+				return false;
+			}
+			
+			$.ajax({
+					type : 'post',
+					beforeSend : function(xhr) {
+				        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+				    },
+					url : '/message/send',
+					headers : {
+						"Content-Type" : "application/json",
+						"X-HTTP-Method-Override" : "POST"
+					},
+					dataType : 'text',
+					data : JSON.stringify({
+						receiveId : receiveId,
+						content : content
+					}),
+					success : function(result){
+						if(result == 'SUCCESS'){
+							alert("쪽지가 전달되었습니다.");
+							
+							// 내용 초기화
+							$(".content").val("");
+							$(".receiveId").html("");
+							// 모달 닫힘
+							$(".messageModal").hide();
+						}
+					}
+				});	
+		}
 	
 			
 			// 이벤트 위임

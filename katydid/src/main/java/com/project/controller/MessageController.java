@@ -1,5 +1,6 @@
 package com.project.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,8 +56,9 @@ public class MessageController {
 	
 	@PostMapping(value="/send", consumes="application/json",
 			produces= {MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> sendMessage(@RequestBody MessageVO vo) {
+	public ResponseEntity<String> sendMessage(@RequestBody MessageVO vo, Principal principal) {
 		ResponseEntity<String> entity = null;
+		vo.setSendId(principal.getName());
 		log.info("메세지를 보내는 아이디 : " + vo.getSendId());
 		log.info("메세지를 받는 아이디 : " + vo.getReceiveId());
 		log.info("보내는 메세지내용 : " + vo.getContent());
