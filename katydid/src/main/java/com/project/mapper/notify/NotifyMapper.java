@@ -7,7 +7,7 @@ import com.project.domain.NotifyVO;
 public interface NotifyMapper {
 
 	
-public List<NotifyVO> getList();
+	public List<NotifyVO> getList();
 	
     public void insert(NotifyVO vo);
 	

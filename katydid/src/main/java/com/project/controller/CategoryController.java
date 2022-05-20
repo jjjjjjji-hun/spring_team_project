@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.domain.AreaVO;
 import com.project.domain.CategoryVO;
@@ -172,9 +173,10 @@ public class CategoryController {
 	}
 	
 	// 분류 수정
-	@RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH}, 
+	@RequestMapping(method = {RequestMethod.PUT}, 
 			value="/updateArea", consumes="application/json", 
 			produces = {MediaType.TEXT_PLAIN_VALUE})
+	@ResponseBody
 	public ResponseEntity<String> modify (@RequestBody AreaVO areavo) {
 	
 		ResponseEntity<String> entity = null;
@@ -211,7 +213,7 @@ public class CategoryController {
 	return entity;
 	}
 	
-	@RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH}, 
+	@RequestMapping(method = {RequestMethod.PUT}, 
 			value="/updateSkind", consumes="application/json", 
 			produces = {MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> modify (@RequestBody S_kindVO skindvo) {

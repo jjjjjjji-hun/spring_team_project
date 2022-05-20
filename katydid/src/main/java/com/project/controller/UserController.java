@@ -90,5 +90,10 @@ public class UserController {
 		return entity;
 	}
 	
+	@GetMapping("/message")
+	public void messageCheck() {
+		
+	}
+	
 	
 }
