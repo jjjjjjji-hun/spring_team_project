@@ -54,8 +54,8 @@
 
 <div class="row header">
     <div class="col-md-12">
-        <img width="90px" height="90px" src="resources2/img/Katydid.gif">
-        <a href="/"><img src="resources2/img/katydidtitle.png" width="250px" height="90px"  border="0"></a>
+        <img width="90px" height="90px" src="/resources2/img/Katydid.gif">
+        <a href="/"><img src="/resources2/img/katydidtitle.png" width="250px" height="90px"  border="0"></a>
     </div>
     
     </div>

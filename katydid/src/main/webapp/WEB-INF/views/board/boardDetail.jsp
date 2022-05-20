@@ -150,7 +150,7 @@
 			<h1 class="text text=primary">${board.bno}번 게시글 상세 페이지</h1>
 			글 번호 : <input type="text" class="form-control" value="${board.bno}" readonly/>
 			글 제목 : <input type="text" value="${board.title}" readonly/>
-			글쓴이 : <input type="text" value="${board.u_id}" readonly/><br/><br/>
+			글쓴이 : <span class="message">${board.u_id}</span><br/>
 			글 본문 : <textarea rows="15" class="form-control" readonly>${board.content}</textarea>
 			<div class="row">
 				<div class="col-md-6">쓴날짜 : ${board.regdate}&nbsp;&nbsp;&nbsp;</div>
@@ -272,7 +272,13 @@
 			</div>
 			
 		
-		
+		<!-- 쪽지 모달 -->
+		<div id="MessageModal" style="display:none;">
+			<span class="receiveId"></span>
+			<input type="text" class="content" />
+			<button type="button" class="send">쪽지 보내기</button>
+			<button type="button" class="close">창 닫기</button>
+		</div>
 		
 		
 	
@@ -428,7 +434,7 @@
 							$(".content").val("");
 							$(".receiveId").html("");
 							// 모달 닫힘
-							$(".messageModal").hide();
+							$(".MessageModal").hide();
 						}
 					}
 				});	
