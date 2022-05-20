@@ -72,6 +72,7 @@
       width: 140px;
       padding: 20px;
       margin-right: 10px;
+      margin-top: 10px;
       margin-bottom: 20px;
       float: left;
     }
@@ -194,6 +195,7 @@
     <div id="sidebar-left">
     
     <button type="button" class="btn btn-secondary" onclick="location.href='/board/list' ">&nbsp;F O O D</button>
+    <br/>
     <br/>
     <button type="button" class="btn btn-secondary" onclick="location.href='/board/list' ">TRAVEL</button>
     
