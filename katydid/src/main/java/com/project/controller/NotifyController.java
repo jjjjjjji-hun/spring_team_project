@@ -28,11 +28,12 @@ public class NotifyController {
 		
 	}
 	
-	@GetMapping("/detail/#{nno}")
-	public void getNotifyDetail(@PathVariable Long nno, Model model) {
+	@GetMapping("/detail/{nno}")
+	public String getNotifyDetail(@PathVariable Long nno, Model model) {
 		
 		model.addAttribute("detail", service.select(nno));
 		
+		return "/notify/detail";
 	}
 	
 	@GetMapping("/insert")
@@ -45,14 +46,15 @@ public class NotifyController {
 		
 		service.insert(vo);
 		
-		return "redirect:list";
+		return "redirect:/notify/list";
 	}
 	
-	@GetMapping("/update/#{nno}")
-	public void updateNotify(@PathVariable Long nno, Model model) {
+	@GetMapping("/update/{nno}")
+	public String updateNotify(@PathVariable Long nno, Model model) {
 
 		model.addAttribute("update", service.select(nno));
 		
+		return "/notify/update";
 	}
 	
 	@PostMapping("/update")
@@ -60,15 +62,15 @@ public class NotifyController {
 		
 		service.update(vo);
 		
-		return "redirect:list";
+		return "redirect:/notify/list";
 	}
 	
-	@PostMapping("/delete")
-	public String delete(NotifyVO vo) {
+	@PostMapping("/delete/{nno}")
+	public String delete(@PathVariable Long nno) {
 		
-		service.delete(vo.getNno());
+		service.delete(nno);
 		
-		return "redirect:list";
+		return "redirect:/notify/list";
 	}
 
 }

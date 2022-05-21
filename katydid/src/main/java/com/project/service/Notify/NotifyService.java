@@ -16,4 +16,5 @@ public List<NotifyVO> getList();
 	
 	public void update(NotifyVO vo);
 
+	public List<NotifyVO> getRecentList();
 }

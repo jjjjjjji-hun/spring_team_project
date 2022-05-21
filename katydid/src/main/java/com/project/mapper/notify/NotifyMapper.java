@@ -6,6 +6,7 @@ import com.project.domain.NotifyVO;
 
 public interface NotifyMapper {
 
+	public List<NotifyVO> getRecentList();
 	
 	public List<NotifyVO> getList();
 	

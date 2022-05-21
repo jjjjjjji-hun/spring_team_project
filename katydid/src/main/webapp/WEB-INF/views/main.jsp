@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -195,7 +196,22 @@
     </div>
     <hr/>
     <div class="row-nav2">
-        <div class="col-md-12">이것은 공지사항이다.</div>
+        <div class="col-md-12">
+        	<table border="1" class="table table">
+				<thead>
+					<tr>
+						<th>공지사항</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="list" items="${recentNotifyList}">
+						<tr>
+							<td><a href="/notify/detail/${list.nno}">${list.content}</a></td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+        </div>
         
     </div>
    

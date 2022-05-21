@@ -15,5 +15,7 @@
 			<input type="submit" value="제출"/>&nbsp;&nbsp;&nbsp;<input type="reset" value="초기화"/>
 		</form>
 	</div>
+	
+	<a href="/notify/list" class="hover">글 목록가기</a>
 </body>
 </html>

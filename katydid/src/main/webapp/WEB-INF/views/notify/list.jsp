@@ -32,5 +32,8 @@
 		</tbody>
 	</table>
 	</div>
+	
+	<a href="/notify/insert" class="hover">글쓰기</a>
+	
 </body>
 </html>
