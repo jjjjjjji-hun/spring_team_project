@@ -30,7 +30,7 @@ public class B_reportServicelmpl implements B_reportService {
 	}
 	@Override
 	public void modifyB_report(B_reportVO vo) {
-		b_reportmapper.updateRepoer(vo);
+		b_reportmapper.updateReport(vo);
 	}
 	@Override
 	public void removeB_report(Long b_reno) {

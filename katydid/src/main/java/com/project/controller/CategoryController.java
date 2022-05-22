@@ -179,7 +179,7 @@ public class CategoryController {
 	}
 	
 	// 분류 수정
-	@RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH}, 
+	@RequestMapping(method = {RequestMethod.PUT}, 
 			value="/updateArea", consumes="application/json", 
 			produces = {MediaType.TEXT_PLAIN_VALUE})
 	@ResponseBody
@@ -220,7 +220,7 @@ public class CategoryController {
 	return entity;
 	}
 	
-	@RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH}, 
+	@RequestMapping(method = {RequestMethod.PUT}, 
 			value="/updateSkind", consumes="application/json", 
 			produces = {MediaType.TEXT_PLAIN_VALUE})
 	@ResponseBody

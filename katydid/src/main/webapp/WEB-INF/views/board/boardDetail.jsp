@@ -122,7 +122,7 @@
 		<h1 class="text text=primary">${board.bno}번 게시글 상세 페이지</h1>
 		글 번호 : <input type="text" class="form-control" value="${board.bno}" readonly/>
 		글 제목 : <input type="text" value="${board.title}" readonly/>
-		글쓴이 : <input type="text" value="${board.u_id}" readonly/><br/><br/>
+		글쓴이 : <span class="message">${board.u_id}</span><br/><br/>
 		글 본문 : <textarea rows="15" class="form-control" readonly>${board.content}</textarea>
 		<div class="row">
 			<div class="col-md-6">쓴날짜 : ${board.regdate}&nbsp;&nbsp;&nbsp;</div>
@@ -160,9 +160,13 @@
 				    <div class="modal_close"><a href="#">close</a></div>
 					   <div>
 						  <input type="hidden" value="${board.bno}" name="bno" id="board_bno"/>
-						  
-						  <input type="text" name="reason" id="newB_Reportreason" placeholder="신고사유" class="form-control"/>
-						  <input type="text" name="content" id="newB_ReportContent" placeholder="자세한 신고내용" class="form-control"/>
+						  <select class='lno' required>
+					        <option id="newB_Reportreason" value="" disabled selected>신고사유</option>
+							<option value="거짓말">거짓말</option>
+							<option value="허위">허위</option>
+							<option value="상이한 내용">상이한 내용</option>
+						 </select>
+						<input type="text" name="content" id="newB_ReportContent" placeholder="자세한 신고내용" class="form-control"/>
 					   </div>	
 					    <div>
 							<button type="button" id="final_report"  class="btn btn-warning">글 신고하기</button>  
@@ -172,6 +176,7 @@
 					</div>	 
 				  </div>							   
 			</div>									      
+	      
 	
 </div>													 	   													 																																																						   													   
 	<hr/>			
@@ -235,6 +240,14 @@
 			</div>
 		</div>
 		
+		<!-- 쪽지 모달 -->
+		<div id="MessageModal" style="display:none;">
+			<span class="receiveId" ></span>
+			<input type="text" class="content" />
+			<button type="button" class="send">쪽지 보내기</button>
+			<button type="button" class="close">창닫기</button>
+		</div>
+		
 	
 	
 	
@@ -247,7 +260,6 @@
 	
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	
-   
     <!-- 여기부터 댓글 비동기 처리 자바스크립트 처리 영역 -->
     <script>
       let bno = ${board.bno}; 
@@ -309,7 +321,7 @@
 			// 버튼을 누르는 시점에, 글쓴이와 내용 내부에 적힌 문자열을 변수에 저장합니다. 
 			var replyer = $("#newReplyWriter").val();
 			var reply = $("#newReplyText").val();
-			
+			           
 			// $.ajax({내용물}); 이 기본형태
 			$.ajax({
 				type : 'post',
@@ -366,7 +378,7 @@
 			
 			// 클릭한 버튼과 연계된 li태그의 data-rno에 든 값 가져와 변수 rno에 저장하기
 			var rno = replytag.attr("data-rno");
-		//	console.log(rno);
+		   //	console.log(rno);
 			
 			// rno뿐만 아니라 본문도 가져와야함
 			//var reply = replytag.text();// 내부 text를 가져옴
@@ -486,6 +498,8 @@
 							var reason = $("#newR_reportReason").val();
 							var content = $("#newR_reportContent").val();
 							
+								
+							
 							// $.ajax({내용물}); 이 기본형태
 							$.ajax({
 								type : 'post',
@@ -551,7 +565,11 @@
 				// 폼이 없기때문에, input태그 내에 입력된 요소를 가져와야 합니다.
 				// 버튼을 누르는 시점에, 글쓴이와 내용 내부에 적힌 문자열을 변수에 저장합니다. 
 				var bno = $("#board_bno").val();
-				var reason = $("#newB_Reportreason").val();
+				//var reason = $("#newB_Reportreason").val();
+			            //var replyContent = $(this).prev().text();//button의 직전태그인.reply의 내용물 가져오기
+					//var reason = $(this).siblings(".reply").text();// button의 형제중.reply의 내용물 가져오기
+				
+				var reason =  $("#newR_reportReason").val();
 				var content = $("#newB_ReportContent").val();
 				console.log(bno);
 				// $.ajax({내용물}); 이 기본형태
@@ -579,14 +597,72 @@
 							//getAllList();// 댓글 등록 성공시, 다시 목록 갱신
 							// 폼 태그 비우기.
 							// 힌트 : .val(넣을값);
-						//	$("#newB_Reportreason").val("");
-						//	$("#newB_ReportContent").val("");
+							$("#newB_Reportreason").val("");
+							$("#newB_ReportContent").val("");
+							
 							
 						}
 					}
 				});		
 				
 			});
+			
+		// 메세지 기능
+		$(".message").on("click", function() {
+			console.log($(this).html());
+			$(".receiveId").html($(this).html());
+			$("#MessageModal").show();
+			
+		});
+		
+		$(".send").on("click", function() {
+			sendMessage();
+		});
+	
+		$(".close").on("click", function() {
+			$(".content").val("");
+			$(".receiveId").html("");
+			$("#MessageModal").hide();
+		});
+	
+		function sendMessage() {
+			
+			let content = $(".content").val();
+			let receiveId = $(".receiveId").html();
+			
+			if(!(content)) {
+				alert("보낼 내용을 입력해주세요!");
+				return false;
+			}
+			
+			$.ajax({
+					type : 'post',
+					beforeSend : function(xhr) {
+				        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+				    },
+					url : '/message/send',
+					headers : {
+						"Content-Type" : "application/json",
+						"X-HTTP-Method-Override" : "POST"
+					},
+					dataType : 'text',
+					data : JSON.stringify({
+						receiveId : receiveId,
+						content : content
+					}),
+					success : function(result){
+						if(result == 'SUCCESS'){
+							alert("쪽지가 전달되었습니다.");
+							
+							// 내용 초기화
+							$(".content").val("");
+							$(".receiveId").html("");
+							// 모달 닫힘
+							$(".messageModal").hide();
+						}
+					}
+				});	
+		}
 	
 	
 </script>

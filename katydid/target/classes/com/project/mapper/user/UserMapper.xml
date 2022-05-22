@@ -18,15 +18,16 @@
 		<result property="auth" column="auth" />
 	</resultMap>
 	
+	<select id="selectAllUser" resultMap="userMap">
+		SELECT uno, u_id, upw, uname, pnum
+			FROM user_tbl
+			WHERE u_id=#{u_id}
+	</select>
+	
 	<select id="read" resultMap="userMap">
 		SELECT
 			u.uno, u.u_id, u.upw, u.uname, u.pnum, a.uano, a.auth
-				FROM
-			user_tbl u 
-				JOIN 
-			user_auth_tbl a
-				on
-			u.u_id = a.u_id
+				FROM user_tbl u LEFT OUTER JOIN user_auth_tbl a on u.u_id = a.u_id
 			WHERE u.u_id = #{u_id} 
 	</select>
 	
@@ -44,5 +45,14 @@
 			(user_auth_num.nextval, #{auth.u_id}, #{auth.auth})
 		</foreach>
 	</update>
+	<!-- 
+	<update id="resetDate">
+		UPDATE USER_TBL SET date = sysdate WHERE u_id = #{u_id}
+	</update>
+	
+	<update id="resetBanned">
+		UPDATE USER_TBL SET banned = 0 WHERE u_id = #{u_id}
+	</update>
+	 -->
 	
 </mapper>

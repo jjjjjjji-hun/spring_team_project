@@ -1,32 +1,39 @@
 package com.project.controller;
 
+
+
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.project.domain.PayVO;
-import com.project.service.pay.PayService;
+import com.project.domain.NotifyVO;
+import com.project.service.Notify.NotifyService;
+import com.project.service.board.BoardService;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
 public class HomeController {
+	
+	@Autowired
+	private BoardService service;
+	
+	@Autowired
+	private NotifyService notifyservice;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -42,9 +49,17 @@ public class HomeController {
 		
 		String formattedDate = dateFormat.format(date);
 		
+		List<NotifyVO> vo = notifyservice.getRecentList();
+		
+		model.addAttribute("recentNotifyList", vo);
 		model.addAttribute("serverTime", formattedDate );
 		
 		return "main";
+	}
+	
+	@GetMapping("/chatting")
+	public String chat(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		return "chat";
 	}
 	
 }

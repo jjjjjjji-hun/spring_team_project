@@ -10,6 +10,47 @@
 </head>
 <body>
     
+    
+    <h1>댓글 신고리스트</h1>
+       ${r_reportList}
+     <div class="container">   
+       <table border="1" class="table table">
+		<thead>
+			<tr>
+				<th>신고 번호</th>
+				<th>댓글 번호</th>
+				<th>신고 사유</th>
+				<th>신고 상세내용</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="r_report" items="${r_reportList}">
+				<tr>
+					<td>${r_report.r_reno}</td>
+					<td>${r_report.rno}</td>
+					<td>${r_report.reason}</td>
+					<td><a href="/R_report/list/${r_report.r_reno}">${r_report.content}</a></td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+	<!--  <a href="/R_report/insert" class="btn btn-success">글쓰기</a><br/>-->
+	</div>
+	
+	
+	
+	
+	<!--  -->
+	<!--  -->
+	<!--  -->
+	<!--  -->
+	
+	
+	
+    
+    
+    
+    
 	 <ul id="replies">
 	
 		</ul>
