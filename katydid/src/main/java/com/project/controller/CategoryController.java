@@ -15,12 +15,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.domain.AreaVO;
 import com.project.domain.CategoryVO;
 import com.project.domain.L_kindVO;
 import com.project.domain.S_kindVO;
 import com.project.service.category.CategoryService;
+import com.project.service.store.StoreService;
 
 import lombok.extern.log4j.Log4j;
 
@@ -31,6 +33,9 @@ public class CategoryController {
 
 	@Autowired
 	private CategoryService categoryservice;
+	
+	@Autowired
+	private StoreService storeservice;
 	
 	@GetMapping("/list")
 	public String categoryList(Model model) {
@@ -48,7 +53,7 @@ public class CategoryController {
 	
 	
 	@GetMapping("/test")
-	public String categoryTest(Model model) {
+	public String categoryTest(Long stno, Model model) {
 		model.addAttribute("areaList", categoryservice.getAreaList());
 		
 		model.addAttribute("l_kindList", categoryservice.getLkindList());
@@ -56,6 +61,8 @@ public class CategoryController {
 		model.addAttribute("s_kindList", categoryservice.getSkindList());
 		
 		model.addAttribute("categoryList", categoryservice.getCategoryList());
+		
+		model.addAttribute("menuList", storeservice.listMenu(stno));
 		return "category/categoryTest";
 	}
 	
@@ -175,6 +182,7 @@ public class CategoryController {
 	@RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH}, 
 			value="/updateArea", consumes="application/json", 
 			produces = {MediaType.TEXT_PLAIN_VALUE})
+	@ResponseBody
 	public ResponseEntity<String> modify (@RequestBody AreaVO areavo) {
 	
 		ResponseEntity<String> entity = null;
@@ -195,6 +203,7 @@ public class CategoryController {
 	@RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH}, 
 			value="/updateLkind", consumes="application/json", 
 			produces = {MediaType.TEXT_PLAIN_VALUE})
+	@ResponseBody
 	public ResponseEntity<String> modify (@RequestBody L_kindVO lkindvo) {
 	
 		ResponseEntity<String> entity = null;
@@ -214,6 +223,7 @@ public class CategoryController {
 	@RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH}, 
 			value="/updateSkind", consumes="application/json", 
 			produces = {MediaType.TEXT_PLAIN_VALUE})
+	@ResponseBody
 	public ResponseEntity<String> modify (@RequestBody S_kindVO skindvo) {
 	
 		ResponseEntity<String> entity = null;
@@ -231,4 +241,24 @@ public class CategoryController {
 	return entity;
 	}
 	
+	@RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH}, 
+			value="/updateCategory", consumes="application/json", 
+			produces = {MediaType.TEXT_PLAIN_VALUE})
+	@ResponseBody
+	public ResponseEntity<String> modify (@RequestBody CategoryVO categoryvo) {
+	
+		ResponseEntity<String> entity = null;
+		
+		try {
+			log.info("수정 vo : " + categoryvo);
+			categoryservice.updateCategory(categoryvo);
+			
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	
+	return entity;
+	}
 }

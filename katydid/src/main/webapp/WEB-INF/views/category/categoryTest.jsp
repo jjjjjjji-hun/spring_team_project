@@ -132,7 +132,15 @@
 			    </tr>
 			  </thead>
 			  <tbody>
-			  	<c:forEach var="i" begin="0" end="4">
+			  <tr>
+			  	<th id="itemName">
+			  	</th>
+			  	<td id="price">
+			  	</td>
+			  	<td id="checkBox">
+
+			  	</td>
+			  </tr>
 				    <tr>
 				      <th scope="row"><textarea id="items" rows="2" cols="8"></textarea></th>
 				      <td><textarea id="amount" rows="2" cols="8"></textarea></td>
@@ -145,7 +153,6 @@
 						</div>
 				      </td>
 				    </tr>
-				</c:forEach>
 			  </tbody>
 			</table>
         </div>
@@ -209,12 +216,17 @@
 		
 		// 식당 등록 후 -> 메뉴 등록할 시
 		$("#menu").on("click", function(){
+			let regex = /[^0-9]/g;
+			
 			let strSname = $("#message-sname").val();
 			let strAddress = $("#message-address").val();
-			let strSpnum = $("#message-spnum").val();
-			$('#category4').html(strSname);
-			$('#category5').html(strAddress);
-			$('#category6').html(strSpnum);
+			let strSpnum = $("#message-spnum").val().replace(regex, "");;
+			
+			if(strSpnum != ""){
+				$('#category4').html(strSname);
+				$('#category5').html(strAddress);
+				$('#category6').html(strSpnum);
+			}
 			
 			console.log(strSname);
 			console.log(strAddress);
@@ -260,20 +272,35 @@
 				error : function(result){
 					if(result != 'SUCCESS'){
 						alert("다시 등록해주세요.");
+						strSname = $("#message-sname").val("");
+						strAddress = $("#message-address").val("");
+						strSpnum = $("#message-spnum").val("");
 					}
 				}
 			});
 			
 		});
-		
+		let count = 0;
 		// 메뉴 등록하고 버튼 클릭시
 		$("#menuAddBtn").on("click", function(){
+			let regex = /[^0-9]/g;
+
 			let strmenuName = $("#items").val();
-			let strAmount = $("#amount").val();
+			let strAmount = $("#amount").val().replace(regex, "");
 			let represent = $("input[type='checkbox']").is(":checked");
-			console.log(strmenuName);
-			console.log(strAmount);
-			console.log(represent);
+			
+			
+			
+			if(strAmount != ""){
+			$("#itemName").append(strmenuName + "<br/>");
+			$("#price").append(strAmount + "<br/>");
+				if($("input[type='checkbox']").is(":checked")==true){
+					$("#checkBox").append("대표상품 <br/>"); 
+					
+				}else if($("input[type='checkbox']").is(":checked")==false){
+					$("#checkBox").append("일반상품 <br/>");
+				}
+			}
 			
 			$.ajax({
 				type : 'post',
@@ -292,9 +319,15 @@
 					represent : represent
 				}),
 				success : function(result){
-					if(result == 'SUCCESS'){
+					if(result == 'SUCCESS' && strAmount != ""){
 						alert("등록 되었습니다.");
 						// 폼 태그 비우기.
+						strmenuName = $("#items").val("");
+						strAmount = $("#amount").val("");
+						represent = $("input:checkbox[id='flexCheckDefault']").prop("checked", false);
+						count += 1;
+					}else{
+						alert("다시 등록해주세요.");
 						strmenuName = $("#items").val("");
 						strAmount = $("#amount").val("");
 						represent = $("input:checkbox[id='flexCheckDefault']").prop("checked", false);
@@ -311,13 +344,17 @@
 		// 대표 상품 여부 체크 제한
 		$(document).ready(function(){
 			$("input[type='checkbox']").on("click", function(){
-				let count = $("input:checked[type='checkbox']").length;
-				
-				if(count > 3){
+				//let count = $("input:checked[type='checkbox']").length;
+				//count = $("#checkBox").val("대표상품").length;
+				if(count > 2){
 					$(this).prop("checked", false);
 					alert("3개까지만 선택할 수 있습니다.");
 				}
 			});
+		});
+		
+		$("#submitBtn").on("click", function(){
+			location.reload();
 		});
 		
 	</script>
