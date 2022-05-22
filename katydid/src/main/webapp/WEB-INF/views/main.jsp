@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,7 +39,7 @@
     }
     .col-md-4{
         margin-top: 30px;
-        text-align: left;
+        text-align: center;
         padding: 10px;
     }
 
@@ -52,16 +53,16 @@
 
 
     #container {
-      width: 1400px;
+      width: 1500px;
       margin: 0px auto;
       padding: 20px;
     }
     #container2 {
-      width: 1400px;
+      width: 1500px;
     
     }
     #container3 {
-      width: 1400px;
+      width: 1500px;
     
     }
     .h1 {
@@ -69,24 +70,23 @@
     }
 
     #sidebar-left {
-      width: 140px;
+      width: 120px;
       padding: 20px;
       margin-right: 10px;
-      margin-top: 10px;
       margin-bottom: 20px;
       float: left;
     }
     #content {
-      width: 300px;
+      width: 400px;
       padding: 10px;
       margin-bottom: 20px;
-      margin-left: 20px;
+      margin-left: 40px;
       margin-right: 40px;
       float: left;
       border: 1px solid #bcbcbc;
     }
     #content2 {
-      width: 300px;
+      width: 400px;
       padding: 10px;
       margin-bottom: 20px;
       margin-right: 40px;
@@ -95,7 +95,7 @@
     }
 
     #content3 {
-      width: 300px;
+      width: 400px;
       padding: 10px;
       margin-bottom: 20px;
       margin-right: 40px;
@@ -103,7 +103,7 @@
       border: 1px solid #bcbcbc;
     }
     #content4 {
-      width: 300px;
+      width: 400px;
       padding: 10px;
       margin-bottom: 20px;
       margin-left: 170px;
@@ -112,7 +112,7 @@
       border: 1px solid #bcbcbc;
     }
     #content5 {
-      width: 300px;
+      width: 400px;
       padding: 10px;
       margin-bottom: 20px;
       margin-right: 40px;
@@ -120,7 +120,7 @@
       border: 1px solid #bcbcbc;
     }
     #content6 {
-      width: 300px;
+      width: 400px;
       padding: 10px;
       margin-bottom: 20px;
       margin-right: 40px;
@@ -134,6 +134,16 @@
 
     .footer { text-align: center; clear : both;} 
   </style>
+  <script>
+      $(()=>{
+        $(".hover").hover(function(){
+                    $(this).css("color", "red");
+                }, function(){
+                    $(this).css("color", "red");
+                });
+
+        });
+  </script>
 </head>
 <body>
 
@@ -146,12 +156,16 @@
         </div>
         <div class="col-md-4">
             <form action="/login" method="post">
-				<input type="text" name="username" value="" placeholder="ID"/><br/>
-				<input type="password" name="password" value="" placeholder="PW"/><br/>
+				<input type="text" name="username" value="" placeholder="ID"/>
+				<input type="password" name="password" value="" placeholder="PW"/>
 				<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-				&emsp;&emsp;<input type="submit" class="btn btn-light" value="Login" />
-				<button type="button" class="btn btn-light" onclick="location.href='/user/join' ">Sign_up</button>
+				<input type="submit" class="btn btn-light" value="Login" />
 			</form>
+			
+                <a href="/user/join">회원가입</a>
+            
+            
+
         </div>
     </div>
     <hr/>
@@ -173,10 +187,8 @@
                         <option value="tcw" ${pageMaker.cri.searchType eq 'tcw' ? 'selected' : '' }>제목+본문+글쓴이</option>
                     </select>
                     <input type="text" name="keyword" placeholder="검색어" value="${pageMaker.cri.keyword }">
-                    <input type="submit" class="btn btn-outline-secondary" value="검색하기">&nbsp;
-                    <button type="button" class="btn btn-outline-danger" onclick="location.href='#' ">공지사항</button>&nbsp;
-                    <button type="button" class="btn btn-secondary" onclick="location.href='/category/test' ">맛집등록</button>
-                    
+                    <input type="submit" value="검색하기">&emsp;
+                            <a href="/notify/list" class="hover">공지사항</a>&emsp;<a href="#" class="hover">맛집등록</a>
                     
                 </form>
             </div>
@@ -184,7 +196,22 @@
     </div>
     <hr/>
     <div class="row-nav2">
-        <div class="col-md-12">이것은 공지사항이다.</div>
+        <div class="col-md-12">
+        	<table border="1" class="table table">
+				<thead>
+					<tr>
+						<th>공지사항</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="list" items="${recentNotifyList}">
+						<tr>
+							<td><a href="/notify/detail/${list.nno}">${list.content}</a></td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+        </div>
         
     </div>
    
@@ -193,41 +220,67 @@
   <div id="container">
     
     <div id="sidebar-left">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+        &ensp;Area&nbsp;
+        </button>
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                <li><a class="dropdown-item" href="#">압구정</a></li>
+                <li><a class="dropdown-item" href="#">논현동</a></li>
+                <li><a class="dropdown-item" href="#">역삼동</a></li>
+                <li><a class="dropdown-item" href="#">이태원</a></li>
+            </ul><br/>
     
-    <button type="button" class="btn btn-secondary" onclick="location.href='/board/list' ">&nbsp;F O O D</button>
-    <br/>
-    <br/>
-    <button type="button" class="btn btn-secondary" onclick="location.href='/board/list' ">TRAVEL</button>
-    
+        <br/>
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+        &ensp;Food
+        </button>
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                <li><a class="dropdown-item" href="#">한식</a></li>
+                <li><a class="dropdown-item" href="#">일식</a></li>
+                <li><a class="dropdown-item" href="#">중식</a></li>
+            </ul><br/>
+        
+            <br/>
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+        Travel
+        </button>
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                <li><a class="dropdown-item" href="#">압구정</a></li>
+                <li><a class="dropdown-item" href="#">논현동</a></li>
+                <li><a class="dropdown-item" href="#">역삼동</a></li>
+                <li><a class="dropdown-item" href="#">이태원</a></li>
+            </ul>
     </div>
     
     <div id="container2">
+        <h4>&emsp;&ensp;<a href="/user/join">맛집보러가기</a></h4>
         <div id="content">
         <h2>Content</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies. Mauris id odio pretium, sollicitudin sapien eget, adipiscing risus.</p>
         </div>
         <div id="content2">
             <h2>Content</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies. Mauris id odio pretium, sollicitudin sapien eget, adipiscing risus.</p>
         </div>
         <div id="content3">
             <h2>Content</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies. Mauris id odio pretium, sollicitudin sapien eget, adipiscing risus.</p>
         </div>
     </div>
 
     <div id="container3">
+        <h4>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a href="/user/join">숙박보러가기</a></h4>
         <div id="content4">
             <h2>Content</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies. Mauris id odio pretium, sollicitudin sapien eget, adipiscing risus.</p>
         </div>
         <div id="content5">
             <h2>Content</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies. Mauris id odio pretium, sollicitudin sapien eget, adipiscing risus.</p>
         </div>
         <div id="content6">
             <h2>Content</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies. Mauris id odio pretium, sollicitudin sapien eget, adipiscing risus.</p>
         </div>
     </div>
   </div>
