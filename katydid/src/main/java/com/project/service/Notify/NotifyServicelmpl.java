@@ -3,10 +3,12 @@ package com.project.service.Notify;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.project.domain.NotifyVO;
 import com.project.mapper.notify.NotifyMapper;
 
+@Service
 public class NotifyServicelmpl implements NotifyService  {
 
 	
@@ -16,7 +18,6 @@ public class NotifyServicelmpl implements NotifyService  {
 	
 	@Override
 	public List<NotifyVO> getList() {
-		// TODO Auto-generated method stub
 		return notifymapper.getList();
 	}
 
@@ -45,6 +46,12 @@ public class NotifyServicelmpl implements NotifyService  {
 		
 		notifymapper.update(vo);
 		
+	}
+
+	@Override
+	public List<NotifyVO> getRecentList() {
+		
+		return notifymapper.getRecentList();
 	}
 
 }

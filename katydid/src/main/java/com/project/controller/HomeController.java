@@ -4,6 +4,7 @@ package com.project.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.project.domain.NotifyVO;
+import com.project.service.Notify.NotifyService;
 import com.project.service.board.BoardService;
 
 /**
@@ -27,7 +30,10 @@ import com.project.service.board.BoardService;
 public class HomeController {
 	
 	@Autowired
-	BoardService service;
+	private BoardService service;
+	
+	@Autowired
+	private NotifyService notifyservice;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -43,6 +49,9 @@ public class HomeController {
 		
 		String formattedDate = dateFormat.format(date);
 		
+		List<NotifyVO> vo = notifyservice.getRecentList();
+		
+		model.addAttribute("recentNotifyList", vo);
 		model.addAttribute("serverTime", formattedDate );
 		
 		return "main";

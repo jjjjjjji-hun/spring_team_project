@@ -527,10 +527,10 @@
 				let value = $("#value").val();
 				
 				let params = {
-						type : 'patch',
+						type : 'put',
 						headers : {
 							"Content-Type" : "application/json",
-							"X-HTTP-Method-Overrride" : "PATCH"
+							"X-HTTP-Method-Overrride" : "PUT"
 						},
 						contentType: "application/json",
 						dataType : 'text',

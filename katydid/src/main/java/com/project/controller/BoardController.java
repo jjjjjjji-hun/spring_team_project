@@ -79,7 +79,7 @@ public class BoardController {
 		log.info("들어온 데이터 디버깅 : " + vo);
 		service.insert(vo, stvo);
 			
-		return "redirect:list/";
+		return "redirect:list";
 	}
 	
 	@PostMapping("/delete")
