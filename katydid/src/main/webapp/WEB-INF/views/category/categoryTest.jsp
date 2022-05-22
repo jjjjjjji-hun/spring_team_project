@@ -321,11 +321,14 @@
 				success : function(result){
 					if(result == 'SUCCESS' && strAmount != ""){
 						alert("등록 되었습니다.");
+						if(represent == true){
+							count += 1;
+						}
 						// 폼 태그 비우기.
 						strmenuName = $("#items").val("");
 						strAmount = $("#amount").val("");
 						represent = $("input:checkbox[id='flexCheckDefault']").prop("checked", false);
-						count += 1;
+						
 					}else{
 						alert("다시 등록해주세요.");
 						strmenuName = $("#items").val("");
@@ -346,6 +349,7 @@
 			$("input[type='checkbox']").on("click", function(){
 				//let count = $("input:checked[type='checkbox']").length;
 				//count = $("#checkBox").val("대표상품").length;
+				console.log(count);
 				if(count > 2){
 					$(this).prop("checked", false);
 					alert("3개까지만 선택할 수 있습니다.");
