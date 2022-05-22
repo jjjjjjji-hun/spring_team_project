@@ -7,4 +7,8 @@
 		INSERT INTO pay_tbl(pno, mno, u_id, merchant_uid, regdate)
 				VALUE (pay_num.nextval, #{mno}, #{u_id}, #{merchant_uid}, SYSDATE)
 	</insert>
+	
+	<select id="getMenuList" resultType="com.project.domain.MenuVO">
+		SELECT * FROM menu_tbl WHERE stno = #{stno} ORDER BY mno DESC
+	</select>
 </mapper>
