@@ -3,10 +3,51 @@
 	"http:/mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.mapper.R_report.R_reportMapper">
 
+<sql id="search">
+		<if test="searchType != null">
+				<if test="searchType == 't'.toString()">
+					(TITLE like '%'||#{keyword}||'%') AND
+				</if>
+				<if test="searchType == 'c'.toString()">
+					(CONTENT like '%'||#{keyword}||'%') AND
+				</if>
+				<if test="searchType == 'w'.toString()">
+					(WRITER like '%'||#{keyword}||'%') AND
+				</if>
+				<if test="searchType == 'tc'.toString()">
+					((TITLE like '%'||#{keyword}||'%') 
+					OR
+					(CONTENT like '%'||#{keyword}||'%')) AND
+				</if>
+				<if test="searchType == 'cw'.toString()">
+					((CONTENT like '%'||#{keyword}||'%') 
+					OR
+					(WRITER like '%'||#{keyword}||'%')) AND
+				</if>
+				<if test="searchType == 'tcw'.toString()">
+					((TITLE like '%'||#{keyword}||'%') 
+					OR
+					(CONTENT like '%'||#{keyword}||'%')
+					OR
+					(WRITER like '%'||#{keyword}||'%')) AND
+				</if>
+			</if>
+	</sql>
 
 <!-- 신고 -->
 	<select id="getAllR_reportList" resultType="com.project.domain.R_reportVO">
-		 SELECT * FROM r_report_tbl
+		<!--  SELECT * FROM r_report_tbl--> 
+		  <![CDATA[
+			SELECT * FROM
+				(SELECT /*+ INDEX_DESC(r_report_tbl pk_r_report) */
+				rownum rn, r_report_tbl.* FROM r_report_tbl WHERE
+			]]>	
+			
+				<include refid="search"></include>
+		<![CDATA[		
+				 rownum <= #{pageEnd})
+					WHERE rn > #{pageStart}
+		]]>
 		
 	</select>
 	
@@ -34,4 +75,18 @@
 	<delete id="deleteALLReport">
 		DELETE FROM r_report_tbl WHERE rno = #{rno}
 	</delete>
+	
+	<select id="countPageNum" resultType="int">
+	<![CDATA[
+		SELECT COUNT(*) FROM r_report_tbl WHERE
+		]]>
+			<include refid="search"></include>
+		<![CDATA[	
+			r_reno > 0
+			]]>
+	</select>
+	
+	
+	
+	
 </mapper>

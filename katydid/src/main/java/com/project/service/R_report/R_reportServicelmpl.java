@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.domain.B_reportVO;
 import com.project.domain.R_reportVO;
+import com.project.domain.SearchCriteria;
 import com.project.mapper.R_report.R_reportMapper;
 import com.project.mapper.board.BoardMapper;
 import com.project.service.reply.ReplyServiceImpl;
@@ -52,9 +54,16 @@ public class R_reportServicelmpl implements R_reportService{
 		}
 
 		@Override
-		public List<R_reportVO> getAllR_reportList() {
+		public List<R_reportVO> getAllR_reportList(SearchCriteria cri) {
 			
-			return r_reportmapper.getAllR_reportList();
+			return r_reportmapper.getAllR_reportList(cri);
 		}
 
+		@Override
+		public int countPageNum(SearchCriteria cri) {
+			
+			return r_reportmapper.countPageNum(cri);
+		}
+
+	
 }

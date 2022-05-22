@@ -1,5 +1,6 @@
 package com.project.controller;
 
+import java.security.Principal;
 import java.security.Provider.Service;
 import java.util.List;
 
@@ -27,6 +28,7 @@ import com.project.domain.R_reportVO;
 import com.project.domain.SearchCriteria;
 import com.project.service.B_report.B_reportService;
 import com.project.service.R_report.R_reportService;
+import com.project.service.category.CategoryService;
 
 import lombok.extern.log4j.Log4j;
 
@@ -40,6 +42,9 @@ public class B_reportController {
 	@Autowired
 	private B_reportService service;
 	
+	@Autowired
+	private CategoryService categoryservice;
+	
 	
 	//게시판 신고
 	//insert
@@ -47,9 +52,12 @@ public class B_reportController {
 				produces= {MediaType.TEXT_PLAIN_VALUE})
 		@ResponseBody
 				public ResponseEntity<String> register
-					(@RequestBody B_reportVO vo){
+					(@RequestBody B_reportVO vo, Principal principal){
 				ResponseEntity<String> entity = null;
 				log.info("입력전 : " + vo.getBno());
+				log.info(principal.getName());
+				vo.setReportId(principal.getName());
+				
 				try {
 				service.addB_report(vo);
 				entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
@@ -77,13 +85,19 @@ public class B_reportController {
 		
 		// 게시판 신고 목록 조회
 		@GetMapping("/B_relist")
-		public String getList(Model model) {
+		public String getList(SearchCriteria cri, Model model) {
 			
-			List<B_reportVO> b_reportList = service.getAllB_reportList();
+			List<B_reportVO> b_reportList = service.getAllB_reportList(cri);
 			
 			model.addAttribute("b_reportList", b_reportList );
 		
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCri(cri);
+			pageMaker.setTotalBoard(service.countPageNum(cri));
 			
+			model.addAttribute("pageMaker", pageMaker);
+			log.info("b_reportList");
+			System.out.println("리스트 : " + b_reportList);
 			return "B_report/brlist";
 			
 		}
@@ -181,6 +195,46 @@ public class B_reportController {
 			
 			return "redirect:list/" + vo.getB_reno();
 		}
+		
+		
+		
+		
+		
+		  // 게시판 댓글 관리차 체크 업데이트
+		@RequestMapping(method= {RequestMethod.PUT, RequestMethod.PATCH},
+		         value="/checkUpdate/{b_reno}",
+		         consumes="application/json",
+		         produces= {MediaType.TEXT_PLAIN_VALUE})
+       public ResponseEntity<String> modify (
+    		   @PathVariable("b_reno") Long b_reno){
+    	   
+    	   ResponseEntity<String> entity = null;
+    	   
+    	   try {
+    		   B_reportVO vo = new B_reportVO();
+    		   vo.setB_reno(b_reno);
+    		   
+    		   vo.setVerified(1);
+    		   log.info("확인할 게시글 신고 번호 : " + b_reno);
+    		   
+    		   service.checkUpdate(vo);
+    		   entity = new ResponseEntity<String>(
+    				   "SUCCESS",HttpStatus.OK);
+    	   }catch (Exception e) {
+    		  
+    		   e.printStackTrace();
+    		   entity = new ResponseEntity<String>(
+    				   e.getMessage(), HttpStatus.BAD_REQUEST);
+    				   
+    				   
+    	   }
+    	   return entity;
+    	   
+       }
+       
+		
+		
+		
 		
 		
 		

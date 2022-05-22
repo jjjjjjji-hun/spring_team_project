@@ -2,7 +2,9 @@ package com.project.mapper.R_report;
 
 import java.util.List;
 
+import com.project.domain.B_reportVO;
 import com.project.domain.R_reportVO;
+import com.project.domain.SearchCriteria;
 
 public interface R_reportMapper {
 
@@ -26,7 +28,9 @@ public interface R_reportMapper {
 	public void deleteAllReport(Long rno);
 	
 	//신고리스트 가져오기
-	public List<R_reportVO> getAllR_reportList();
+	public List<R_reportVO> getAllR_reportList(SearchCriteria cri);
+	
+	public int countPageNum(SearchCriteria cri);
 	
 	
 }

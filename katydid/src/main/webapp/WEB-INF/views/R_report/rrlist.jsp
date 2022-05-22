@@ -38,19 +38,45 @@
 	</div>
 	
 	
+	<!-- 페이지네이션 -->
+	 <!-- 이전 페이지 버튼 보일지 결정하는 부분 -->
+  	  <ul class="pagination justify-content-center">
+		  	<c:if test="${pageMaker.prev }">
+		    	<li class="page-item">
+		    		<a class="page-link" href="/R_report/R_relist?pageNum=${pageMaker.startPage -1}&searchType=${pageMaker.cri.searchType }&keyword=${pageMaker.cri.keyword}">
+		    		&laquo;
+		    		</a>
+		    	</li>
+		    </c:if>
+		  
+		    <!-- 밑에 깔아줄 버튼들 -->
+		      <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
+		    	<li class="page-item${pageMaker.cri.pageNum eq idx ? ' active' : '' }">
+		    		<a class="page-link" href="/R_report/R_relist?pageNum=${idx}&searchType=${pageMaker.cri.searchType }&keyword=${pageMaker.cri.keyword}">
+		    			${idx}
+		    		</a>
+		    	</li>
+		    </c:forEach>
+		    
+		    <c:if test="${pageMaker.next && pageMaker.endPage > 0 }">
+		    	<li class="page-item">
+		    		<a class="page-link" href="/R_report/R_relist?pageNum=${pageMaker.endPage + 1}&searchType=${pageMaker.cri.searchType }&keyword=${pageMaker.cri.keyword}">
+		    			&raquo;
+		    		</a>
+		    	</li>
+		    </c:if>
+		  </ul>
 	
 	
-	<!--  -->
-	<!--  -->
-	<!--  -->
-	<!--  -->
 	
-	
-	
+    	<button type="button" class="btn btn-primary"onclick="location.href='http://localhost:8181/user/admin'">어드민페이지</button>
     
+     <!-- jquery cdn 가져오기 -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     
-    
-    
+   
 	 <ul id="replies">
 	
 		</ul>
@@ -60,7 +86,7 @@
      // let r_reno = $r_report.r_reno}; 
        
    // 전체 댓글 가져오기
-		function getAllList(){
+/*		    function getAllList(){
 			// $.getJSON은 입력한 주소에 get방식으로 요청을 넣습니다.
 						// 주소   			  // 콜백함수 주소 요청으로 얻어온 json을 어떻게 처리할지
 			$.getJSON("/R_report/all/", function(data){
@@ -91,7 +117,7 @@
 			});
 		}		
 		getAllList();// 댓글 전체 들고와서 #replies에 심어주는 로직 실행
-		
+		*/
 	</script>
 	
 </body>
