@@ -86,6 +86,13 @@
 			]]>
 	</select>
 	
+	<!-- 관리자 체크 업데이트 -->
+	<update id="checkUpdate">
+		UPDATE r_report_tbl SET verified = #{verified} WHERE r_reno= #{r_reno}
+	</update>
+	
+	
+	
 	
 	
 	
