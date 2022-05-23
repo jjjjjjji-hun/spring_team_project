@@ -3,6 +3,12 @@
 	"http:/mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.mapper.notify.NotifyMapper">
 
+    <select id="getRecentList" resultType="com.project.domain.NotifyVO">
+		SELECT * FROM notify_tbl where regdate 
+			BETWEEN TO_DATE (sysdate-7)
+				AND TO_DATE (sysdate) + 0.9999
+	</select>
+	
    <select id="getList" resultType="com.project.domain.NotifyVO">
 		SELECT * FROM notify_tbl
 	</select>
