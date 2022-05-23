@@ -65,5 +65,11 @@ public class R_reportServicelmpl implements R_reportService{
 			return r_reportmapper.countPageNum(cri);
 		}
 
+		@Override
+		public void checkUpdate(R_reportVO vo) {
+			r_reportmapper.checkUpdate(vo);
+			
+		}
+
 	
 }

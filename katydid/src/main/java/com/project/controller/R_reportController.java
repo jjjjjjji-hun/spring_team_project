@@ -27,6 +27,7 @@ import com.project.domain.ReplyVO;
 import com.project.domain.SearchCriteria;
 import com.project.domain.StoreVO;
 import com.project.service.R_report.R_reportService;
+import com.project.service.category.CategoryService;
 
 import lombok.extern.log4j.Log4j;
 
@@ -37,6 +38,11 @@ public class R_reportController {
 	
 	@Autowired
 	private R_reportService service;
+	
+	
+	
+	@Autowired
+	private CategoryService categoryservice;
 	
 /*	
 	// 댓글신고 작성
@@ -210,6 +216,41 @@ public class R_reportController {
 			
 			return "redirect:list/" + vo.getR_reno();
 		}
+		
+
+		  // 게시판 댓글 관리자 체크 업데이트
+		@RequestMapping(method= {RequestMethod.PUT, RequestMethod.PATCH},
+		         value="/checkUpdate/{r_reno}",
+		         consumes="application/json",
+		         produces= {MediaType.TEXT_PLAIN_VALUE})
+     public ResponseEntity<String> modify (
+  		   @PathVariable("r_reno") Long r_reno){
+  	   
+  	   ResponseEntity<String> entity = null;
+  	   
+  	   try {
+  		   R_reportVO vo = new R_reportVO();
+  		   vo.setR_reno(r_reno);
+  		   
+  		   vo.setVerified(1);
+  		   log.info("확인할 게시글 신고 번호 : " + r_reno);
+  		   
+  		   service.checkUpdate(vo);
+  		   entity = new ResponseEntity<String>(
+  				   "SUCCESS",HttpStatus.OK);
+  	   }catch (Exception e) {
+  		  
+  		   e.printStackTrace();
+  		   entity = new ResponseEntity<String>(
+  				   e.getMessage(), HttpStatus.BAD_REQUEST);
+  				   
+  				   
+  	   }
+  	   return entity;
+  	   
+     }
+     
+		
 		
 		
 }

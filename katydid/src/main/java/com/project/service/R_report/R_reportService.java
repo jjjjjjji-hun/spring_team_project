@@ -26,6 +26,10 @@ public interface R_reportService {
 		
 		
 	public int countPageNum(SearchCriteria cri);
+	
+	//관리자 체크 업데이트
+	  public void checkUpdate(R_reportVO vo);
+
 		
 	
 		

@@ -200,7 +200,7 @@ public class B_reportController {
 		
 		
 		
-		  // 게시판 댓글 관리차 체크 업데이트
+		  // 게시판 댓글 관리자 체크 업데이트
 		@RequestMapping(method= {RequestMethod.PUT, RequestMethod.PATCH},
 		         value="/checkUpdate/{b_reno}",
 		         consumes="application/json",
