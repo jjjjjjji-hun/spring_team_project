@@ -38,6 +38,19 @@
 		z-index:1000;
 		}
 		
+	#modDiv3{
+		width: 450px;
+		height: 100px;
+		background-color: green;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin-top: -50px;
+		margin-left: -150px;
+		padding:10px;
+		z-index:1000;
+		}
+		
 	#categoryModDiv{
 		position: absolute;
 		top: 50%;
@@ -65,12 +78,12 @@
   </thead>
   <tbody>
   	<c:forEach var="area" items="${areaList}">
-    	<tr>
-    	  <th scope="row">
+    	<tr class="areaClass">
+    	  <th scope="row" data-areaNum="${area.ano }">
       		${area.ano }
      	 </th>
      	 <td>
-      		<strong class=ward>${area.ward }</strong>
+      		<strong id=area_ward>${area.ward }</strong>
      	 </td>
      	 <td>
       		<button type="button" class="areaModBtn">Modify</button>&nbsp;&nbsp;
@@ -94,12 +107,12 @@
   </thead>
   <tbody>
   	<c:forEach var="l_kind" items="${l_kindList}">
-    	<tr>
-    	  <th scope="row">
+    	<tr class="l_kindClass">
+    	  <th scope="row" data-lkindNum="${l_kind.lno }">
       		${l_kind.lno }
      	 </th>
      	 <td>
-      		<strong class=k_group>${l_kind.k_group }</strong>
+      		<strong id=l_kind_k_group>${l_kind.k_group }</strong>
      	 </td>
      	 <td>
       		<button type="button" class="lkindModBtn">Modify</button>&nbsp;&nbsp;
@@ -124,15 +137,15 @@
   </thead>
   <tbody>
   	<c:forEach var="s_kind" items="${s_kindList}">
-    	<tr>
-    	  <th scope="row">
+    	<tr class="s_kindClass">
+    	  <th scope="row" data-skindNum="${s_kind.sno }">
       		${s_kind.sno }
      	 </th>
      	 <td>
-      		<strong class=ward>${s_kind.s_class }</strong>
+      		<strong id=s_kind_s_class>${s_kind.s_class }</strong>
      	 </td>
      	 <td>
-      		<strong class=k_group>${s_kind.k_group }</strong>
+      		<strong id=s_kind_k_group>${s_kind.k_group }</strong>
      	 </td>
      	 <td>
       		<button type="button" class="skindModBtn">Modify</button>&nbsp;&nbsp;
@@ -157,15 +170,15 @@
   </thead>
   <tbody>
   	<c:forEach var="category" items="${categoryList}">
-    	<tr>
-    	  <th scope="row">
+    	<tr class="categoryClass">
+    	  <th scope="row" data-categoryNum="${category.cno }">
       		${category.cno }
      	 </th>
      	 <td>
-      		<strong class=ward>${category.c_class }</strong>
+      		<strong id=category_c_class>${category.c_class }</strong>
      	 </td>
      	 <td>
-      		<strong class=ward>${category.ward }</strong>
+      		<strong id=category_ward>${category.ward }</strong>
      	 </td>
      	 <td>
       		<button type="button" class="categoryModBtn">Modify</button>&nbsp;&nbsp;
@@ -283,18 +296,29 @@
 		<div>
 			<input type="hidden" class="num" />
 			<c:if test="true">
-				<select class='lno' required>
-					<option value="" disabled selected>대분류 구분</option>
-					<c:forEach var="l_kind" items="${l_kindList}">
-						<option value='${l_kind.lno }' ${l_kind.lno eq lno ? 'selected' : ''}>${l_kind.k_group }</option>
-					</c:forEach> 
-				</select>
-			</c:if>
+				<input type="text" class="lno" />
+			</c:if>			
+			
 			<input type="text" id="value2" />
 		</div>
 		<div>
 			<button type="button" id="ModBtn2">Modify</button>
 			<button type="button" id="closeBtn2">Close</button>
+		</div>
+	</div>
+	
+	<!-- 카테고리 modify 버튼 누를때 -->
+	<div id="modDiv3" style="display:none;">
+		<div>
+			<input type="hidden" class="num" />
+			<c:if test="true">
+				<input type="text" class="sno" />
+			</c:if>
+			<input type="text" id="value3" />
+		</div>
+		<div>
+			<button type="button" id="ModBtn3">Modify</button>
+			<button type="button" id="closeBtn3">Close</button>
 		</div>
 	</div>
 	
@@ -307,7 +331,7 @@
 		var isArea = false;
 		var isLkind = false;
 		var isSkind = false;
-	
+		var isCategory = false;
 		
 			$("#areaAddBtn").on("click", function() {
 					isArea = true;
@@ -458,7 +482,7 @@
 					    },
 						headers : {
 							"Content-Type" : "application/json",
-							"X-HTTP-Method-Overrride" : "PATCH"
+							"X-HTTP-Method-Override" : "PATCH"
 						},
 						contentType: "application/json",
 						dataType : 'text',
@@ -481,41 +505,76 @@
 				}
 				
 				$.ajax(params);
+				if(isArea){
+					isArea = false;
+				}else if(isLkind){
+					isLkind = false;
+				}else if(isSkind){
+					isSkind = false;
+				}
 				location.reload();
 			});
 			
 			$(".areaModBtn").on("click", function() {
-				let num = $(this).parent().attr("areaNum");
-				let area = $(this).siblings(".ward").text();
-				
-				$(".num").html(num);
-				$("#value").val(area);
-				$("#modDiv").show();
-			});
-			
-			$(".lkindModBtn").on("click", function() {
-				let num = $(this).parent().attr("lkindNum");
-				let lkind = $(this).siblings(".k_group").text();
+				let num = $(this).parent().prev().prev().attr("data-areaNum");
+				console.log(num);
+				let area = $(this).parent().prev().children("#area_ward");
+				let areaclass = area.text();
 				
 				$(".num").val(num);
-				$("#value").val(lkind);
+				$("#value").val(areaclass);
 				$("#modDiv").show();
+				isArea = true;
+			});
+			
+			$(".l_kindClass").on("click", ".lkindModBtn", function() {
+				let num = $(this).parent().prev().prev().attr("data-lkindNum");
+				//let lkind = $("#l_kind_k_group").text();
+				let lkind = $(this).parent().prev().children("#l_kind_k_group");
+				let lkindclass = lkind.text();
+				
+				$(".num").val(num);
+				$("#value").val(lkindclass);
+				$("#modDiv").show();
+				isLkind = true;
 			});
 			
 			
 			$(".skindModBtn").on("click", function() {
-				let num = $(this).parent().attr("skindNum");
-				let lno = $(this).parent().attr("lkindNum");
-				let skind = $(this).siblings(".s_class").text();
-				
+				let num = $(this).parent().prev().prev().prev().attr("data-skindNum");
+				let lno = $(this).parent().prev().children("#s_kind_k_group").text();
+				let skind = $(this).parent().prev().prev().children("#s_kind_s_class");
+				let skindclass = skind.text();
+				console.log(num);
+				console.log(lno);
+				console.log(skindclass);
 				$(".num").val(num);
 				$(".lno").val(lno);
-				$("#value2").val(skind);
+				$("#value2").val(skindclass);
 				$("#modDiv2").show();
+				isSkind = true;
+			});
+			
+			$(".categoryModBtn").on("click", function() {
+				let num = $(this).parent().prev().prev().prev().attr("data-categoryNum");
+				let sno = $(this).parent().prev().prev().children("#category_c_class").text();
+				let ward = $(this).parent().prev().children("#category_ward");
+				let categoryclass = ward.text();
+				console.log(num);
+				console.log(sno);
+				console.log(categoryclass);
+				$(".num").val(num);
+				$(".sno").val(sno);
+				$("#value3").val(categoryclass);
+				$("#modDiv3").show();
+				isCategory = true;
 			});
 			
 			$("#closeBtn").on("click", () => {
 				$("#modDiv").hide();
+				isArea = false;
+				isLkind = false;
+				isSkind = false;
 			});
 		
 			$("#ModBtn2").on("click", function() {
@@ -524,20 +583,23 @@
 				console.log(num);
 				let lno = $(".lno").val();
 				console.log(lno);
-				let value = $("#value").val();
+				let value = $("#value2").val();
 				
 				let params = {
-						type : 'put',
+						type : 'patch',
+						beforeSend : function(xhr) {
+					        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+					    },
 						headers : {
 							"Content-Type" : "application/json",
-							"X-HTTP-Method-Overrride" : "PUT"
+							"X-HTTP-Method-Override" : "PATCH"
 						},
 						contentType: "application/json",
 						dataType : 'text',
 						success : function(result) {
 							if(result == 'SUCCESS') {
 								alert("수정 되었습니다.");
-								$("#modDiv").hide();		
+								$("#modDiv2").hide();		
 							}
 						}
 				}
@@ -553,11 +615,58 @@
 				}
 				
 				$.ajax(params);
+				isSkind = false;
+				location.reload();
+			});
+			
+		$("#ModBtn3").on("click", function() {
+				
+				let num = $(".num").val();
+				console.log(num);
+				let sno = $(".sno").val();
+				console.log(sno);
+				let value = $("#value3").val();
+				console.log(value);
+				
+				$.ajax({
+						type : 'patch',
+						beforeSend : function(xhr) {
+					        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+					    },
+					    url : '/category/updateCategory',
+						headers : {
+							"Content-Type" : "application/json",
+							"X-HTTP-Method-Override" : "PATCH"
+						},
+						contentType: "application/json",
+						dataType : 'text',
+						data : JSON.stringify({
+							cno : num, 
+							c_class : sno, 
+							ward : value
+						}),
+						success : function(result) {
+							if(result == 'SUCCESS') {
+								alert("수정 되었습니다.");
+								$("#modDiv3").hide();	
+								isCategory = false;
+							}
+						}
+				});
+
 				location.reload();
 			});
 		
 			$("#closeBtn2").on("click", () => {
 				$("#modDiv2").hide();
+				isArea = false;
+				isLkind = false;
+				isSkind = false;
+			});
+			
+			$("#closeBtn3").on("click", () => {
+				$("#modDiv3").hide();
+				isCategory = false;
 			});
 			
 			$(".btn-close").on("click", () => {
