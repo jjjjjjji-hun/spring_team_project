@@ -3,6 +3,7 @@ package com.project.service.store;
 import java.util.List;
 
 import com.project.domain.MenuVO;
+import com.project.domain.PayVO;
 import com.project.domain.StoreVO;
 
 public interface StoreService {
@@ -28,4 +29,7 @@ public interface StoreService {
 	public void modifyMenu(MenuVO vo);
 	
 	public void removeMenu(Long mno);
+	
+	// 결제
+	public void insertPay(PayVO vo);
 }

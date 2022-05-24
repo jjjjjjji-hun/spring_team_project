@@ -1,6 +1,7 @@
 package com.project.domain;
 
 import java.sql.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -12,4 +13,6 @@ public class PayVO {
 	private String u_id;
 	private String merchant_uid;
 	private Date regdate;
+	
+	private List<MenuVO> menuList;
 }
