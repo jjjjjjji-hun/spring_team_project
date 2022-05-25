@@ -9,6 +9,7 @@
 		<result property="upw" column="upw" />
 		<result property="uname" column="uname" />
 		<result property="pnum" column="pnum" />
+		<result property="banned" column="banned" />
 		<collection property="authList" resultMap="authMap" />
 	</resultMap>
 	
@@ -18,8 +19,12 @@
 		<result property="auth" column="auth" />
 	</resultMap>
 	
+	<select id="allUser" resultMap="userMap">
+		SELECT * FROM user_tbl
+	</select>
+	
 	<select id="selectAllUser" resultMap="userMap">
-		SELECT uno, u_id, upw, uname, pnum
+		SELECT uno, u_id, upw, uname, pnum, banned
 			FROM user_tbl
 			WHERE u_id=#{u_id}
 	</select>
@@ -45,14 +50,5 @@
 			(user_auth_num.nextval, #{auth.u_id}, #{auth.auth})
 		</foreach>
 	</update>
-	<!-- 
-	<update id="resetDate">
-		UPDATE USER_TBL SET date = sysdate WHERE u_id = #{u_id}
-	</update>
-	
-	<update id="resetBanned">
-		UPDATE USER_TBL SET banned = 0 WHERE u_id = #{u_id}
-	</update>
-	 -->
 	
 </mapper>

@@ -2,9 +2,13 @@ package com.project.mapper.user;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.project.domain.UserVO;
 
 public interface UserMapper {
+	
+	public List<UserVO> allUser();
 	
 	public List<UserVO> selectAllUser(UserVO vo);
 	
@@ -13,9 +17,5 @@ public interface UserMapper {
 	public void insertUser(UserVO vo);
 	
 	public void insertUserAuth(UserVO vo);
-	
-	// public void resetDate(String u_id);
-
-	// public void resetBanned(String u_id);
 	
 }

@@ -28,17 +28,6 @@ public class UserDetailService implements UserDetailsService {
 		
 		log.info("확인된 유저 이름으로 얻어온 정보 : " + vo);
 		
-		/* Date now = new Date();
-		
-		if(vo.getDate() == null || vo.getDate().after(now)) {
-			return null;
-		}
-		
-		if(vo.getBanned() == 1) {
-			return null;
-		}
-		*/
-		
 		return vo == null ? null : new CustomUser(vo);
 	}
 	

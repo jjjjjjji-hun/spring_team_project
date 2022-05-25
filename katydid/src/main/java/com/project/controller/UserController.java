@@ -1,5 +1,6 @@
 package com.project.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,13 +11,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.domain.AuthVO;
+import com.project.domain.CustomUser;
+import com.project.domain.ReplyVO;
 import com.project.domain.UserVO;
 import com.project.service.user.UserService;
 
@@ -33,6 +38,7 @@ public class UserController {
 	@Autowired
 	private PasswordEncoder pwen;
 	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@GetMapping("/admin")
 	public void admin() {
 		log.info("어드민으로 접속");
@@ -66,6 +72,7 @@ public class UserController {
 		return "redirect:/localhost:8181";
 	}
 	
+	@PreAuthorize("permitAll")
 	@PostMapping(value="/idConfirm",consumes="application/json",
 					produces= {MediaType.TEXT_PLAIN_VALUE})
 	@ResponseBody
@@ -90,10 +97,10 @@ public class UserController {
 		return entity;
 	}
 	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER', 'ROLE_USER')")
 	@GetMapping("/message")
 	public void messageCheck() {
 		
 	}
-	
 	
 }

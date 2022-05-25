@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -48,6 +49,7 @@ public class B_reportController {
 	
 	//게시판 신고
 	//insert
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER', 'ROLE_USER')")
 		@PostMapping(value="", consumes="application/json",
 				produces= {MediaType.TEXT_PLAIN_VALUE})
 		@ResponseBody
@@ -69,7 +71,7 @@ public class B_reportController {
 				}
 		
 		
-		
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER', 'ROLE_USER')")
 		@PostMapping("/delete")
 		public String BreportDelete(long b_reno) {
 			
@@ -84,6 +86,7 @@ public class B_reportController {
 		
 		
 		// 게시판 신고 목록 조회
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 		@GetMapping("/B_relist")
 		public String getList(SearchCriteria cri, Model model) {
 			
@@ -140,6 +143,7 @@ public class B_reportController {
 	
 		
 		// 게시판 신고 1개 받아오기
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER', 'ROLE_USER')")
 		@GetMapping(value="/B_Bport/{b_reno}", produces= {MediaType.APPLICATION_XML_VALUE,
 										MediaType.APPLICATION_JSON_UTF8_VALUE})
 		@ResponseBody
@@ -158,6 +162,7 @@ public class B_reportController {
 		
 		
 		//게시판 신고 디테일
+		@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER', 'ROLE_USER')")
 		@GetMapping("/list/{b_reno}")
 		public String getRreportDetail(@PathVariable long b_reno, Model model) {
 			
@@ -171,7 +176,7 @@ public class B_reportController {
 		
 	
 		
-		
+		@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER', 'ROLE_USER')")
 		@PostMapping("/updateForm")
 		public String b_reportUpdateForm(long b_reno,  Model model) {
 			
@@ -185,7 +190,7 @@ public class B_reportController {
 		}
 		
 		
-		
+		@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER', 'ROLE_USER')")
 		@PostMapping("/update")
 		public String b_reportUpdate(B_reportVO vo, Model model) {
 			
@@ -201,6 +206,7 @@ public class B_reportController {
 		
 		
 		  // 게시판 댓글 관리자 체크 업데이트
+		@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 		@RequestMapping(method= {RequestMethod.PUT, RequestMethod.PATCH},
 		         value="/checkUpdate/{b_reno}",
 		         consumes="application/json",

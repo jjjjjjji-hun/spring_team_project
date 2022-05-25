@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +38,7 @@ public class BoardController {
 	@Autowired
 	private CategoryService categoryservice;
 	
+	@PreAuthorize("permitAll")
 	@GetMapping("/list")
 	public String getList(SearchCriteria cri, Model model) {
 		
@@ -55,6 +57,7 @@ public class BoardController {
 		
 	}
 	
+	@PreAuthorize("permitAll")
 	@GetMapping("/list/{bno}")
 	public String getBoardDetail(@PathVariable long bno, SearchCriteria cri, Model model) {
 		
@@ -65,6 +68,7 @@ public class BoardController {
 		return "board/boardDetail";
 	}
 	
+	@PreAuthorize("hasAnyRole('ROLE_MEMBER')")
 	@GetMapping(value="/insert")
 	public String boardForm(CategoryVO vo, Model model) {
 		
@@ -73,6 +77,7 @@ public class BoardController {
 		return "board/boardForm";
 	}
 	
+	@PreAuthorize("hasAnyRole('ROLE_MEMBER')")
 	@PostMapping("/insert")
 	public String boardInsert(BoardVO vo, Model model) {
 		StoreVO stvo = new StoreVO();
@@ -82,6 +87,7 @@ public class BoardController {
 		return "redirect:list";
 	}
 	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
 	@PostMapping("/delete")
 	public String boardDelete(long bno, SearchCriteria cri, RedirectAttributes rttr) {
 		
@@ -94,6 +100,7 @@ public class BoardController {
 		return "redirect:list";
 	}
 	
+	@PreAuthorize("hasAnyRole('ROLE_MEMBER')")
 	@PostMapping("/updateForm")
 	public String boardUpdateForm(long bno, SearchCriteria cri, Model model) {
 		
@@ -106,6 +113,7 @@ public class BoardController {
 		return "board/boardUpdateForm";
 	}
 	
+	@PreAuthorize("hasAnyRole('ROLE_MEMBER')")
 	@PostMapping("/update")
 	public String boardUpdate(BoardVO vo, SearchCriteria cri, RedirectAttributes rttr) {
 		
@@ -118,6 +126,7 @@ public class BoardController {
 		return "redirect:list/" + vo.getBno();
 	}
 	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER', 'ROLE_USER')")
 	@PostMapping(value="/B_report")
 	public String report() {
 		return "board/B_report";

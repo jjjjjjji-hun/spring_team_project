@@ -1,6 +1,7 @@
 package com.project.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,7 @@ public class NotifyController {
 	@Autowired
 	private NotifyService service;
 	
+	@PreAuthorize("permitAll")
 	@GetMapping("/list")
 	public void getNotifyList(Model model) {
 		
@@ -28,6 +30,7 @@ public class NotifyController {
 		
 	}
 	
+	@PreAuthorize("permitAll")
 	@GetMapping("/detail/{nno}")
 	public String getNotifyDetail(@PathVariable Long nno, Model model) {
 		
@@ -36,11 +39,13 @@ public class NotifyController {
 		return "/notify/detail";
 	}
 	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@GetMapping("/insert")
 	public void addNotify() {
 		
 	}
 	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@PostMapping("/insert")
 	public String addNotifyPost(NotifyVO vo) {
 		
@@ -49,6 +54,7 @@ public class NotifyController {
 		return "redirect:/notify/list";
 	}
 	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@GetMapping("/update/{nno}")
 	public String updateNotify(@PathVariable Long nno, Model model) {
 
@@ -57,6 +63,7 @@ public class NotifyController {
 		return "/notify/update";
 	}
 	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@PostMapping("/update")
 	public String updateNotifyPost(NotifyVO vo) {
 		
@@ -65,6 +72,7 @@ public class NotifyController {
 		return "redirect:/notify/list";
 	}
 	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@PostMapping("/delete/{nno}")
 	public String delete(@PathVariable Long nno) {
 		
