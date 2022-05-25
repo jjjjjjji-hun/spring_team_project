@@ -206,6 +206,17 @@
 			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" /><br/>
 			<br/><input type="submit" class="submit" value="제출" />&nbsp;&nbsp;&nbsp;<input type="reset" class="reset" value="초기화"/>
 		</form>
+		<h3>첨부파일 영역</h3>
+			<div class="uploadDiv">
+				<input type="file" name="uploadFile" multiple>
+			</div>
+			
+			<div class="uploadResult">
+				<ul>
+					<!-- 업로드된 파일이 들어갈 자리 -->
+				</ul>
+			</div>
+			<button id="uploadBtn">Upload</button>
 	</div>
 
 
