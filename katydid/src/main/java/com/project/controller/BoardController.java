@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.project.domain.BoardAttachVO;
 import com.project.domain.BoardVO;
 import com.project.domain.CategoryVO;
 import com.project.domain.PageMaker;
@@ -74,12 +76,16 @@ public class BoardController {
 	}
 	
 	@PostMapping("/insert")
-	public String boardInsert(BoardVO vo, Model model) {
-		StoreVO stvo = new StoreVO();
+	public String boardInsert(BoardVO vo) {
 		log.info("들어온 데이터 디버깅 : " + vo);
-		service.insert(vo, stvo);
+		
+		if(vo.getAttachList() != null) {
+			vo.getAttachList().forEach(attach -> log.info(attach));
+		}
+		
+		service.insert(vo);
 			
-		return "redirect:list";
+		return "redirect:/board/list";
 	}
 	
 	@PostMapping("/delete")
@@ -124,7 +130,11 @@ public class BoardController {
 	}
 	
 	
-	
+	@GetMapping(value="/getAttachList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<BoardAttachVO>> getAttachList(Long bno){
+		return new ResponseEntity<>(service.getAttachList(bno), HttpStatus.OK);
+	}
 	
 	
 	
