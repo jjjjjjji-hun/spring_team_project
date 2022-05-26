@@ -12,6 +12,8 @@ public interface StoreService {
 	
 	public List<StoreVO> listStore(Long cno);
 	
+	public List<StoreVO> listStore2();
+	
 	public StoreVO selectStore(Long stno);
 	
 	public void modifyStore(StoreVO vo);

@@ -125,7 +125,7 @@
             </div>
         </form>
   </div>
-
+</div>
 
   <footer class="footer">
     <hr>

@@ -78,7 +78,7 @@
 
     }
     .L_kind {
-    width: 250px;
+    width: 200px;
     height: 40px;
     display: inline-block;
     padding: 0 10px;
@@ -90,7 +90,18 @@
    }
    
    .S_kind {
-    width: 250px;
+    width: 200px;
+    height: 40px;
+    display: inline-block;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+    color: #999999;
+    border-radius: 5px;
+   }
+   
+   .Store {
+    width: 200px;
     height: 40px;
     display: inline-block;
     padding: 0 10px;
@@ -216,6 +227,12 @@
 					<option value="">선택해주세요</option>
 								<c:forEach var="list" items="${category }">
 									<option value="${list }">${list.ward }</option>
+								</c:forEach>
+			 	  </select>
+			 	  &emsp;store : <select class="Store" name="stno">
+					<option value="">선택해주세요</option>
+								<c:forEach var="list" items="${store }">
+									<option value="${list.stno }">${list.storeName }</option>
 								</c:forEach>
 			 	  </select><br/>
             <br/><textarea name="content" rows="15" cols="30" class="content" placeholder="CONTENT"></textarea>
@@ -357,7 +374,7 @@
 			});//click span
 			
 			// 글쓰기 버튼 클릭 시, 첨부파일 정보를 폼에 추가해서 전달하는 코드
-			$("#submitBtn").on("click", function(e){
+			$(".submit").on("click", function(e){
 				// 1. 글쓰기버튼을 눌렀을때 바로 작동하지 않도록 기능 막기
 				e.preventDefault();
 				

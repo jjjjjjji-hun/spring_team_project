@@ -9,6 +9,9 @@ public interface StoreMapper {
 	// 식당 목록 가져오기
 	public List<StoreVO> getStoreList(Long cno);
 	
+	// 식당 목록 가져오기2
+	public List<StoreVO> getStoreList2();
+	
 	// 식당 하나 가져오기
 	public StoreVO getStore(Long stno);
 	

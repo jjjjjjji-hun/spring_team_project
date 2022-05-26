@@ -35,6 +35,11 @@ public class StoreServiceImpl implements StoreService{
 	}
 
 	@Override
+	public List<StoreVO> listStore2() {
+		return storemapper.getStoreList2();
+	}
+	
+	@Override
 	public void modifyStore(StoreVO vo) {
 		storemapper.updateStore(vo);
 		
@@ -84,6 +89,8 @@ public class StoreServiceImpl implements StoreService{
 		menumapper.insertPay(vo);
 		
 	}
+
+
 
 	
 }
