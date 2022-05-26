@@ -10,12 +10,11 @@
 <body>
 	<h1>어드민(관리자) 페이지</h1>
 	<div>
-	<button type="button" class="btn btn-primary"onclick="location.href='http://localhost:8181/' ">메인페이지가기</button>
-	<button type="button" class="btn btn-dark"onclick="location.href='http://localhost:8181/category/list' ">카테고리리스트보기</button>
-	<button type="button" class="btn btn-success"onclick="location.href='http://localhost:8181/board/list' ">게시판가기</button>
-	<button type="button" class="btn btn-danger"onclick="location.href='http://localhost:8181/R_report/R_relist' ">댓글신고보기</button>
-	<button type="button" class="btn btn-danger"onclick="location.href='http://localhost:8181/B_report/B_relist' ">게시판신고보기</button>
-	<button type="button" class="btn btn-danger"onclick="location.href='http://localhost:8181/user/ban' ">유저 차단</button>
+		<button type="button" class="btn btn-primary"onclick="location.href='http://localhost:8181/' ">메인페이지가기</button>
+		<button type="button" class="btn btn-dark"onclick="location.href='http://localhost:8181/category/list' ">카테고리리스트보기</button>
+		<button type="button" class="btn btn-success"onclick="location.href='http://localhost:8181/board/list' ">게시판가기</button>
+		<button type="button" class="btn btn-danger"onclick="location.href='http://localhost:8181/R_report/R_relist' ">댓글신고보기</button>
+		<button type="button" class="btn btn-danger"onclick="location.href='http://localhost:8181/B_report/B_relist' ">게시판신고보기</button>
 	</div>
 	
 	

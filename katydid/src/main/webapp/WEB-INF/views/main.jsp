@@ -188,7 +188,7 @@
                                 </select>
                                 <input type="text" name="keyword" placeholder="검색어" value="${pageMaker.cri.keyword }">
                                 <input type="submit" class="btn btn-outline-secondary" value="검색하기">&nbsp;
-                                <button type="button" class="btn btn-outline-danger" onclick="location.href='#' ">공지사항</button>&nbsp;
+                                <button type="button" class="btn btn-outline-danger" onclick="location.href='/notify/list' ">공지사항</button>&nbsp;
                                 <button type="button" class="btn btn-secondary" onclick="location.href='/category/test' ">맛집등록</button>
                                 
                                 

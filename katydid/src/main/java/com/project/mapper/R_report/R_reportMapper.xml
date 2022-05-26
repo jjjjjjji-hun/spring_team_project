@@ -60,8 +60,8 @@
 	</select>
 	
 	<insert id="insertReport">
-		INSERT INTO r_report_tbl(r_reno, rno, reason, content) VALUES
-						(r_report_num.nextval, #{rno}, #{reason}, #{content})
+		INSERT INTO r_report_tbl(r_reno, rno, reason, content, reportId, reportedId) VALUES
+						(r_report_num.nextval, #{rno}, #{reason}, #{content}, #{reportId}, #{reportedId})
 	</insert>
 	
 	<update id="modifyR_report">
@@ -91,7 +91,9 @@
 		UPDATE r_report_tbl SET verified = #{verified} WHERE r_reno= #{r_reno}
 	</update>
 	
-	
+	<select id="getByu_id" resultType="com.project.domain.R_reportVO">
+		SELECT * FROM b_report_tbl WHERE reportId = #{u_id}
+	</select>
 	
 	
 	

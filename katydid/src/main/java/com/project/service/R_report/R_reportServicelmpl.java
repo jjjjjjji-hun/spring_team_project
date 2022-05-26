@@ -71,5 +71,11 @@ public class R_reportServicelmpl implements R_reportService{
 			
 		}
 
+		@Override
+		public List<B_reportVO> getByu_id(String u_id) {
+			
+			return r_reportmapper.getByu_id(u_id);
+		}
+
 	
 }
