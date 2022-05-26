@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.project.domain.BoardAttachVO;
 import com.project.domain.BoardVO;
 import com.project.domain.CategoryVO;
 import com.project.domain.PageMaker;
@@ -24,6 +26,7 @@ import com.project.domain.SearchCriteria;
 import com.project.domain.StoreVO;
 import com.project.service.board.BoardService;
 import com.project.service.category.CategoryService;
+import com.project.service.store.StoreService;
 
 import lombok.extern.log4j.Log4j;
 
@@ -37,6 +40,9 @@ public class BoardController {
 	
 	@Autowired
 	private CategoryService categoryservice;
+	
+	@Autowired
+	private StoreService storeservice;
 	
 	@PreAuthorize("permitAll")
 	@GetMapping("/list")
@@ -73,6 +79,7 @@ public class BoardController {
 	public String boardForm(CategoryVO vo, Model model) {
 		
 		model.addAttribute("category", categoryservice.getCategoryList());
+		model.addAttribute("store", storeservice.listStore2());
 		log.info("카테고리 들어온 데이터" + vo);
 		return "board/boardForm";
 	}
@@ -80,9 +87,12 @@ public class BoardController {
 	@PreAuthorize("hasAnyRole('ROLE_MEMBER')")
 	@PostMapping("/insert")
 	public String boardInsert(BoardVO vo, Model model) {
-		StoreVO stvo = new StoreVO();
 		log.info("들어온 데이터 디버깅 : " + vo);
-		service.insert(vo, stvo);
+		
+		if(vo.getAttachList() != null) {
+			vo.getAttachList().forEach(attach -> log.info(attach));
+		}
+		service.insert(vo);
 			
 		return "redirect:list";
 	}
@@ -133,7 +143,12 @@ public class BoardController {
 	}
 	
 	
-	
+	@GetMapping(value="/getAttachList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<BoardAttachVO>> getAttachList(Long bno){
+		return new ResponseEntity<>(service.getAttachList(bno), HttpStatus.OK);
+	}
+
 	
 	
 	
