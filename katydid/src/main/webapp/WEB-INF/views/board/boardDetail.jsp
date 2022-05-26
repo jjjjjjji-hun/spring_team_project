@@ -134,7 +134,25 @@
 			word-wrap:break-word
 	
 	   }
-	
+	.uploadResult{
+	width:100%;
+	background-color: gray;
+	}
+	.uploadResult ul{
+	display : flex;
+	flex-flow : row;
+	justify-content : center;
+	align-items: center;
+	}
+	.uploadResult ul li{
+	list-style : none;
+	padding : 10px;
+	align-content :center;
+	text-align : center;
+	}
+	.uploadResult ul li img{
+	width : 30%;
+	}
 	
 	</style>
 	
@@ -208,6 +226,14 @@
 				</div>									      
 			</div>									      
 		      
+		<div class="row">
+			<h3 class="text-primary">첨부파일</h3>
+			<div class="uploadResult">
+				<ul>
+					<!-- 첨부파일이 들어갈 위치 -->
+				</ul>
+			</div>
+		</div>
 		
 	</div>													 	   													 																																																						   													   
 		<hr/>			
@@ -707,6 +733,46 @@
 					
 				});
 		
+			     (function(){
+						$.getJSON("/board/getAttachList", {bno : bno}, function(arr){
+							console.log(arr);
+							
+							var str = "";
+							
+							$(arr).each(function(i, obj){
+								// image type
+								if(!obj.fileType){
+									
+									var fileCallPath = encodeURIComponent(obj.uploadPath + "/" + obj.uuid + "_" + obj.fileName);
+									
+									str += "<li "
+										+ "data-path='" + obj.uploadPath + "' data-uuid='" + obj.uuid
+										+ "' data-filename='" + obj.fileName + "' data-type='" + obj.fileType
+										+ "'><a href='/download?fileName=" + fileCallPath
+										+ "'>" + "<img src='/resources2/img/Katydid.gif'>"
+										+ obj.fileName + "</a>"
+										+ "<span data-file=\'" + fileCallPath + "\' data-type='file'> X </span>"
+										+ "</li>";
+								}else{
+									//str += "<li>" + obj.fileName + "</li>"
+									// 수정 코드
+									var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+									var fileCallPathOriginal = encodeURIComponent(obj.uploadPath + "/" + obj.uuid + "_" + obj.fileName);
+									
+									str += "<li "
+										+ "data-path='" + obj.uploadPath + "' data-uuid='" + obj.uuid
+										+ "' data-filename='" + obj.fileName + "' data-type='" + obj.fileType
+										+ "'><a href='/download?fileName=" + fileCallPathOriginal
+										+ "'>" + "<img src='/display?fileName=" + fileCallPath 
+										+ "'>" + obj.fileName + "</a>"
+										+ "<span data-file=\'" + fileCallPath + "\' data-type='image'> X </span>"
+										+ "</li>";
+									
+								}
+							});
+							$(".uploadResult ul").html(str);
+						}); // end getJSON
+					})(); // 익명함수 종료
 		
 	</script>
 		    

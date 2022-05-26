@@ -13,8 +13,6 @@ public class UserVO {
 	private String upw;
 	private String uname;
 	private Long pnum;
-	// private Date date;
-	// private int banned;
 	
 	private List<AuthVO> authList;
 	

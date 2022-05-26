@@ -15,6 +15,7 @@
 	<button type="button" class="btn btn-success"onclick="location.href='http://localhost:8181/board/list' ">게시판가기</button>
 	<button type="button" class="btn btn-danger"onclick="location.href='http://localhost:8181/R_report/R_relist' ">댓글신고보기</button>
 	<button type="button" class="btn btn-danger"onclick="location.href='http://localhost:8181/B_report/B_relist' ">게시판신고보기</button>
+	<button type="button" class="btn btn-danger"onclick="location.href='http://localhost:8181/user/ban' ">유저 차단</button>
 	</div>
 	
 	

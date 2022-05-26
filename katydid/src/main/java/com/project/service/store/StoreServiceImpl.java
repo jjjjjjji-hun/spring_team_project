@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.domain.MenuVO;
+import com.project.domain.PayVO;
 import com.project.domain.StoreVO;
 import com.project.mapper.menu.MenuMapper;
 import com.project.mapper.store.StoreMapper;
@@ -33,6 +34,11 @@ public class StoreServiceImpl implements StoreService{
 		return storemapper.getStoreList(cno);
 	}
 
+	@Override
+	public List<StoreVO> listStore2() {
+		return storemapper.getStoreList2();
+	}
+	
 	@Override
 	public void modifyStore(StoreVO vo) {
 		storemapper.updateStore(vo);
@@ -78,4 +84,13 @@ public class StoreServiceImpl implements StoreService{
 		return menumapper.getMenu(mno);
 	}
 
+	@Override
+	public void insertPay(PayVO vo) {
+		menumapper.insertPay(vo);
+		
+	}
+
+
+
+	
 }

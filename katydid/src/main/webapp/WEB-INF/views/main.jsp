@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,184 +18,185 @@
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
     <title>katydid</title>
 
-<style>
-*{
-    margin: 0;
-    padding: 0;
-    position: relative;
-    font-family: 'Noto Sans KR', sans-serif;
-    list-style: none;}
-   
-
-    
-    body{background-color: white; width: 100%; max-width:1500px; margin: 0 auto;}
-
-    .col-md-5{
-        margin-top: 20px;
-        text-align: right;
-    }
-    .col-md-3{
-        margin-top: 20px;
-        text-align: left;
-    }
-    .col-md-4{
-        margin-top: 30px;
-        text-align: center;
-        padding: 10px;
-    }
-
-    .row-nav1{
-        text-align: center;
-    }
-    .row-nav2{
-        text-align: center;
-    }
-
-
-
-    #container {
-      width: 1500px;
-      margin: 0px auto;
-      padding: 20px;
-    }
-    #container2 {
-      width: 1500px;
-    
-    }
-    #container3 {
-      width: 1500px;
-    
-    }
-    .h1 {
-       text-align: center;
-    }
-
-    #sidebar-left {
-      width: 120px;
-      padding: 20px;
-      margin-right: 10px;
-      margin-bottom: 20px;
-      float: left;
-    }
-    #content {
-      width: 400px;
-      padding: 10px;
-      margin-bottom: 20px;
-      margin-left: 40px;
-      margin-right: 40px;
-      float: left;
-      border: 1px solid #bcbcbc;
-    }
-    #content2 {
-      width: 400px;
-      padding: 10px;
-      margin-bottom: 20px;
-      margin-right: 40px;
-      float: left;
-      border: 1px solid #bcbcbc;
-    }
-
-    #content3 {
-      width: 400px;
-      padding: 10px;
-      margin-bottom: 20px;
-      margin-right: 40px;
-      float: left;
-      border: 1px solid #bcbcbc;
-    }
-    #content4 {
-      width: 400px;
-      padding: 10px;
-      margin-bottom: 20px;
-      margin-left: 170px;
-      margin-right: 40px;
-      float: left;
-      border: 1px solid #bcbcbc;
-    }
-    #content5 {
-      width: 400px;
-      padding: 10px;
-      margin-bottom: 20px;
-      margin-right: 40px;
-      float: left;
-      border: 1px solid #bcbcbc;
-    }
-    #content6 {
-      width: 400px;
-      padding: 10px;
-      margin-bottom: 20px;
-      margin-right: 40px;
-      float: left;
-      border: 1px solid #bcbcbc;
-    }
-
-    
-
-
-
-    .footer { text-align: center; clear : both;} 
-  </style>
-  <script>
-      $(()=>{
-        $(".hover").hover(function(){
-                    $(this).css("color", "red");
-                }, function(){
-                    $(this).css("color", "red");
-                });
-
-        });
-  </script>
+ <style>
+            *{
+                margin: 0;
+                padding: 0;
+                position: relative;
+                font-family: 'Noto Sans KR', sans-serif;
+                list-style: none;}
+               
+            
+                
+                body{background-color: white; width: 100%; max-width:1500px; margin: 0 auto;}
+            
+                .col-md-5{
+                    margin-top: 20px;
+                    text-align: right;
+                }
+                .col-md-3{
+                    margin-top: 20px;
+                    text-align: left;
+                }
+                .col-md-4{
+                    margin-top: 30px;
+                    text-align: left;
+                    padding: 10px;
+                }
+            
+                .row-nav1{
+                    text-align: center;
+                }
+                .row-nav2{
+                    text-align: center;
+                }
+            
+            
+            
+                #container {
+                  width: 1400px;
+                  margin: 0px auto;
+                  padding: 20px;
+                }
+                #container2 {
+                  width: 1400px;
+                
+                }
+                #container3 {
+                  width: 1400px;
+                
+                }
+                .h1 {
+                   text-align: center;
+                }
+            
+                #sidebar-left {
+                  width: 140px;
+                  padding: 20px;
+                  margin-right: 10px;
+                  margin-top: 10px;
+                  margin-bottom: 20px;
+                  float: left;
+                }
+                #content {
+                  width: 300px;
+                  padding: 10px;
+                  margin-bottom: 20px;
+                  margin-left: 20px;
+                  margin-right: 40px;
+                  float: left;
+                  border: 1px solid #bcbcbc;
+                }
+                #content2 {
+                  width: 300px;
+                  padding: 10px;
+                  margin-bottom: 20px;
+                  margin-right: 40px;
+                  float: left;
+                  border: 1px solid #bcbcbc;
+                }
+            
+                #content3 {
+                  width: 300px;
+                  padding: 10px;
+                  margin-bottom: 20px;
+                  margin-right: 40px;
+                  float: left;
+                  border: 1px solid #bcbcbc;
+                }
+                #content4 {
+                  width: 300px;
+                  padding: 10px;
+                  margin-bottom: 20px;
+                  margin-left: 170px;
+                  margin-right: 40px;
+                  float: left;
+                  border: 1px solid #bcbcbc;
+                }
+                #content5 {
+                  width: 300px;
+                  padding: 10px;
+                  margin-bottom: 20px;
+                  margin-right: 40px;
+                  float: left;
+                  border: 1px solid #bcbcbc;
+                }
+                #content6 {
+                  width: 300px;
+                  padding: 10px;
+                  margin-bottom: 20px;
+                  margin-right: 40px;
+                  float: left;
+                  border: 1px solid #bcbcbc;
+                }
+            
+                
+            
+            
+            
+                .footer { text-align: center; clear : both;} 
+              </style>
 </head>
 <body>
 
     <div class="row header">
-        <div class="col-md-5">
-            <img width="90px" height="90px" src="resources2/img/Katydid.gif">
-        </div>
-        <div class="col-md-3">
-            <a href="/"><img src="resources2/img/katydidtitle.png" width="250px" height="90px"  border="0"></a>
-        </div>
-        <div class="col-md-4">
-            <form action="/login" method="post">
-				<input type="text" name="username" value="" placeholder="ID"/>
-				<input type="password" name="password" value="" placeholder="PW"/>
-				<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-				<input type="submit" class="btn btn-light" value="Login" />
-			</form>
-			
-                <a href="/user/join">회원가입</a>
-            
-            
+                    <div class="col-md-5">
+                        <img width="90px" height="90px" src="resources2/img/Katydid.gif">
+                    </div>
+                    <div class="col-md-3">
+                        <a href="/"><img src="resources2/img/katydidtitle.png" width="250px" height="90px"  border="0"></a>
+                    </div>
+                    <div class="col-md-4">
+                    	<sec:authorize access="isAnonymous()">
+	                        <form action="/login" method="post">
+	                            <input type="text" name="username" value="" placeholder="ID"/><br/>
+	                            <input type="password" name="password" value="" placeholder="PW"/><br/>
+	                            <input type="checkbox" name="remember-me"/>자동로그인<br/>
+	                            <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+	                            &emsp;&emsp;<input type="submit" class="btn btn-light" value="Login" />
+	                            <button type="button" class="btn btn-light" onclick="location.href='/user/join' ">Sign_up</button>
+	                        </form>
+                        </sec:authorize>
+                        
+                        <sec:authorize access="isAuthenticated()">
+                        	<a href="/user/">마이페이지</a>
+                        	<form action="/logout" method="post">
+								<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+								<input type="submit" value="로그아웃" />
+							</form>
+                        </sec:authorize>
+                    </div>
+                </div>
+                <hr/>
+ 
 
-        </div>
-    </div>
-    <hr/>
-
-    <div class="row-nav1">
-        <div class="col-md-12">
-            <div class="row">
-                <!-- 검색창 부분 -->
-                <form action="/board/boardList" method="get">
-                    <!--  select 태그를 이용해 클릭해 검색조건을 선택할수있도록 처리합니다.  -->
-                    <select name="searchType">
-                        <!-- 검색조건을 option태그를 이용해 만듭니다.  -->
-                        <option value="n">-</option>
-                        <option value="t" ${pageMaker.cri.searchType eq 't' ? 'selected' : '' }>제목</option>
-                        <option value="c" ${pageMaker.cri.searchType eq 'c' ? 'selected' : '' }>본문</option>
-                        <option value="w" ${pageMaker.cri.searchType eq 'w' ? 'selected' : '' }>글쓴이</option>
-                        <option value="tc" ${pageMaker.cri.searchType eq 'tc' ? 'selected' : '' }>제목+본문</option>
-                        <option value="cw" ${pageMaker.cri.searchType eq 'cw' ? 'selected' : '' }>본문+글쓴이</option>
-                        <option value="tcw" ${pageMaker.cri.searchType eq 'tcw' ? 'selected' : '' }>제목+본문+글쓴이</option>
-                    </select>
-                    <input type="text" name="keyword" placeholder="검색어" value="${pageMaker.cri.keyword }">
-                    <input type="submit" value="검색하기">&emsp;
-                            <a href="/notify/list" class="hover">공지사항</a>&emsp;<a href="/category/test" class="hover">맛집등록</a>
-                    
-                </form>
-            </div>
-        </div>
-    </div>
-    <hr/>
+     <div class="row-nav1">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <!-- 검색창 부분 -->
+                            <form action="/board/boardList" method="get">
+                                <!--  select 태그를 이용해 클릭해 검색조건을 선택할수있도록 처리합니다.  -->
+                                <select name="searchType">
+                                    <!-- 검색조건을 option태그를 이용해 만듭니다.  -->
+                                    <option value="n">-</option>
+                                    <option value="t" ${pageMaker.cri.searchType eq 't' ? 'selected' : '' }>제목</option>
+                                    <option value="c" ${pageMaker.cri.searchType eq 'c' ? 'selected' : '' }>본문</option>
+                                    <option value="w" ${pageMaker.cri.searchType eq 'w' ? 'selected' : '' }>글쓴이</option>
+                                    <option value="tc" ${pageMaker.cri.searchType eq 'tc' ? 'selected' : '' }>제목+본문</option>
+                                    <option value="cw" ${pageMaker.cri.searchType eq 'cw' ? 'selected' : '' }>본문+글쓴이</option>
+                                    <option value="tcw" ${pageMaker.cri.searchType eq 'tcw' ? 'selected' : '' }>제목+본문+글쓴이</option>
+                                </select>
+                                <input type="text" name="keyword" placeholder="검색어" value="${pageMaker.cri.keyword }">
+                                <input type="submit" class="btn btn-outline-secondary" value="검색하기">&nbsp;
+                                <button type="button" class="btn btn-outline-danger" onclick="location.href='#' ">공지사항</button>&nbsp;
+                                <button type="button" class="btn btn-secondary" onclick="location.href='/category/test' ">맛집등록</button>
+                                
+                                
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <hr/>
     <div class="row-nav2">
         <div class="col-md-12">
         	<table border="1" class="table table">
@@ -218,86 +220,60 @@
     <hr>
 
   <div id="container">
-    
-    <div id="sidebar-left">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-        &ensp;Area&nbsp;
-        </button>
-            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                <li><a class="dropdown-item" href="#">압구정</a></li>
-                <li><a class="dropdown-item" href="#">논현동</a></li>
-                <li><a class="dropdown-item" href="#">역삼동</a></li>
-                <li><a class="dropdown-item" href="#">이태원</a></li>
-            </ul><br/>
-    
-        <br/>
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-        &ensp;Food
-        </button>
-            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                <li><a class="dropdown-item" href="#">한식</a></li>
-                <li><a class="dropdown-item" href="#">일식</a></li>
-                <li><a class="dropdown-item" href="#">중식</a></li>
-            </ul><br/>
-        
-            <br/>
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-        Travel
-        </button>
-            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                <li><a class="dropdown-item" href="#">압구정</a></li>
-                <li><a class="dropdown-item" href="#">논현동</a></li>
-                <li><a class="dropdown-item" href="#">역삼동</a></li>
-                <li><a class="dropdown-item" href="#">이태원</a></li>
-            </ul>
-    </div>
-    
-    <div id="container2">
-        <h4>&emsp;&ensp;<a href="/user/join">맛집보러가기</a></h4>
-        <div id="content">
-        <h2>Content</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies. Mauris id odio pretium, sollicitudin sapien eget, adipiscing risus.</p>
-        </div>
-        <div id="content2">
-            <h2>Content</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies. Mauris id odio pretium, sollicitudin sapien eget, adipiscing risus.</p>
-        </div>
-        <div id="content3">
-            <h2>Content</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies. Mauris id odio pretium, sollicitudin sapien eget, adipiscing risus.</p>
-        </div>
-    </div>
-
-    <div id="container3">
-        <h4>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a href="/user/join">숙박보러가기</a></h4>
-        <div id="content4">
-            <h2>Content</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies. Mauris id odio pretium, sollicitudin sapien eget, adipiscing risus.</p>
-        </div>
-        <div id="content5">
-            <h2>Content</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies. Mauris id odio pretium, sollicitudin sapien eget, adipiscing risus.</p>
-        </div>
-        <div id="content6">
-            <h2>Content</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies. Mauris id odio pretium, sollicitudin sapien eget, adipiscing risus.</p>
-        </div>
-    </div>
-  </div>
-  <footer class="footer">
-    <hr>
-    <div class="container">
-        <address>
-    
-            ADD :서울특별시 신촌로 Katydid빌딩 3층<br>
-            PNUM : 02-0101-0101<br>
-            COPYRIGHT &copy; Katydid ALL Rights Reserved
-    
-        </address>
-    </div>
-</footer>
-</body>
-</html>
+                
+                <div id="sidebar-left">
+                
+                <button type="button" class="btn btn-secondary" onclick="location.href='/board/list' ">&nbsp;F O O D</button>
+                <br/>
+                <br/>
+                <button type="button" class="btn btn-secondary" onclick="location.href='/board/list' ">TRAVEL</button>
+                
+                </div>
+                
+                <div id="container2">
+                    <div id="content">
+                    <h2>Content</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies.</p>
+                    </div>
+                    <div id="content2">
+                        <h2>Content</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies.</p>
+                    </div>
+                    <div id="content3">
+                        <h2>Content</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies.</p>
+                    </div>
+                </div>
+            
+                <div id="container3">
+                    <div id="content4">
+                        <h2>Content</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies.</p>
+                    </div>
+                    <div id="content5">
+                        <h2>Content</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies.</p>
+                    </div>
+                    <div id="content6">
+                        <h2>Content</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies.</p>
+                    </div>
+                </div>
+              </div>
+              <footer class="footer">
+                <hr>
+                <div class="container">
+                    <address>
+                
+                        ADD :서울특별시 신촌로 Katydid빌딩 3층<br>
+                        PNUM : 02-0101-0101<br>
+                        COPYRIGHT &copy; Katydid ALL Rights Reserved
+                
+                    </address>
+                </div>
+            </footer>
+            </body>
+            </html>
 
 
 

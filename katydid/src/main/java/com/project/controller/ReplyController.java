@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,7 @@ public class ReplyController {
 	private ReplyService service;
 	
 	// 댓글 작성
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER', 'ROLE_USER')")
 	@PostMapping(value="", consumes="application/json",
 							produces= {MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> register
@@ -41,6 +43,7 @@ public class ReplyController {
 	}
 	
 	// 댓글 목록 조회
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER', 'ROLE_USER')")
 	@GetMapping(value="/all/{bno}", produces= {MediaType.APPLICATION_XML_VALUE,
 									MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public ResponseEntity<List<ReplyVO>> list(@PathVariable("bno")Long bno){
@@ -55,6 +58,7 @@ public class ReplyController {
 	}
 	
 	// 댓글 삭제
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER', 'ROLE_USER')")
 	@DeleteMapping(value="{rno}", produces = {MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> remove(@PathVariable("rno") Long rno){
 		ResponseEntity<String> entity = null;
@@ -68,6 +72,7 @@ public class ReplyController {
 	}
 	
 	// 댓글 수정
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER', 'ROLE_USER')")
 	@RequestMapping(method= {RequestMethod.PUT, RequestMethod.PATCH},
 						value="/{rno}",
 						consumes="application/json",

@@ -34,4 +34,15 @@ public class UserServiceImpl implements UserService {
 		return userlist;
 	}
 
+	@Override
+	public void deleteUser(String u_id) {
+		mapper.deleteUser(u_id);
+		
+	}
+
+	@Override
+	public List<UserVO> allUser() {
+		return mapper.allUser();
+	}
+
 }

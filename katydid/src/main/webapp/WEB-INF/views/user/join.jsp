@@ -64,8 +64,8 @@
     
     <div class="row header">
         <div class="col-md-12">
-            <img width="90px" height="90px" src="resources2/img/Katydid.gif">
-            <a href="/"><img src="resources2/img/katydidtitle.png" width="250px" height="90px"  border="0"></a>
+            <img width="90px" height="90px" src="/resources2/img/Katydid.gif">
+            <a href="/"><img src="/resources2/img/katydidtitle.png" width="250px" height="90px"  border="0"></a>
         </div>
         
     	</div>
@@ -119,13 +119,14 @@
                 <input type="text" name="pnum" value="" class="form-control" id="formGroupExampleInput2" placeholder="P-Num" required><br/>
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<input type="radio" name="role" value="ROLE_MEMBER">업체&emsp;&emsp;
                 <input type="radio" name="role" value="ROLE_USER">일반회원
+                <input type="radio" name="role" value="ROLE_ADMIN">관리자
                 <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/><br/>
                 <input type="hidden" name="idCheck" id="idCheck" required/><br/>
                 <button type="button" style="display:block; width:100%; text-align:center; font-size:1em;" class="btn btn-secondary">Sign_in</button>
             </div>
         </form>
   </div>
-
+</div>
 
   <footer class="footer">
     <hr>

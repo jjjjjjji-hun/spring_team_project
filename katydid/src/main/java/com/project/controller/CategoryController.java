@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,6 +38,7 @@ public class CategoryController {
 	@Autowired
 	private StoreService storeservice;
 	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@GetMapping("/list")
 	public String categoryList(Model model) {
 		log.info("카테고리 리스트");
@@ -51,9 +53,9 @@ public class CategoryController {
 		return "category/categoryList";
 	}
 	
-	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@GetMapping("/test")
-	public String categoryTest(Long stno, Model model) {
+	public String categoryTest(Model model) {
 		model.addAttribute("areaList", categoryservice.getAreaList());
 		
 		model.addAttribute("l_kindList", categoryservice.getLkindList());
@@ -62,10 +64,11 @@ public class CategoryController {
 		
 		model.addAttribute("categoryList", categoryservice.getCategoryList());
 		
-		model.addAttribute("menuList", storeservice.listMenu(stno));
+
 		return "category/categoryTest";
 	}
 	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@GetMapping(value="/tests",
 			produces = {MediaType.APPLICATION_XML_VALUE,
 							MediaType.APPLICATION_JSON_UTF8_VALUE})
@@ -81,6 +84,7 @@ public class CategoryController {
 					return entity;
 			}
 	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@GetMapping(value="/l_kindList",
 			produces = {MediaType.APPLICATION_XML_VALUE,
 							MediaType.APPLICATION_JSON_UTF8_VALUE})
@@ -97,6 +101,7 @@ public class CategoryController {
 			}
 	
 	// 카테고리 추가
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 		@PostMapping(value="/insert", consumes="application/json",
 				produces= {MediaType.TEXT_PLAIN_VALUE})
 		public ResponseEntity<String> categoryInsert(@RequestBody CategoryVO vo) {
@@ -119,6 +124,7 @@ public class CategoryController {
 		}
 	
 	// 분류 추가
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@PostMapping(value="/area", consumes="application/json",
 			produces= {MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> areaInsert(@RequestBody AreaVO vo) {
@@ -138,6 +144,7 @@ public class CategoryController {
 		return entity;
 	}
 	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@PostMapping(value="/lkind", consumes="application/json",
 			produces= {MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> lkindInsert(@RequestBody L_kindVO vo) {
@@ -158,6 +165,7 @@ public class CategoryController {
 		return entity;
 	}
 	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@PostMapping(value="/skind", consumes="application/json",
 			produces= {MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> skindInsert(@RequestBody S_kindVO vo) {
@@ -179,6 +187,7 @@ public class CategoryController {
 	}
 	
 	// 분류 수정
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@RequestMapping(method = {RequestMethod.PUT}, 
 			value="/updateArea", consumes="application/json", 
 			produces = {MediaType.TEXT_PLAIN_VALUE})
@@ -200,6 +209,7 @@ public class CategoryController {
 	return entity;
 	}
 	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH}, 
 			value="/updateLkind", consumes="application/json", 
 			produces = {MediaType.TEXT_PLAIN_VALUE})
@@ -220,6 +230,7 @@ public class CategoryController {
 	return entity;
 	}
 	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@RequestMapping(method = {RequestMethod.PUT}, 
 			value="/updateSkind", consumes="application/json", 
 			produces = {MediaType.TEXT_PLAIN_VALUE})
@@ -241,6 +252,7 @@ public class CategoryController {
 	return entity;
 	}
 	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH}, 
 			value="/updateCategory", consumes="application/json", 
 			produces = {MediaType.TEXT_PLAIN_VALUE})

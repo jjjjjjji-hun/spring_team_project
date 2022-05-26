@@ -8,6 +8,10 @@
 		SELECT * FROM store_tbl WHERE cno = #{cno} ORDER BY stno DESC
 	</select>
 	
+	<select id="getStoreList2" resultType="com.project.domain.StoreVO">
+		SELECT * FROM store_tbl ORDER BY stno DESC
+	</select>
+	
 	<select id="getStore" resultType="com.project.domain.StoreVO">
 		SELECT * FROM store_tbl WHERE stno = #{stno}
 	</select>
