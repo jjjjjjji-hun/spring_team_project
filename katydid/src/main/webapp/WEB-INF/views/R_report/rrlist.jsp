@@ -20,6 +20,8 @@
 			<tr>
 				<th>신고 번호</th>
 				<th>댓글 번호</th>
+				<th>신고자</th>
+				<th>신고당한자</th>
 				<th>신고 사유</th>
 				<th>신고 상세내용</th>
 				<th>관리자체크사항</th>
@@ -35,7 +37,7 @@
 					<td>${r_report.reason}</td>
 					<td><a href="/R_report/list/${r_report.r_reno}">${r_report.content}</a></td>
 					<td><div class="form-check">
-								<input class="form-check-input" type="checkbox" ${r_report.verified eq 1 ? 'checked' : ''} value="${r_report.r_reno}" id="flexCheckDefault"/>
+								<input class="form-check-input" type="checkbox" ${r_report.verified eq 1 ? 'checked disabled' : ''} value="${r_report.r_reno}" id="flexCheckDefault"/>
 								<!--  <label class="label" id="labelName">관리자체크</label>-->
 								<input type="hidden" name="verified" value="${r_report.verified}" id="checkedVerified"/>								
 					<label class="form-check-label" for="flexCheckDefault">관리자체크</label></div></td>
@@ -119,11 +121,7 @@
 					 success : function(result){
 						 console.log("result: " + result);
 						 
-						/* if($("input[type=checkbox]").is(':checked')){
-							 $('#labelName-' +e.target.value).css({'color' : 'red'})
-						 }else{
-							 $('#labelName-'+e.target.value).css({'color':'#000'});
-						 }  */
+						
 						 if(result == 'SUCCESS'){
 							 alert(r_reno + "번 신고글을 확인하였습니다.");
 							
