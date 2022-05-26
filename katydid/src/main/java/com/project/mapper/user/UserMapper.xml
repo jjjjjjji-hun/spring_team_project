@@ -9,7 +9,6 @@
 		<result property="upw" column="upw" />
 		<result property="uname" column="uname" />
 		<result property="pnum" column="pnum" />
-		<result property="banned" column="banned" />
 		<collection property="authList" resultMap="authMap" />
 	</resultMap>
 	
@@ -24,7 +23,7 @@
 	</select>
 	
 	<select id="selectAllUser" resultMap="userMap">
-		SELECT uno, u_id, upw, uname, pnum, banned
+		SELECT uno, u_id, upw, uname, pnum
 			FROM user_tbl
 			WHERE u_id=#{u_id}
 	</select>

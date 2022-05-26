@@ -160,7 +160,10 @@
                         
                         <sec:authorize access="isAuthenticated()">
                         	<a href="/user/">마이페이지</a>
-                        	<a href="/logout">로그아웃</a>
+                        	<form action="/logout" method="post">
+								<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+								<input type="submit" value="로그아웃" />
+							</form>
                         </sec:authorize>
                     </div>
                 </div>
