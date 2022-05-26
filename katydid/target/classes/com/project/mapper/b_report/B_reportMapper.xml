@@ -95,7 +95,9 @@
 		UPDATE b_report_tbl SET verified = #{verified} WHERE b_reno= #{b_reno}
 	</update>
 	
-	
+	<select id="getByu_id" resultType="com.project.domain.B_reportVO">
+		SELECT * FROM b_report_tbl WHERE reportId = #{u_id}
+	</select>
 	
 	
 	
