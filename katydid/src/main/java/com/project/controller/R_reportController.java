@@ -1,5 +1,6 @@
 package com.project.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,9 +69,12 @@ public class R_reportController {
 					produces= {MediaType.TEXT_PLAIN_VALUE})
 			@ResponseBody
 					public ResponseEntity<String> register
-						(@RequestBody R_reportVO vo){
+						(@RequestBody R_reportVO vo, Principal principal){
 					ResponseEntity<String> entity = null;
 					log.info("입력전 : " + vo.getRno());
+					log.info(principal.getName());
+					vo.setReportId(principal.getName());
+					
 					try {
 					service.addR_report(vo);
 					entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);

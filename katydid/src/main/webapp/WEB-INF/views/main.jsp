@@ -188,7 +188,7 @@
                     </select>
                     <input type="text" name="keyword" placeholder="검색어" value="${pageMaker.cri.keyword }">
                     <input type="submit" value="검색하기">&emsp;
-                            <a href="/notify/list" class="hover">공지사항</a>&emsp;<a href="#" class="hover">맛집등록</a>
+                            <a href="/notify/list" class="hover">공지사항</a>&emsp;<a href="/category/test" class="hover">맛집등록</a>
                     
                 </form>
             </div>

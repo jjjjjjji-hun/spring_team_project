@@ -16,7 +16,7 @@
 		<h1 class="text text=primary">${b_report.b_reno}번 게시글 신고상세 페이지</h1>
 		댓글 번호 : <input type="text" class="form-control" value="${b_report.bno}" readonly/>
 		신고 사유 : <input type="text" value="${b_report.reason}" readonly/>
-		글쓴이 : <input type="text" value="${board.u_id}" readonly/><br/><br/>
+		글쓴이 : <input type="text" value="${b_report.reportedId}" readonly/><br/><br/>
 		신고 상세이유 : <textarea rows="15" class="form-control" readonly>${b_report.content}</textarea>
 		
 			
@@ -24,15 +24,7 @@
 			<div class="col-md-3">	
 				<a href="/B_report/B_relist" class="btn btn-success">신고글 목록</a>
 			</div>
-			<div class="col-md-3">
-				<form action="/B_report/updateForm" method="post">
-					<input type="hidden" value="${b_report.b_reno}" name="b_reno"/>
-					
-					<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
-					<input type="submit" value="신고글 수정" class="btn btn-warning"/>
-					
-				</form>
-			</div>
+			
 			<div class="col-md-3" >
 				<form action="/B_report/delete" method="post">
 					<input type="hidden" value="${b_report.b_reno}" name="b_reno"/>

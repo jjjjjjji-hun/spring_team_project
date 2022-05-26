@@ -231,6 +231,7 @@
 						<input type="text" name="replyer" id="newReplyWriter" placeholder="writer" class="form-control"/>
 						<strong>댓글 내용</strong>
 						<input type="text" name="reply" id="newReplyText" placeholder="content" class="form-control"/>
+						 <input type="hidden" value="${board.u_id }" name="u_id" id="board_u_id"/>
 					</div><!-- body -->
 					<div class="box-footer">
 						<button type="button" id="replyAddBtn" class="btn btn-success">댓글 추가</button>
@@ -261,6 +262,7 @@
 				<div class="modal-title"></div>
 				<div>	
 				   	<input type="hidden" name="rno" id="modal-number"/>
+				    <input type="hidden" name="reportedId" id="reported_Id"/>			
 					<input type="text" name="reason" id="newR_reportReason" placeholder="신고사유" class="form-control"/>
 					<input type="text" name="content" id="newR_reportContent" placeholder="자세한 신고내용" class="form-control"/>
 						
@@ -325,7 +327,7 @@
 						// 하나하나 반복되는 각 데이터는 this라는 키워드로 표현됩니다.
 						//console.log("----------------");
 						//console.log(this);
-						str += "<div class='replyLi' data-rno='"+ this.rno +"'><strong>@"
+						str += "<div class='replyLi' data-rno='"+ this.rno +"'><strong class='reportedId'>"
 						    + this.replyer + "</strong> -" + formattedTime + "<br>"
 						    +"<div class='reply'>" +this.reply + "</div>"
 						    +"<button type='button' class='btn btn-info'>수정/삭제</button>"
@@ -351,7 +353,8 @@
 				// 버튼을 누르는 시점에, 글쓴이와 내용 내부에 적힌 문자열을 변수에 저장합니다. 
 				var replyer = $("#newReplyWriter").val();
 				var reply = $("#newReplyText").val();
-				           
+			
+				
 				// $.ajax({내용물}); 이 기본형태
 				$.ajax({
 					type : 'post',
@@ -367,7 +370,8 @@
 					data : JSON.stringify({
 						bno : bno,
 						replyer : replyer,
-						reply : reply
+						reply : reply,
+						
 					}),
 					success : function(result){
 						if(result == 'SUCCESS'){
@@ -375,6 +379,7 @@
 							getAllList();// 댓글 등록 성공시, 다시 목록 갱신
 							// 폼 태그 비우기.
 							// 힌트 : .val(넣을값);
+							
 							$("#newReplyWriter").val("");
 							$("#newReplyText").val("");
 						}
@@ -544,7 +549,10 @@
 		                     //이벤트위임
 						     // 댓글신고 버튼
 						     $("#replies").on("click", ".report button", function(){
-			 
+			 						
+						    	 var reportedId = $(this).parent().prev().children(".reportedId");
+						    	 console.log(reportedId.html());
+						    	 $("#reported_Id").val(reportedId.html());
 		   
 								    var replytag = $(this).parent();
 								    
@@ -558,6 +566,7 @@
 				                     console.log(replytag);
 				                     $(".modal-title").html(replyContent);
 				                     $("#modal-number").val(rno);
+				                    $("#reply_Id").val(reportedId);				                     
 			                       $("#modRep").show("slow");  // 버튼 누르면 모달 열림
 			 
 					 });
@@ -579,9 +588,11 @@
 								// 폼이 없기때문에, input태그 내에 입력된 요소를 가져와야 합니다.
 								// 버튼을 누르는 시점에, 글쓴이와 내용 내부에 적힌 문자열을 변수에 저장합니다. 
 								var rno = $("#modal-number").val();
+													
 								var reason = $("#newR_reportReason").val();
 								var content = $("#newR_reportContent").val();
-								
+								var reportedId = $("#reported_Id").val();
+							
 									
 								
 								// $.ajax({내용물}); 이 기본형태
@@ -598,8 +609,10 @@
 									dataType : 'text',
 									data : JSON.stringify({
 										rno : rno,
+										
 										reason : reason,
-										content : content
+										content : content,
+										reportedId : reportedId
 									}),
 									
 									success : function(result){
@@ -607,6 +620,8 @@
 											alert("신고되었습니다.");
 											$("#modRep").hide("slow");
 											getAllList();// 댓글 등록 성공시, 다시 목록 갱신
+											console.log("신고당한자:"+ reportedId);
+											console.log("신고상세내용:"+ content);
 											// 폼 태그 비우기.
 											// 힌트 : .val(넣을값);
 											$("#newR_reportReason").val("");
@@ -681,6 +696,7 @@
 								//getAllList();// 댓글 등록 성공시, 다시 목록 갱신
 								// 폼 태그 비우기.
 								// 힌트 : .val(넣을값);
+								console.log("신고자 :" + repoerId);
 								$("#newB_Reportreason").val("");
 								$("#newB_ReportContent").val("");
 								
