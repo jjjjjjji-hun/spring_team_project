@@ -18,4 +18,6 @@ public interface UserMapper {
 	
 	public void insertUserAuth(UserVO vo);
 	
+	public void deleteUser(String u_id);
+	
 }

@@ -11,5 +11,7 @@ public interface UserService {
 	public List<UserVO> selectAllUser(UserVO vo);
 	
 	public void insertUser(UserVO vo);
+	
+	public void deleteUser(String u_id);
 
 }

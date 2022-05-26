@@ -8,5 +8,9 @@
 </head>
 <body>
 	메세지 확인
+	
+	${sendMessage }
+	<hr>
+	${receivedMessage }
 </body>
 </html>

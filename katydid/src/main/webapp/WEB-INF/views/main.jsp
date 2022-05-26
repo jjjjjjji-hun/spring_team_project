@@ -159,6 +159,7 @@
                         </sec:authorize>
                         
                         <sec:authorize access="isAuthenticated()">
+                        	<a href="/user/">마이페이지</a>
                         	<a href="/logout">로그아웃</a>
                         </sec:authorize>
                     </div>

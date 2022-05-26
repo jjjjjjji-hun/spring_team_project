@@ -23,6 +23,7 @@ import com.project.domain.AuthVO;
 import com.project.domain.CustomUser;
 import com.project.domain.ReplyVO;
 import com.project.domain.UserVO;
+import com.project.service.message.MessageService;
 import com.project.service.user.UserService;
 
 import lombok.extern.log4j.Log4j;
@@ -34,6 +35,9 @@ public class UserController {
 	
 	@Autowired
 	private UserService service;
+	
+	@Autowired
+	private MessageService messageservice;
 	
 	@Autowired
 	private PasswordEncoder pwen;
@@ -99,8 +103,26 @@ public class UserController {
 	
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER', 'ROLE_USER')")
 	@GetMapping("/message")
-	public void messageCheck() {
+	public void messageCheck(Model model, Principal principal) {
 		
+		model.addAttribute("sendMessage", messageservice.getBySendId(principal.getName()));
+		model.addAttribute("receivedMessage", messageservice.getByReceiveId(principal.getName()));
+		
+	}
+	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER', 'ROLE_USER')")
+	@GetMapping("/")
+	public String userPage() {
+		return "/user/mypage";
+	}
+	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER', 'ROLE_USER')")
+	@PostMapping("/delete")
+	public String userDelete(Principal principal) {
+		
+		service.deleteUser(principal.getName());
+		
+		return "redirect:/";
 	}
 	
 }

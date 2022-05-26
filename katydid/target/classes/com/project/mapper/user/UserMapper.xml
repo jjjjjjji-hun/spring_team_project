@@ -51,4 +51,8 @@
 		</foreach>
 	</update>
 	
+	<delete id="deleteUser">
+		DELETE FROM user_tbl WHERE u_id=#{u_id}
+	</delete>
+	
 </mapper>
