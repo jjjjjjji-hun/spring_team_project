@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.domain.ReplyVO;
+import com.project.service.board.BoardService;
 import com.project.service.reply.ReplyService;
 
 @RestController
@@ -25,6 +26,9 @@ public class ReplyController {
 
 	@Autowired
 	private ReplyService service;
+	
+	@Autowired
+	private BoardService boardservice;
 	
 	// 댓글 작성
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER', 'ROLE_USER')")
