@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,6 +27,7 @@ public class MessageController {
 	@Autowired
 	private MessageService service;
 	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER', 'ROLE_USER')")
 	@GetMapping(value="/sended", consumes="application/json",
 							produces= {MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<List<MessageVO>> getBySendId(@RequestBody String u_id) {
@@ -40,6 +42,7 @@ public class MessageController {
 		return entity;
 	}
 	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER', 'ROLE_USER')")
 	@GetMapping(value="/received", consumes="application/json",
 			produces= {MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<List<MessageVO>> getByReceiveId(@RequestBody String u_id) {
@@ -54,6 +57,7 @@ public class MessageController {
 		return entity;
 	}
 	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER', 'ROLE_USER')")
 	@PostMapping(value="/send", consumes="application/json",
 			produces= {MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> sendMessage(@RequestBody MessageVO vo, Principal principal) {

@@ -8,20 +8,23 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.web.DefaultRedirectStrategy;
+import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.savedrequest.RequestCache;
+import org.springframework.security.web.savedrequest.SavedRequest;
 
+import com.project.domain.CustomUser;
 import com.project.mapper.user.UserMapper;
 
 import lombok.extern.log4j.Log4j;
 
 @Log4j
 public class UserLoginSuccessHandler implements AuthenticationSuccessHandler {
-	
-	@Autowired
-	private UserMapper mapper;
 	
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
@@ -43,9 +46,6 @@ public class UserLoginSuccessHandler implements AuthenticationSuccessHandler {
 			response.sendRedirect("/user/member");
 			return;
 		}
-		
-		// 로그인 제한 초기화
-		// mapper.resetDate(authentication.getName());
 		
 		response.sendRedirect("/");
 	}

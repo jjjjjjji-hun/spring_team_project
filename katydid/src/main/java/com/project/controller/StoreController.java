@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +32,7 @@ public class StoreController {
 	private StoreService storeservice;
 	
 	// 분류 추가
+	@PreAuthorize("hasAnyRole('ROLE_MEMBER')")
 		@PostMapping(value="storeinsert", consumes="application/json",
 				produces= {MediaType.TEXT_PLAIN_VALUE})
 		public ResponseEntity<String> storeInsert(@RequestBody StoreVO vo) {
@@ -50,6 +52,7 @@ public class StoreController {
 			return entity;
 		}
 		
+	@PreAuthorize("hasAnyRole('ROLE_MEMBER')")
 		@PostMapping(value="menuinsert", consumes="application/json",
 				produces= {MediaType.TEXT_PLAIN_VALUE})
 		public ResponseEntity<String> menuInsert(@RequestBody MenuVO vo) {
@@ -69,6 +72,7 @@ public class StoreController {
 			return entity;
 		}
 		
+	@PreAuthorize("hasAnyRole('ROLE_MEMBER')")
 		@GetMapping(value="/tests/{cno}",
 				produces = {MediaType.APPLICATION_XML_VALUE,
 								MediaType.APPLICATION_JSON_UTF8_VALUE})

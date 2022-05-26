@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -146,13 +147,24 @@
                         <a href="/"><img src="resources2/img/katydidtitle.png" width="250px" height="90px"  border="0"></a>
                     </div>
                     <div class="col-md-4">
-                        <form action="/login" method="post">
-                            <input type="text" name="username" value="" placeholder="ID"/><br/>
-                            <input type="password" name="password" value="" placeholder="PW"/><br/>
-                            <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                            &emsp;&emsp;<input type="submit" class="btn btn-light" value="Login" />
-                            <button type="button" class="btn btn-light" onclick="location.href='/user/join' ">Sign_up</button>
-                        </form>
+                    	<sec:authorize access="isAnonymous()">
+	                        <form action="/login" method="post">
+	                            <input type="text" name="username" value="" placeholder="ID"/><br/>
+	                            <input type="password" name="password" value="" placeholder="PW"/><br/>
+	                            <input type="checkbox" name="remember-me"/>자동로그인<br/>
+	                            <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+	                            &emsp;&emsp;<input type="submit" class="btn btn-light" value="Login" />
+	                            <button type="button" class="btn btn-light" onclick="location.href='/user/join' ">Sign_up</button>
+	                        </form>
+                        </sec:authorize>
+                        
+                        <sec:authorize access="isAuthenticated()">
+                        	<a href="/user/">마이페이지</a>
+                        	<form action="/logout" method="post">
+								<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+								<input type="submit" value="로그아웃" />
+							</form>
+                        </sec:authorize>
                     </div>
                 </div>
                 <hr/>
