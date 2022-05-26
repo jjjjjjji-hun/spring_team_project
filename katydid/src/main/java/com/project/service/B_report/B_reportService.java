@@ -36,7 +36,7 @@ public interface B_reportService {
 		//관리자 체크 업데이트
 	  public void checkUpdate(B_reportVO vo);
 
-		
+	  public List<B_reportVO> getByu_id(String u_id);
 		
 		
 		

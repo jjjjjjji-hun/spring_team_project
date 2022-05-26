@@ -53,7 +53,7 @@ public class CategoryController {
 		return "category/categoryList";
 	}
 	
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+	@PreAuthorize("hasAnyRole('ROLE_MEMBER')")
 	@GetMapping("/test")
 	public String categoryTest(Long stno, Model model) {
 		model.addAttribute("areaList", categoryservice.getAreaList());
@@ -68,7 +68,7 @@ public class CategoryController {
 		return "category/categoryTest";
 	}
 	
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+	@PreAuthorize("hasAnyRole('ROLE_MEMBER')")
 	@GetMapping(value="/tests",
 			produces = {MediaType.APPLICATION_XML_VALUE,
 							MediaType.APPLICATION_JSON_UTF8_VALUE})

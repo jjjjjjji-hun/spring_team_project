@@ -58,6 +58,11 @@ public class B_reportServicelmpl implements B_reportService {
 		b_reportmapper.checkUpdate(vo);
 		
 	}
+	@Override
+	public List<B_reportVO> getByu_id(String u_id) {
+		
+		return b_reportmapper.getByu_id(u_id);
+	}
 	
 	
 	

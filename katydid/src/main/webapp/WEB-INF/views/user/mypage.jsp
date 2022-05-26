@@ -14,6 +14,7 @@
 		<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
 		<input type="submit" value="회원 탈퇴" />
 	</form>
+	<a href="/user/report">신고 확인</a>
 	
 </body>
 </html>
