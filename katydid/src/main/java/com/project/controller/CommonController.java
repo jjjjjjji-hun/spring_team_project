@@ -1,5 +1,7 @@
 package com.project.controller;
 
+import java.security.Principal;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,10 +24,14 @@ public class CommonController {
 	}
 	
 	@GetMapping("/login") 
-	public void loginInput(String error, String logout, Model model) {
+	public String loginInput(String error, String logout, Model model, Principal principal) {
 		
 		log.info("error 여부 : " + error);
 		log.info("logout 여부 : " + logout);
+		
+		if(principal != null) {
+			return "redirect:/";
+		}
 		
 		if(error != null) { 
 			model.addAttribute("error", "로그인 관련 에러입니다. 계정확인을 다시 해주세요.");
@@ -33,6 +39,7 @@ public class CommonController {
 		if(logout != null) { 
 			model.addAttribute("logout", "로그아웃 했습니다.");
 		}
+		return "/login";
 	}
 	
 	@GetMapping("/logout")

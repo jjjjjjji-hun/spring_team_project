@@ -84,6 +84,7 @@
 		  		<input type="submit" value="검색하기">
 		  	</form>
 		  </div>
+		  <a href="/">메인가기</a>
 	
 	
 </body>

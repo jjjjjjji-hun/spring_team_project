@@ -3,6 +3,8 @@
 	
 	<%@ page language="java" contentType="text/html; charset=UTF-8"
 	    pageEncoding="UTF-8"%>
+	
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 	<!DOCTYPE html>
 	<html>
 	<head>
@@ -145,12 +147,11 @@
 	<title>Insert title here</title>
 	</head>
 	<body>
-	
 		<div class="container">
 			<h1 class="text text=primary">${board.bno}번 게시글 상세 페이지</h1>
 			글 번호 : <input type="text" class="form-control" value="${board.bno}" readonly/>
 			글 제목 : <input type="text" value="${board.title}" readonly/>
-			글쓴이 : <span class="message">${board.u_id}</span><br/>
+			글쓴이 : <span class="reportedId">${board.u_id}</span><br/>
 			글 본문 : <textarea rows="15" class="form-control" readonly>${board.content}</textarea>
 			<div class="row">
 				<div class="col-md-6">쓴날짜 : ${board.regdate}&nbsp;&nbsp;&nbsp;</div>
@@ -161,6 +162,7 @@
 				<div class="col-md-3">	
 					<a href="/board/list?pageNum=${param.pageNum == null ? 1 : param.pageNum }&searchType=${param.searchType}&keyword=${param.keyword}" class="btn btn-success">게시글 목록</a>
 				</div>
+				<sec:authorize access="isAuthenticated()">
 				<div class="col-md-3">
 					<form action="/board/updateForm" method="post">
 						<input type="hidden" value="${board.bno}" name="bno"/>
@@ -197,12 +199,13 @@
 								<option value="상이한 내용">상이한 내용</option>
 							 </select>
 							<input type="text" name="content" id="newB_ReportContent" placeholder="자세한 신고내용" class="form-control"/>
-						   </div>	
-						    <div>
+						   </div>						   
+							<div>
 								<button type="button" id="final_report"  class="btn btn-warning">글 신고하기</button>  
-					      
-								
-							</div>						    
+						      
+									
+							</div>
+							</sec:authorize>						    
 						</div>	 
 					  </div>							   
 				</div>									      
@@ -222,21 +225,24 @@
 		</div>
 		<hr/>
 		<!-- 댓글 작성 공간 -->
-		<div class="row box-box-success">
-			<div class="box-header">
-				<h3 class="text-primary">댓글 작성하기</h3>
-			</div><!-- header -->
-					<div class="box-body">
-						<strong>댓글 글쓴이</strong>
-						<input type="text" name="replyer" id="newReplyWriter" placeholder="writer" class="form-control"/>
-						<strong>댓글 내용</strong>
-						<input type="text" name="reply" id="newReplyText" placeholder="content" class="form-control"/>
-						 <input type="hidden" value="${board.u_id }" name="u_id" id="board_u_id"/>
-					</div><!-- body -->
-					<div class="box-footer">
-						<button type="button" id="replyAddBtn" class="btn btn-success">댓글 추가</button>
-					</div><!-- footer -->
-		</div><!-- row -->
+		<sec:authorize access="isAuthenticated()">
+		<sec:authentication property="principal" var="user"/>
+			<div class="row box-box-success">
+				<div class="box-header">
+					<h3 class="text-primary">댓글 작성하기</h3>
+				</div><!-- header -->
+						<div class="box-body">
+							<strong>댓글 글쓴이</strong>
+							<input type="text" name="replyer" id="newReplyWriter" placeholder="writer" class="form-control" value="${user.user.u_id}" readonly>
+							<strong>댓글 내용</strong>
+							<input type="text" name="reply" id="newReplyText" placeholder="content" class="form-control"/>
+							 <input type="hidden" value="${board.u_id }" name="u_id" id="board_u_id"/>
+						</div><!-- body -->
+						<div class="box-footer">
+							<button type="button" id="replyAddBtn" class="btn btn-success">댓글 추가</button>
+						</div><!-- footer -->
+			</div><!-- row -->
+		</sec:authorize>
 		
 		
 		
@@ -275,12 +281,14 @@
 			
 		
 		<!-- 쪽지 모달 -->
-		<div id="MessageModal" style="display:none;">
-			<span class="receiveId"></span>
-			<input type="text" class="content" />
-			<button type="button" class="send">쪽지 보내기</button>
-			<button type="button" class="close">창 닫기</button>
-		</div>
+		<sec:authorize access="isAuthenticated()">
+			<div id="MessageModal" style="display:none;">
+				<span class="receiveId"></span>
+				<input type="text" class="content" />
+				<button type="button" class="send">쪽지 보내기</button>
+				<button type="button" class="close">창 닫기</button>
+			</div>
+		</sec:authorize>
 		
 		
 	
@@ -389,7 +397,7 @@
 			});
 			
 		// 메세지 기능
-		$(".message").on("click", function() {
+		$(".reportedId").on("click", function() {
 			console.log($(this).html());
 			$(".receiveId").html($(this).html());
 			$("#MessageModal").show();

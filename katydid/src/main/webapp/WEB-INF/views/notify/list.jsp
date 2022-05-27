@@ -37,5 +37,6 @@
 		<a href="/notify/insert" class="hover">글쓰기</a>
 	</c:if>
 	
+	<a href="/">메인가기</a>
 </body>
 </html>
