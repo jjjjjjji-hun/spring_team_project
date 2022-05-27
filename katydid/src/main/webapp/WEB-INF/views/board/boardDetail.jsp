@@ -136,7 +136,25 @@
 			word-wrap:break-word
 	
 	   }
-	
+	.uploadResult{
+	width:100%;
+	background-color: gray;
+	}
+	.uploadResult ul{
+	display : flex;
+	flex-flow : row;
+	justify-content : center;
+	align-items: center;
+	}
+	.uploadResult ul li{
+	list-style : none;
+	padding : 10px;
+	align-content :center;
+	text-align : center;
+	}
+	.uploadResult ul li img{
+	width : 30%;
+	}
 	
 	</style>
 	
@@ -151,7 +169,7 @@
 			<h1 class="text text=primary">${board.bno}번 게시글 상세 페이지</h1>
 			글 번호 : <input type="text" class="form-control" value="${board.bno}" readonly/>
 			글 제목 : <input type="text" value="${board.title}" readonly/>
-			글쓴이 : <span class="reportedId">${board.u_id}</span><br/>
+			글쓴이 : <span onclick="messageModal(this)" class="reportedId">${board.u_id}</span><br/>
 			글 본문 : <textarea rows="15" class="form-control" readonly>${board.content}</textarea>
 			<div class="row">
 				<div class="col-md-6">쓴날짜 : ${board.regdate}&nbsp;&nbsp;&nbsp;</div>
@@ -187,7 +205,7 @@
 					<button class="btn btn-danger" type="button" id="boardReportBtn">신고하기</button>
 					 <div class="black_bg">
 					  <div class="modal_wrap">
-					    <div class="modal_close"><a href="#">close</a></div>
+					    <div class="modal_close"><a href="">close</a></div>
 						   <div>
 							  <input type="hidden" value="${board.bno}" name="bno" id="board_bno"/>
 							  <input type="text" value="${board.u_id }" name="u_id" id="board_u_id"/>
@@ -211,6 +229,14 @@
 				</div>									      
 			</div>									      
 		      
+		<div class="row">
+			<h3 class="text-primary">첨부파일</h3>
+			<div class="uploadResult">
+				<ul>
+					<!-- 첨부파일이 들어갈 위치 -->
+				</ul>
+			</div>
+		</div>
 		
 	</div>													 	   													 																																																						   													   
 		<hr/>			
@@ -335,7 +361,7 @@
 						// 하나하나 반복되는 각 데이터는 this라는 키워드로 표현됩니다.
 						//console.log("----------------");
 						//console.log(this);
-						str += "<div class='replyLi' data-rno='"+ this.rno +"'><strong class='reportedId'>"
+						str += "<div class='replyLi' data-rno='"+ this.rno +"'><strong onclick='messageModal(this)' class='reportedId'>"
 						    + this.replyer + "</strong> -" + formattedTime + "<br>"
 						    +"<div class='reply'>" +this.reply + "</div>"
 						    +"<button type='button' class='btn btn-info'>수정/삭제</button>"
@@ -397,12 +423,11 @@
 			});
 			
 		// 메세지 기능
-		$(".reportedId").on("click", function() {
-			console.log($(this).html());
-			$(".receiveId").html($(this).html());
+		function messageModal(e) {
+			console.log($(e).html());
+			$(".receiveId").html($(e).html());
 			$("#MessageModal").show();
-			
-		});
+		};
 		
 		$(".send").on("click", function() {
 			sendMessage();
@@ -447,7 +472,7 @@
 							$(".content").val("");
 							$(".receiveId").html("");
 							// 모달 닫힘
-							$(".MessageModal").hide();
+							$("#MessageModal").hide();
 						}
 					}
 				});	
@@ -715,6 +740,46 @@
 					
 				});
 		
+			     (function(){
+						$.getJSON("/board/getAttachList", {bno : bno}, function(arr){
+							console.log(arr);
+							
+							var str = "";
+							
+							$(arr).each(function(i, obj){
+								// image type
+								if(!obj.fileType){
+									
+									var fileCallPath = encodeURIComponent(obj.uploadPath + "/" + obj.uuid + "_" + obj.fileName);
+									
+									str += "<li "
+										+ "data-path='" + obj.uploadPath + "' data-uuid='" + obj.uuid
+										+ "' data-filename='" + obj.fileName + "' data-type='" + obj.fileType
+										+ "'><a href='/download?fileName=" + fileCallPath
+										+ "'>" + "<img src='/resources2/img/Katydid.gif'>"
+										+ obj.fileName + "</a>"
+										+ "<span data-file=\'" + fileCallPath + "\' data-type='file'> X </span>"
+										+ "</li>";
+								}else{
+									//str += "<li>" + obj.fileName + "</li>"
+									// 수정 코드
+									var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+									var fileCallPathOriginal = encodeURIComponent(obj.uploadPath + "/" + obj.uuid + "_" + obj.fileName);
+									
+									str += "<li "
+										+ "data-path='" + obj.uploadPath + "' data-uuid='" + obj.uuid
+										+ "' data-filename='" + obj.fileName + "' data-type='" + obj.fileType
+										+ "'><a href='/download?fileName=" + fileCallPathOriginal
+										+ "'>" + "<img src='/display?fileName=" + fileCallPath 
+										+ "'>" + obj.fileName + "</a>"
+										+ "<span data-file=\'" + fileCallPath + "\' data-type='image'> X </span>"
+										+ "</li>";
+									
+								}
+							});
+							$(".uploadResult ul").html(str);
+						}); // end getJSON
+					})(); // 익명함수 종료
 		
 	</script>
 		    

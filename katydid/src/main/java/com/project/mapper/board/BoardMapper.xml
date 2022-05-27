@@ -47,9 +47,14 @@
 	</select>
 	
 	<insert id="insert">
+	
+	<selectKey keyProperty="bno" order="BEFORE" resultType="long">
+		SELECT board_num.nextval from dual
+	</selectKey>
+	
 		INSERT INTO 
 		board_tbl(bno, title, content, u_id, stno) 
-		VALUES (board_num.nextval, #{title}, #{content}, #{u_id}, #{stno})
+		VALUES (#{bno}, #{title}, #{content}, #{u_id}, #{stno})
 	</insert>
 	
 	<select id="select" resultType="com.project.domain.BoardVO">

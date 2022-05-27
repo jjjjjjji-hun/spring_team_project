@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.domain.PayVO;
-import com.project.service.pay.PayService;
 import com.project.service.store.StoreService;
 
 import lombok.extern.log4j.Log4j;
@@ -22,9 +21,6 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @RequestMapping(value = "/pay")
 public class PayController {
-
-	@Autowired
-	private PayService payservice;
 	
 	@Autowired
 	private StoreService storeservice;
@@ -39,7 +35,7 @@ public class PayController {
 	@PostMapping(value="/order", consumes="application/json", produces= {MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> orderInsert(@RequestBody PayVO vo){
 		log.info("VO검증" + vo);
-		payservice.insertPay(vo);
+		storeservice.insertPay(vo);
 		return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 	}
 }

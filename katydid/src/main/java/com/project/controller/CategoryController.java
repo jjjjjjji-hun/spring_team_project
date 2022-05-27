@@ -55,7 +55,7 @@ public class CategoryController {
 	
 	@PreAuthorize("hasAnyRole('ROLE_MEMBER')")
 	@GetMapping("/test")
-	public String categoryTest(Long stno, Model model) {
+	public String categoryTest(Model model) {
 		model.addAttribute("areaList", categoryservice.getAreaList());
 		
 		model.addAttribute("l_kindList", categoryservice.getLkindList());
@@ -64,7 +64,7 @@ public class CategoryController {
 		
 		model.addAttribute("categoryList", categoryservice.getCategoryList());
 		
-		model.addAttribute("menuList", storeservice.listMenu(stno));
+
 		return "category/categoryTest";
 	}
 	
