@@ -41,9 +41,7 @@ public class ReplyController {
 					(@RequestBody ReplyVO vo){
 		ResponseEntity<String> entity = null;
 		try {
-			log.info("실행 전");
 			service.addReply(vo);
-			log.info("실행 후");
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		}catch(Exception e){
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
