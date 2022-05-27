@@ -13,7 +13,7 @@
 
 <body>
      
-     
+     ${b_reportList}
    
      <h1>게시글 신고 목록</h1>
 <!--  ${b_reportList}-->
@@ -45,14 +45,16 @@
 						<td>${b_report.reason}</td>
 						<td><a href="/B_report/list/${b_report.b_reno}">${b_report.content}</a></td>
 						<td><div class="form-check">
-								<input class="form-check-input" type="checkbox" ${b_report.verified eq 1 ? 'checked' : ''} value="${b_report.b_reno}" id="flexCheckDefault"/>
+								<input class="form-check-input" type="checkbox" ${b_report.verified eq 1 ? 'checked disabled' : ''} value="${b_report.b_reno}" id="flexCheckDefault" />
 								<!--  <label class="label" id="labelName">관리자체크</label>-->
-								<input type="hidden" name="verified" value="${b_report.verified}" id="checkedVerified"/>								
+								<input type="hidden" name="verified" value="${b_report.verified}" id="checkedVerified"/>	
+															
+							
 						<label class="form-check-label" for="flexCheckDefault">관리자체크</label></div></td>
                     </tr>
 				</c:forEach>
 			</tbody>
-	</table>
+			</table>
 	<!--  <a href="/R_report/insert" class="btn btn-success">글쓰기</a><br/>-->
 </div>
 
@@ -92,6 +94,7 @@
 	
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+	
 	<script> 
 
 	 var csrfHeaderName = "${_csrf.headerName}"
@@ -120,18 +123,15 @@
 					 success : function(result){
 						 console.log("result: " + result);
 						 
-						/* if($("input[type=checkbox]").is(':checked')){
-							 $('#labelName-' +e.target.value).css({'color' : 'red'})
-						 }else{
-							 $('#labelName-'+e.target.value).css({'color':'#000'});
-						 }  */
+						
 						 if(result == 'SUCCESS'){
 							 alert(b_reno + "번 신고글을 확인하였습니다.");
-							
+							// ${"checkbox.disabled"};
+						 }
 							// $("#modDiv").hide("slow");
 							// getAllList();
 						 }
-					 }
+					 
 						 
 				 })
 			 });

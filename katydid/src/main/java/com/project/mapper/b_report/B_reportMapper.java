@@ -34,4 +34,7 @@ public interface B_reportMapper {
 		//관리자 체크 업데이트
 		public void checkUpdate(B_reportVO vo);
 		
+		// 신고한 사람으로 신고리스트 가져오기
+		public List<B_reportVO> getByu_id(String u_id);
+		
 }

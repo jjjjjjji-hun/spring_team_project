@@ -23,6 +23,8 @@ import com.project.domain.AuthVO;
 import com.project.domain.CustomUser;
 import com.project.domain.ReplyVO;
 import com.project.domain.UserVO;
+import com.project.service.B_report.B_reportService;
+import com.project.service.R_report.R_reportService;
 import com.project.service.message.MessageService;
 import com.project.service.user.UserService;
 
@@ -38,6 +40,12 @@ public class UserController {
 	
 	@Autowired
 	private MessageService messageservice;
+	
+	@Autowired
+	private B_reportService breportservice;
+	
+	@Autowired
+	private R_reportService rreportservice;
 	
 	@Autowired
 	private PasswordEncoder pwen;
@@ -123,6 +131,15 @@ public class UserController {
 		service.deleteUser(principal.getName());
 		
 		return "redirect:/";
+	}
+	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER', 'ROLE_USER')")
+	@GetMapping("/report")
+	public void getReportList(Principal principal, Model model) {
+		
+		model.addAttribute("b_reportList", breportservice.getByu_id(principal.getName()));
+		model.addAttribute("r_reportList", rreportservice.getByu_id(principal.getName()));
+		
 	}
 	
 }
