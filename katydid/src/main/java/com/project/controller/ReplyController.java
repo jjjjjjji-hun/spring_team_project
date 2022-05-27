@@ -20,7 +20,10 @@ import com.project.domain.ReplyVO;
 import com.project.service.board.BoardService;
 import com.project.service.reply.ReplyService;
 
+import lombok.extern.log4j.Log4j;
+
 @RestController
+@Log4j
 @RequestMapping("/replies")
 public class ReplyController {
 
@@ -38,7 +41,9 @@ public class ReplyController {
 					(@RequestBody ReplyVO vo){
 		ResponseEntity<String> entity = null;
 		try {
+			log.info("실행 전");
 			service.addReply(vo);
+			log.info("실행 후");
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		}catch(Exception e){
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
