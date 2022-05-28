@@ -62,10 +62,7 @@
                   width: 1400px;
                 
                 }
-                #container3 {
-                  width: 1400px;
                 
-                }
 
                 #sidebar-left {
                   width: 140px;
@@ -76,7 +73,7 @@
                   float: left;
                 }
                 #content {
-                  width: 300px;
+                  width: 1000px;
                   padding: 10px;
                   margin-bottom: 20px;
                   margin-left: 20px;
@@ -84,48 +81,8 @@
                   float: left;
                   border: 1px solid #bcbcbc;
                 }
-                #content2 {
-                  width: 300px;
-                  padding: 10px;
-                  margin-bottom: 20px;
-                  margin-right: 40px;
-                  float: left;
-                  border: 1px solid #bcbcbc;
-                }
-            
-                #content3 {
-                  width: 300px;
-                  padding: 10px;
-                  margin-bottom: 20px;
-                  margin-right: 40px;
-                  float: left;
-                  border: 1px solid #bcbcbc;
-                }
-                #content4 {
-                  width: 300px;
-                  padding: 10px;
-                  margin-bottom: 20px;
-                  margin-left: 170px;
-                  margin-right: 40px;
-                  float: left;
-                  border: 1px solid #bcbcbc;
-                }
-                #content5 {
-                  width: 300px;
-                  padding: 10px;
-                  margin-bottom: 20px;
-                  margin-right: 40px;
-                  float: left;
-                  border: 1px solid #bcbcbc;
-                }
-                #content6 {
-                  width: 300px;
-                  padding: 10px;
-                  margin-bottom: 20px;
-                  margin-right: 40px;
-                  float: left;
-                  border: 1px solid #bcbcbc;
-                }
+                
+                
             
                 
             
@@ -232,31 +189,10 @@
                     <h2>Content</h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies.</p>
                     </div>
-                    <div id="content2">
-                        <h2>Content</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies.</p>
-                    </div>
-                    <div id="content3">
-                        <h2>Content</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies.</p>
-                    </div>
+                    
                 </div>
             
-                <div id="container3">
-                    <div id="content4">
-                        <h2>Content</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies.</p>
-                    </div>
-                    <div id="content5">
-                        <h2>Content</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies.</p>
-                    </div>
-                    <div id="content6">
-                        <h2>Content</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies.</p>
-                    </div>
-                </div>
-              </div>
+              
               <footer class="footer">
                 <hr>
                 <div class="container">
