@@ -179,7 +179,7 @@
 				<div class="col-md-3">	
 					<a href="/board/list?pageNum=${param.pageNum == null ? 1 : param.pageNum }&searchType=${param.searchType}&keyword=${param.keyword}" class="btn btn-success">게시글 목록</a>
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-2">
 					<form action="/board/updateForm" method="post">
 						<input type="hidden" value="${board.bno}" name="bno"/>
 						<input type="hidden" value="${param.pageNum}" name="pageNum"/>
@@ -189,7 +189,7 @@
 						<input type="submit" value="글 수정하기" class="btn btn-warning"/>
 					</form>
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-2">
 					<form action="/board/delete" method="post">
 						<input type="hidden" value="${board.bno}" name="bno"/>
 						<input type="hidden" value="${param.pageNum}" name="pageNum"/>
@@ -199,7 +199,7 @@
 						<input type="submit" value="글 삭제하기" class="btn btn-primary"/>
 					</form>
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-2">
 					<button class="btn btn-danger" type="button" id="boardReportBtn">신고하기</button>
 					 <div class="black_bg">
 					  <div class="modal_wrap">
@@ -223,7 +223,10 @@
 							</div>						    
 						</div>	 
 					  </div>							   
-				</div>									      
+				</div>	
+				<div class="col-md-2">
+					<button type="button"  onclick="location.href='/pay/payForm'">결제하기</button>
+				</div>								      
 			</div>									      
 		      
 		<div class="row">

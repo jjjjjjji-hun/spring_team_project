@@ -26,8 +26,8 @@ public class PayController {
 	private StoreService storeservice;
 	
 	@GetMapping("/payForm")
-	public String payList(Long stno, Model model) {
-		model.addAttribute("menuList", storeservice.listMenu(stno));
+	public String payList() {
+		//model.addAttribute("menuList", storeservice.listMenu(stno));
 		return "pay/payForm";
 	}
 	

@@ -20,7 +20,10 @@ import com.project.domain.ReplyVO;
 import com.project.service.board.BoardService;
 import com.project.service.reply.ReplyService;
 
+import lombok.extern.log4j.Log4j;
+
 @RestController
+@Log4j
 @RequestMapping("/replies")
 public class ReplyController {
 
