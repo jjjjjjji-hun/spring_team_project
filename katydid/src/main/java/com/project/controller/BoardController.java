@@ -20,10 +20,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.project.domain.BoardAttachVO;
 import com.project.domain.BoardVO;
 import com.project.domain.CategoryVO;
+import com.project.domain.NotifyVO;
 import com.project.domain.PageMaker;
 import com.project.domain.ReplyVO;
 import com.project.domain.SearchCriteria;
 import com.project.domain.StoreVO;
+import com.project.service.Notify.NotifyService;
 import com.project.service.board.BoardService;
 import com.project.service.category.CategoryService;
 import com.project.service.store.StoreService;
@@ -44,6 +46,9 @@ public class BoardController {
 	@Autowired
 	private StoreService storeservice;
 	
+	@Autowired
+	private NotifyService notifyservice;
+	
 	@PreAuthorize("permitAll")
 	@GetMapping("/list")
 	public String getList(SearchCriteria cri, Model model) {
@@ -55,7 +60,9 @@ public class BoardController {
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalBoard(service.countPageNum(cri));
+		List<NotifyVO> vo = notifyservice.getRecentList();
 		
+		model.addAttribute("recentNotifyList", vo);
 		model.addAttribute("pageMaker", pageMaker);
 		log.info("boardList");
 		System.out.println("리스트 : " + boardList);
@@ -67,6 +74,9 @@ public class BoardController {
 	@GetMapping("/list/{bno}")
 	public String getBoardDetail(@PathVariable long bno, SearchCriteria cri, Model model) {
 		
+		List<NotifyVO> vo = notifyservice.getRecentList();
+		
+		model.addAttribute("recentNotifyList", vo);
 		model.addAttribute("board", service.select(bno));
 		
 		model.addAttribute("cri", cri);
@@ -77,6 +87,10 @@ public class BoardController {
 	@PreAuthorize("hasAnyRole('ROLE_MEMBER')")
 	@GetMapping(value="/insert")
 	public String boardForm(CategoryVO vo, Model model) {
+		
+		List<NotifyVO> notifyvo = notifyservice.getRecentList();
+		
+		model.addAttribute("recentNotifyList", notifyvo);
 		
 		model.addAttribute("category", categoryservice.getCategoryList());
 		model.addAttribute("store", storeservice.listStore2());
@@ -113,6 +127,10 @@ public class BoardController {
 	@PreAuthorize("hasAnyRole('ROLE_MEMBER')")
 	@PostMapping("/updateForm")
 	public String boardUpdateForm(long bno, SearchCriteria cri, Model model) {
+		
+		List<NotifyVO> vo = notifyservice.getRecentList();
+		
+		model.addAttribute("recentNotifyList", vo);
 		
 		BoardVO boardvo = service.select(bno);
 		

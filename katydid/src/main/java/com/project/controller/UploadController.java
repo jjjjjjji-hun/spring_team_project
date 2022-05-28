@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -19,6 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +28,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.project.domain.BoardAttachVO;
+import com.project.domain.NotifyVO;
+import com.project.service.Notify.NotifyService;
 
 import lombok.extern.log4j.Log4j;
 import net.coobird.thumbnailator.Thumbnailator;
@@ -34,6 +38,9 @@ import net.coobird.thumbnailator.Thumbnailator;
 @Log4j // pom.xml에서 junit을 4.12로, log4j는 1.2.17버전, exclusions 태그 삭제, scope주석
 public class UploadController {
 
+	@Autowired
+	private NotifyService notifyservice;
+	
 	private boolean checkImageType(File file) {
 		try {
 			String contentType = Files.probeContentType(file.toPath());
@@ -52,7 +59,10 @@ public class UploadController {
 	}
 	
 	@GetMapping("/uploadForm")
-	public void uploadForm() {
+	public void uploadForm(Model model) {
+		List<NotifyVO> vo = notifyservice.getRecentList();
+		
+		model.addAttribute("recentNotifyList", vo);
 		log.info("upload form");
 	}
 	

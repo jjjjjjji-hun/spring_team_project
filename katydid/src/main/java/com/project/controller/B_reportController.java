@@ -24,10 +24,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.project.domain.B_reportVO;
 import com.project.domain.BoardVO;
 import com.project.domain.L_kindVO;
+import com.project.domain.NotifyVO;
 import com.project.domain.PageMaker;
 import com.project.domain.R_reportVO;
 import com.project.domain.SearchCriteria;
 import com.project.service.B_report.B_reportService;
+import com.project.service.Notify.NotifyService;
 import com.project.service.R_report.R_reportService;
 import com.project.service.category.CategoryService;
 
@@ -46,6 +48,8 @@ public class B_reportController {
 	@Autowired
 	private CategoryService categoryservice;
 	
+	@Autowired
+	private NotifyService notifyservice;
 	
 	//게시판 신고
 	//insert
@@ -90,6 +94,10 @@ public class B_reportController {
 		@GetMapping("/B_relist")
 		public String getList(SearchCriteria cri, Model model) {
 			
+			List<NotifyVO> vo = notifyservice.getRecentList();
+		
+			model.addAttribute("recentNotifyList", vo);
+		
 			List<B_reportVO> b_reportList = service.getAllB_reportList(cri);
 			
 			model.addAttribute("b_reportList", b_reportList );
@@ -166,6 +174,10 @@ public class B_reportController {
 		@GetMapping("/list/{b_reno}")
 		public String getRreportDetail(@PathVariable long b_reno, Model model) {
 			
+			List<NotifyVO> vo = notifyservice.getRecentList();
+			
+			model.addAttribute("recentNotifyList", vo);
+			
 			model.addAttribute("b_report", service.getReport(b_reno));
 			
 		
@@ -179,6 +191,11 @@ public class B_reportController {
 		@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER', 'ROLE_USER')")
 		@PostMapping("/updateForm")
 		public String b_reportUpdateForm(long b_reno,  Model model) {
+			
+			
+			List<NotifyVO> vo = notifyservice.getRecentList();
+			
+			model.addAttribute("recentNotifyList", vo);
 			
 			B_reportVO b_reportvo = service.getReport(b_reno);
 			
