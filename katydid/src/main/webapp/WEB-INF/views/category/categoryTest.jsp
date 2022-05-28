@@ -6,7 +6,17 @@
 <head>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-<meta charset="UTF-8">
+<link href="/resources2/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
 <title>Insert title here</title>
 
 <style>
@@ -21,10 +31,19 @@
     
     body{background-color: white; width: 100%; max-width:1500px; margin: 0 auto;}
 
-    .col-md-12{
-        margin-top: 20px;
-        text-align: center;
+    .col-md-5{
+    margin-top: 20px;
+    text-align: right;
     }
+    .col-md-3{
+      margin-top: 30px;
+      text-align: left;
+     }
+    .col-md-4{
+      margin-top: 30px;
+      text-align: left;
+      padding: 10px;
+     }
     
 
     .row-nav1{
@@ -52,13 +71,23 @@
 </head>
 <body>
 
-<div class="row header">
-    <div class="col-md-12">
-        <img width="90px" height="90px" src="/resources2/img/Katydid.gif">
-        <a href="/"><img src="/resources2/img/katydidtitle.png" width="250px" height="90px"  border="0"></a>
-    </div>
-    
-    </div>
+	<div class="row header">
+                    <div class="col-md-5">
+                        <img width="90px" height="90px" src="/resources2/img/Katydid.gif">
+                    </div>
+                    <div class="col-md-3">
+                        <a href="/"><img src="/resources2/img/katydidtitle.png" width="250px" height="90px"  border="0"></a>
+                    </div>
+                    <div class="col-md-4">
+                    	<sec:authorize access="isAuthenticated()">
+                            <button type="button" class="btn btn-light" onclick="location.href='/user/'">My Page</button>
+                            <form action="/logout" method="post">
+                                  <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+                                  <input type="submit" class="btn btn-light" value="Log_out"/>
+                            </form>
+                        </sec:authorize>
+                    </div>
+     </div>
 <hr/>
 
  <div class="row-nav1">
@@ -79,7 +108,7 @@
                 </select>
                 <input type="text" name="keyword" placeholder="검색어" value="${pageMaker.cri.keyword }">
                 <input type="submit" class="btn btn-outline-secondary" value="검색하기">&nbsp;
-                <button type="button" class="btn btn-outline-danger" onclick="location.href='#' ">공지사항</button>&nbsp;
+                <button type="button" class="btn btn-outline-danger" onclick="location.href='/notify/list' ">공지사항</button>&nbsp;
                 <button type="button" class="btn btn-secondary" onclick="location.href='/category/test' ">맛집등록</button>
                 
                 
@@ -89,7 +118,22 @@
 </div>
 <hr/>
 <div class="row-nav2">
-    <div class="col-md-12">이것은 공지사항이다.</div>
+    <div class="col-md-12">
+        	<table border="1" class="table table">
+				<thead>
+					<tr>
+						<th>공지사항</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="list" items="${recentNotifyList}">
+						<tr>
+							<td><a href="/notify/detail/${list.nno}">${list.content}</a></td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+        </div>
     
 </div>
 
