@@ -47,7 +47,7 @@ public class ReplyController {
 	}
 	
 	// 댓글 목록 조회
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER', 'ROLE_USER')")
+	@PreAuthorize("permitAll")
 	@GetMapping(value="/all/{bno}", produces= {MediaType.APPLICATION_XML_VALUE,
 									MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public ResponseEntity<List<ReplyVO>> list(@PathVariable("bno")Long bno){
