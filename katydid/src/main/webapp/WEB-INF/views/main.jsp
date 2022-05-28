@@ -35,7 +35,7 @@
                     text-align: right;
                 }
                 .col-md-3{
-                    margin-top: 20px;
+                    margin-top: 30px;
                     text-align: left;
                 }
                 .col-md-4{
@@ -62,14 +62,8 @@
                   width: 1400px;
                 
                 }
-                #container3 {
-                  width: 1400px;
                 
-                }
-                .h1 {
-                   text-align: center;
-                }
-            
+
                 #sidebar-left {
                   width: 140px;
                   padding: 20px;
@@ -79,7 +73,7 @@
                   float: left;
                 }
                 #content {
-                  width: 300px;
+                  width: 1000px;
                   padding: 10px;
                   margin-bottom: 20px;
                   margin-left: 20px;
@@ -87,48 +81,8 @@
                   float: left;
                   border: 1px solid #bcbcbc;
                 }
-                #content2 {
-                  width: 300px;
-                  padding: 10px;
-                  margin-bottom: 20px;
-                  margin-right: 40px;
-                  float: left;
-                  border: 1px solid #bcbcbc;
-                }
-            
-                #content3 {
-                  width: 300px;
-                  padding: 10px;
-                  margin-bottom: 20px;
-                  margin-right: 40px;
-                  float: left;
-                  border: 1px solid #bcbcbc;
-                }
-                #content4 {
-                  width: 300px;
-                  padding: 10px;
-                  margin-bottom: 20px;
-                  margin-left: 170px;
-                  margin-right: 40px;
-                  float: left;
-                  border: 1px solid #bcbcbc;
-                }
-                #content5 {
-                  width: 300px;
-                  padding: 10px;
-                  margin-bottom: 20px;
-                  margin-right: 40px;
-                  float: left;
-                  border: 1px solid #bcbcbc;
-                }
-                #content6 {
-                  width: 300px;
-                  padding: 10px;
-                  margin-bottom: 20px;
-                  margin-right: 40px;
-                  float: left;
-                  border: 1px solid #bcbcbc;
-                }
+                
+                
             
                 
             
@@ -141,10 +95,10 @@
 
     <div class="row header">
                     <div class="col-md-5">
-                        <img width="90px" height="90px" src="resources2/img/Katydid.gif">
+                        <img width="90px" height="90px" src="/resources2/img/Katydid.gif">
                     </div>
                     <div class="col-md-3">
-                        <a href="/"><img src="resources2/img/katydidtitle.png" width="250px" height="90px"  border="0"></a>
+                        <a href="/"><img src="/resources2/img/katydidtitle.png" width="250px" height="90px"  border="0"></a>
                     </div>
                     <div class="col-md-4">
                     	<sec:authorize access="isAnonymous()">
@@ -159,11 +113,11 @@
                         </sec:authorize>
                         
                         <sec:authorize access="isAuthenticated()">
-                        	<a href="/user/">마이페이지</a>
-                        	<form action="/logout" method="post">
-								<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-								<input type="submit" value="로그아웃" />
-							</form>
+                            <button type="button" class="btn btn-light" onclick="location.href='/user/'">My Page</button>
+                            <form action="/logout" method="post">
+                                  <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+                                  <input type="submit" class="btn btn-light" value="Log_out"/>
+                            </form>
                         </sec:authorize>
                     </div>
                 </div>
@@ -235,31 +189,10 @@
                     <h2>Content</h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies.</p>
                     </div>
-                    <div id="content2">
-                        <h2>Content</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies.</p>
-                    </div>
-                    <div id="content3">
-                        <h2>Content</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies.</p>
-                    </div>
+                    
                 </div>
             
-                <div id="container3">
-                    <div id="content4">
-                        <h2>Content</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies.</p>
-                    </div>
-                    <div id="content5">
-                        <h2>Content</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies.</p>
-                    </div>
-                    <div id="content6">
-                        <h2>Content</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies.</p>
-                    </div>
-                </div>
-              </div>
+              
               <footer class="footer">
                 <hr>
                 <div class="container">
