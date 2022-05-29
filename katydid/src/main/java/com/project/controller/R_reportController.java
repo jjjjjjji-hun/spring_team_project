@@ -29,6 +29,7 @@ import com.project.domain.ReplyVO;
 import com.project.domain.SearchCriteria;
 import com.project.domain.StoreVO;
 import com.project.service.R_report.R_reportService;
+import com.project.service.board.BoardService;
 import com.project.service.category.CategoryService;
 
 import lombok.extern.log4j.Log4j;
@@ -41,7 +42,8 @@ public class R_reportController {
 	@Autowired
 	private R_reportService service;
 	
-	
+	@Autowired
+	private BoardService boardservice;
 	
 	@Autowired
 	private CategoryService categoryservice;
@@ -71,11 +73,13 @@ public class R_reportController {
 					produces= {MediaType.TEXT_PLAIN_VALUE})
 			@ResponseBody
 					public ResponseEntity<String> register
-						(@RequestBody R_reportVO vo, Principal principal){
+						(@RequestBody R_reportVO vo,Principal principal,Long r_reno){
 					ResponseEntity<String> entity = null;
 					log.info("입력전 : " + vo.getRno());
 					log.info(principal.getName());
-					vo.setReportId(principal.getName());
+					vo.setReportId(principal.getName()); 
+					
+				
 					
 					try {
 					service.addR_report(vo);
