@@ -258,6 +258,7 @@
 						<strong>댓글 내용</strong>
 						<input type="text" name="reply" id="newReplyText" placeholder="content" class="form-control"/>
 						 <input type="hidden" value="${board.u_id }" name="u_id" id="board_u_id"/>
+						
 					</div><!-- body -->
 					<div class="box-footer">
 						<button type="button" id="replyAddBtn" class="btn btn-success">댓글 추가</button>
@@ -291,7 +292,7 @@
 				    <input type="hidden" name="reportedId" id="reported_Id"/>			
 					<input type="text" name="reason" id="newR_reportReason" placeholder="신고사유" class="form-control"/>
 					<input type="text" name="content" id="newR_reportContent" placeholder="자세한 신고내용" class="form-control"/>
-						
+					<input type="hidden" value="${board.bno}" name="bno" id="board_bno"/> 	
 				</div>
 				<div>
 					<button type="button" id="replyReportBtn">신고하기</button>
@@ -405,7 +406,7 @@
 							getAllList();// 댓글 등록 성공시, 다시 목록 갱신
 							// 폼 태그 비우기.
 							// 힌트 : .val(넣을값);
-							
+							console.log(replyCount);
 							$("#newReplyWriter").val("");
 							$("#newReplyText").val("");
 						}
@@ -614,7 +615,7 @@
 								// 폼이 없기때문에, input태그 내에 입력된 요소를 가져와야 합니다.
 								// 버튼을 누르는 시점에, 글쓴이와 내용 내부에 적힌 문자열을 변수에 저장합니다. 
 								var rno = $("#modal-number").val();
-													
+								var bno = $("#board_bno").val();					
 								var reason = $("#newR_reportReason").val();
 								var content = $("#newR_reportContent").val();
 								var reportedId = $("#reported_Id").val();
@@ -636,9 +637,12 @@
 									data : JSON.stringify({
 										rno : rno,
 										
+										bno : bno,
 										reason : reason,
 										content : content,
 										reportedId : reportedId
+										//reportId :reportId
+										//Principal : Principal
 									}),
 									
 									success : function(result){
@@ -648,10 +652,23 @@
 											getAllList();// 댓글 등록 성공시, 다시 목록 갱신
 											console.log("신고당한자:"+ reportedId);
 											console.log("신고상세내용:"+ content);
+										    console.log("게시글 번호" + bno);	
+										
+											
 											// 폼 태그 비우기.
 											// 힌트 : .val(넣을값);
 											$("#newR_reportReason").val("");
 											$("#newR_reportContent").val("");
+											
+										}
+									},
+									error : function(result){
+										if(result != 'SUCCESS'){
+											alert("신고할 수 없습니다.");
+											$("#modRep").hide("slow");
+											$("#newR_reportReason").val("");
+											$("#newR_reportContent").val("");
+											
 											
 										}
 									}
@@ -722,7 +739,7 @@
 								//getAllList();// 댓글 등록 성공시, 다시 목록 갱신
 								// 폼 태그 비우기.
 								// 힌트 : .val(넣을값);
-								console.log("신고자 :" + repoerId);
+								console.log("신고자 :");
 								$("#newB_Reportreason").val("");
 								$("#newB_ReportContent").val("");
 								

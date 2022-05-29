@@ -48,9 +48,9 @@ public class R_reportServicelmpl implements R_reportService{
 		}
 
 		@Override
-		public R_reportVO getReport(Long r_reno) {
+		public R_reportVO getReport(Long rno) {
 			
-			return r_reportmapper.getReport(r_reno);
+			return r_reportmapper.getReport(rno);
 		}
 
 		@Override
@@ -75,6 +75,12 @@ public class R_reportServicelmpl implements R_reportService{
 		public List<B_reportVO> getByu_id(String u_id) {
 			
 			return r_reportmapper.getByu_id(u_id);
+		}
+
+		@Override
+		public R_reportVO getR_report(Long r_reno) {
+			
+			return  r_reportmapper.getR_report(r_reno);
 		}
 
 	

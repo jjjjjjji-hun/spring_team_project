@@ -13,7 +13,11 @@ public interface R_reportMapper {
 	public List<R_reportVO> getReportList(Long rno);
 	
 	// 댓글(후기) 하나 가져오기
-	public R_reportVO getReport(Long r_reno);
+	public R_reportVO getReport(Long rno);
+	
+	
+	//댓글신고한 신고번호, 신고자 받아오기
+	public R_reportVO getR_report(Long r_reno);
 	
 	// 댓글(후기) 신고하기
 	public void insertReport(R_reportVO vo);

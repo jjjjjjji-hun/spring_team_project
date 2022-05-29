@@ -59,6 +59,7 @@ public class B_reportController {
 				log.info("입력전 : " + vo.getBno());
 				log.info(principal.getName());
 				vo.setReportId(principal.getName());
+			
 				
 				try {
 				service.addB_report(vo);
@@ -68,8 +69,7 @@ public class B_reportController {
 				entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 				}
 				return entity;
-				}
-		
+	}
 		
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER', 'ROLE_USER')")
 		@PostMapping("/delete")

@@ -23,5 +23,20 @@ public interface ReplyMapper {
 	
 	// bno번 글에 달린 댓글을 다 삭제하는 쿼리문 생성
 	public void deleteAllReplies(Long bno);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
 		
 }

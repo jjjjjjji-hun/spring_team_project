@@ -56,8 +56,14 @@
 	</select>
 	
 	<select id="getReport" resultType="com.project.domain.R_reportVO">
-		SELECT * FROM r_report_tbl WHERE r_reno = #{r_reno}
+		SELECT * FROM r_report_tbl WHERE rno = #{rno}
 	</select>
+	
+	<!-- 댓글신고한 신고번호, 신고자 받아오기 -->
+	<select id="getR_report" resultType="com.project.domain.R_reportVO">
+		SELECT reportId FROM r_report_tbl WHERE r_reno = #{r_reno}
+	</select>
+	
 	
 	<insert id="insertReport">
 		INSERT INTO r_report_tbl(r_reno, rno, reason, content, reportId, reportedId) VALUES
