@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,9 +34,9 @@
 	</table>
 	</div>
 	
-	<c:if test="hasRole('ROLE_ADMIN')">
+	<sec:authorize access="hasRole('ROLE_ADMIN')">
 		<a href="/notify/insert" class="hover">글쓰기</a>
-	</c:if>
+	</sec:authorize>
 	
 	<a href="/">메인가기</a>
 </body>

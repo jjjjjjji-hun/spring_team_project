@@ -156,6 +156,19 @@
 	width : 30%;
 	}
 	
+	#MessageModal{
+			width: 450px;
+			height: 100px;
+			background-color: pink;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-top: -50px;
+			margin-left: -150px;
+			padding:10px;
+			z-index:1000;
+		}
+	
 	</style>
 	
 	
