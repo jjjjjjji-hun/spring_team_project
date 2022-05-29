@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.project.domain.BoardVO;
 import com.project.domain.NotifyVO;
+import com.project.domain.SearchCriteria;
 import com.project.service.Notify.NotifyService;
 import com.project.service.board.BoardService;
 
@@ -43,8 +45,12 @@ public class HomeController {
 	 */
 	@PreAuthorize("permitAll")
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	public String home(Locale locale, SearchCriteria cri, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
+		
+		List<BoardVO> boardList = service.getList(cri);
+		
+		model.addAttribute("boardList", boardList);
 		
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);

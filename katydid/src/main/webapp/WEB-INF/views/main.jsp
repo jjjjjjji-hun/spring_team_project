@@ -187,12 +187,35 @@
                 <div id="container2">
                     <div id="content">
                     <h2>Content</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies.</p>
+                    <table border="1" class="table table">
+						<thead>
+							<tr>
+								<th>글 번호</th>
+								<th>글 제목</th>
+								<th>글 본문</th>
+								<th>글쓴이</th>
+								<th>글쓴 날짜</th>
+								<th>글 수정 날짜</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="board" items="${boardList}">
+								<tr>
+									<td>${board.bno}</td>
+									<td>${board.title}</a>[${board.replyCount}]</td>
+									<td>${board.content}</td>
+									<td>${board.u_id}</td>
+									<td>${board.regdate}</td>
+									<td>${board.updatedate}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
                     </div>
                     
                 </div>
             
-              
+   </div>           
               <footer class="footer">
                 <hr>
                 <div class="container">
