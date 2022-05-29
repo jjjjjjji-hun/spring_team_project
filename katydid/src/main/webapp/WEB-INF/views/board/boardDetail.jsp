@@ -760,6 +760,64 @@
                          
                                  });
                      
+                   //모달 신고하기버튼(댓글 신고하기)
+				     $("#replyReportBtn").on("click", function(){
+						
+						// 폼이 없기때문에, input태그 내에 입력된 요소를 가져와야 합니다.
+						// 버튼을 누르는 시점에, 글쓴이와 내용 내부에 적힌 문자열을 변수에 저장합니다. 
+						var rno = $("#modal-number").val();
+						var bno = $("#board_bno").val();					
+						var reason = $("#newR_reportReason").val();
+						var content = $("#newR_reportContent").val();
+						var reportedId = $("#reported_Id").val();
+					
+							
+						
+						// $.ajax({내용물}); 이 기본형태
+						$.ajax({
+							type : 'post',
+							beforeSend : function(xhr) {
+						        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+						    },
+							url : '/R_report',
+							headers : {
+								"Content-Type" : "application/json",
+								"X-HTTP-Method-Override" : "POST"
+							},
+							dataType : 'text',
+							data : JSON.stringify({
+								rno : rno,
+								
+								bno : bno,
+								reason : reason,
+								content : content,
+								reportedId : reportedId
+								//reportId :reportId
+								//Principal : Principal
+							}),
+							
+							success : function(result){
+								if(result == 'SUCCESS'){
+									alert("신고되었습니다.");
+									$("#modRep").hide("slow");
+									getAllList();// 댓글 등록 성공시, 다시 목록 갱신
+									console.log("신고당한자:"+ reportedId);
+									console.log("신고상세내용:"+ content);
+								    console.log("게시글 번호" + bno);	
+								
+									
+									// 폼 태그 비우기.
+									// 힌트 : .val(넣을값);
+									$("#newR_reportReason").val("");
+									$("#newR_reportContent").val("");
+									
+								}
+							}
+							
+						});		
+						
+					});
+                     
                     
                                     // 모달 창 닫기 이벤트(댓글신고)
                                     $("#closeReportBtn").on("click", function(){// #closeBtn 클릭시

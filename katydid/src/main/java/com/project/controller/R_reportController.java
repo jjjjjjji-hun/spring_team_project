@@ -76,6 +76,7 @@ public class R_reportController {
 						(@RequestBody R_reportVO vo,Principal principal,Long r_reno){
 					ResponseEntity<String> entity = null;
 					log.info("입력전 : " + vo.getRno());
+					log.info(vo);
 					log.info(principal.getName());
 					vo.setReportId(principal.getName()); 
 					
