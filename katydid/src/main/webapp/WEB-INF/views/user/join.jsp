@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -89,6 +91,14 @@
 	                            <button type="button" class="btn btn-light" onclick="location.href='/user/join' ">Sign_up</button>
 	                        </form>
                         </sec:authorize>
+                        
+                        <sec:authorize access="isAuthenticated()">
+                            <button type="button" class="btn btn-light" onclick="location.href='/user/'">My Page</button>
+                            <form action="/logout" method="post">
+                                  <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+                                  <input type="submit" class="btn btn-light" value="Log_out"/>
+                            </form>
+                        </sec:authorize>
                     </div>
      </div>
 
@@ -96,7 +106,7 @@
         <div class="col-md-12">
             <div class="row">
                 <!-- 검색창 부분 -->
-                <form action="/board/boardList" method="get">
+                <form action="/board/list" method="get">
                     <!--  select 태그를 이용해 클릭해 검색조건을 선택할수있도록 처리합니다.  -->
                     <select name="searchType">
                         <!-- 검색조건을 option태그를 이용해 만듭니다.  -->
@@ -111,14 +121,16 @@
                     <input type="text" name="keyword" placeholder="검색어" value="${pageMaker.cri.keyword }">
                     <input type="submit" class="btn btn-outline-secondary" value="검색하기">&nbsp;
                     <button type="button" class="btn btn-outline-danger" onclick="location.href='/notify/list' ">공지사항</button>&nbsp;
-                    <button type="button" class="btn btn-secondary" onclick="location.href='/category/test' ">맛집등록</button>
+                    <sec:authorize access="hasAnyRole('ROLE_MEMBER')">
+						<button type="button" class="btn btn-secondary" onclick="location.href='/category/test'">맛집등록</button>
+					</sec:authorize>
                     
                     
                 </form>
             </div>
         </div>
     </div>
-    <hr/>
+    <br>
     <div class="row-nav2">
         <div class="col-md-12">
         	<table border="1" class="table table">
@@ -140,7 +152,7 @@
     </div>
     
    
-    <hr>
+    <br>
 
   <div id="container">
       <div id="joinForm">

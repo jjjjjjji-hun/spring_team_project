@@ -13,7 +13,6 @@
     
     
     <h1>댓글 신고리스트</h1>
-       ${r_reportList}
      <div class="container">   
        <table border="1" class="table table">
 		<thead>

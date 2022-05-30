@@ -155,7 +155,8 @@ public class UserController {
 		List<NotifyVO> vo = notifyservice.getRecentList();
 		
 		model.addAttribute("recentNotifyList", vo);
-		
+		log.info(principal.getName());
+		log.info(rreportservice.getByu_id(principal.getName()));
 		model.addAttribute("b_reportList", breportservice.getByu_id(principal.getName()));
 		model.addAttribute("r_reportList", rreportservice.getByu_id(principal.getName()));
 		

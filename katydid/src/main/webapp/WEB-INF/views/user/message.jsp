@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,7 +51,16 @@
                     text-align: center;
                 }
             
-            
+            	#MessageModal{
+					width: 250px;
+					height: 130px;
+					background-color: skyblue;
+					position: fixed;
+					top: 50%;
+					left: 50%;
+					padding:10px;
+					z-index:1000;
+				}
             
                 #container {
 			      width: 800px;
@@ -77,7 +88,18 @@
                         <a href="/"><img src="/resources2/img/katydidtitle.png" width="250px" height="90px"  border="0"></a>
                     </div>
                     <div class="col-md-4">
-                    	<sec:authorize access="isAuthenticated()">
+                    	<sec:authorize access="isAnonymous()">
+	                        <form action="/login" method="post">
+	                            <input type="text" name="username" value="" placeholder="ID"/><br/>
+	                            <input type="password" name="password" value="" placeholder="PW"/><br/>
+	                            <input type="checkbox" name="remember-me"/>자동로그인<br/>
+	                            <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+	                            &emsp;&emsp;<input type="submit" class="btn btn-light" value="Login" />
+	                            <button type="button" class="btn btn-light" onclick="location.href='/user/join' ">Sign_up</button>
+	                        </form>
+                        </sec:authorize>
+                        
+                        <sec:authorize access="isAuthenticated()">
                             <button type="button" class="btn btn-light" onclick="location.href='/user/'">My Page</button>
                             <form action="/logout" method="post">
                                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
@@ -93,7 +115,7 @@
                     <div class="col-md-12">
                         <div class="row">
                             <!-- 검색창 부분 -->
-                            <form action="/board/boardList" method="get">
+                            <form action="/board/list" method="get">
                                 <!--  select 태그를 이용해 클릭해 검색조건을 선택할수있도록 처리합니다.  -->
                                 <select name="searchType">
                                     <!-- 검색조건을 option태그를 이용해 만듭니다.  -->
@@ -108,14 +130,16 @@
                                 <input type="text" name="keyword" placeholder="검색어" value="${pageMaker.cri.keyword }">
                                 <input type="submit" class="btn btn-outline-secondary" value="검색하기">&nbsp;
                                 <button type="button" class="btn btn-outline-danger" onclick="location.href='/notify/list' ">공지사항</button>&nbsp;
-                                <button type="button" class="btn btn-secondary" onclick="location.href='/category/test' ">맛집등록</button>
+                                <sec:authorize access="hasAnyRole('ROLE_MEMBER')">
+							        <button type="button" class="btn btn-secondary" onclick="location.href='/category/test'">맛집등록</button>
+						        </sec:authorize>
                                 
                                 
                             </form>
                         </div>
                     </div>
                 </div>
-                <hr/>
+                <br>
     <div class="row-nav2">
         <div class="col-md-12">
         	<table border="1" class="table table">
@@ -136,14 +160,55 @@
         
     </div>
    
-    <hr>
+    <br>
 
   <div id="container">
-	<h1>메세지 확인</h1>
+	<h1>MESSAGE</h1>
+	<br>
+	<br><h2>보낸 메세지</h2>
+	<table border="1" class="table table">
+		<thead>
+			<tr>
+				<th>받은 사람</th>
+				<th>메세지 내용</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="message" items="${sendMessage }">
+				<tr>
+					<td>${message.receiveId}</td>
+					<td>${message.content}</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
 	
-	${sendMessage }
 	<hr>
-	${receivedMessage }
+	<br><h2>받은 메세지</h2>
+	<table border="1" class="table table">
+		<thead>
+			<tr>
+				<th>보낸 사람</th>
+				<th>메세지 내용</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="message" items="${receivedMessage }">
+				<tr>
+					<td onclick="messageModal(this)">${message.sendId}</td>
+					<td>${message.content}</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+	
+	<div id="MessageModal" style="display:none;">
+                        <span class="receiveId"></span>
+                        <input type="text" class="content" />
+                        <br>
+                        <br><button type="button" class="send">쪽지 보내기</button>&emsp;
+                        <button type="button" class="close">닫기</button>
+                    </div>
 	          
                 
 	</div>
@@ -161,5 +226,64 @@
                     </address>
                 </div>
             </footer>
+            
+            <script>
+         // 메세지 기능
+            function messageModal(e) {
+            console.log($(e).html());
+            $(".receiveId").html($(e).html());
+            $("#MessageModal").show();
+            
+        	};
+            
+            $(".send").on("click", function() {
+                sendMessage();
+            });
+        
+            $(".close").on("click", function() {
+                $(".content").val("");
+                $(".receiveId").html("");
+                $("#MessageModal").hide();
+            });
+        
+            function sendMessage() {
+                
+                let content = $(".content").val();
+                let receiveId = $(".receiveId").html();
+                
+                if(!(content)) {
+                    alert("보낼 내용을 입력해주세요!");
+                    return false;
+                }
+                
+                $.ajax({
+                        type : 'post',
+                        beforeSend : function(xhr) {
+                            xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+                        },
+                        url : '/message/send',
+                        headers : {
+                            "Content-Type" : "application/json",
+                            "X-HTTP-Method-Override" : "POST"
+                        },
+                        dataType : 'text',
+                        data : JSON.stringify({
+                            receiveId : receiveId,
+                            content : content
+                        }),
+                        success : function(result){
+                            if(result == 'SUCCESS'){
+                                alert("쪽지가 전달되었습니다.");
+                                
+                                // 내용 초기화
+                                $(".content").val("");
+                                $(".receiveId").html("");
+                                // 모달 닫힘
+                                $("#MessageModal").hide();
+                            }
+                        }
+                    });	
+            }
+            </script>
             </body>
             </html>

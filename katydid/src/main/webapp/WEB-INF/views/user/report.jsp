@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -77,7 +79,18 @@
                         <a href="/"><img src="/resources2/img/katydidtitle.png" width="250px" height="90px"  border="0"></a>
                     </div>
                     <div class="col-md-4">
-                    	<sec:authorize access="isAuthenticated()">
+                    	<sec:authorize access="isAnonymous()">
+	                        <form action="/login" method="post">
+	                            <input type="text" name="username" value="" placeholder="ID"/><br/>
+	                            <input type="password" name="password" value="" placeholder="PW"/><br/>
+	                            <input type="checkbox" name="remember-me"/>자동로그인<br/>
+	                            <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+	                            &emsp;&emsp;<input type="submit" class="btn btn-light" value="Login" />
+	                            <button type="button" class="btn btn-light" onclick="location.href='/user/join' ">Sign_up</button>
+	                        </form>
+                        </sec:authorize>
+                        
+                        <sec:authorize access="isAuthenticated()">
                             <button type="button" class="btn btn-light" onclick="location.href='/user/'">My Page</button>
                             <form action="/logout" method="post">
                                   <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
@@ -93,7 +106,7 @@
                     <div class="col-md-12">
                         <div class="row">
                             <!-- 검색창 부분 -->
-                            <form action="/board/boardList" method="get">
+                            <form action="/board/list" method="get">
                                 <!--  select 태그를 이용해 클릭해 검색조건을 선택할수있도록 처리합니다.  -->
                                 <select name="searchType">
                                     <!-- 검색조건을 option태그를 이용해 만듭니다.  -->
@@ -108,14 +121,16 @@
                                 <input type="text" name="keyword" placeholder="검색어" value="${pageMaker.cri.keyword }">
                                 <input type="submit" class="btn btn-outline-secondary" value="검색하기">&nbsp;
                                 <button type="button" class="btn btn-outline-danger" onclick="location.href='/notify/list' ">공지사항</button>&nbsp;
-                                <button type="button" class="btn btn-secondary" onclick="location.href='/category/test' ">맛집등록</button>
+                                <sec:authorize access="hasAnyRole('ROLE_MEMBER')">
+							        <button type="button" class="btn btn-secondary" onclick="location.href='/category/test'">맛집등록</button>
+						        </sec:authorize>
                                 
                                 
                             </form>
                         </div>
                     </div>
                 </div>
-                <hr/>
+                <br>
     <div class="row-nav2">
         <div class="col-md-12">
         	<table border="1" class="table table">
@@ -136,14 +151,55 @@
         
     </div>
    
-    <hr>
+    <br>
 
  	<div id="container">
 		<div id="report">
-	    	<h1>신고 확인 페이지</h1>
-		
-				${b_reportList }
-				${r_reportList }
+	    	<h1>REPORT</h1>
+	    	<br><h2>게시글 신고 확인</h2>
+				<table border="1" class="table table">
+					<thead>
+						<tr>
+							<th>신고 사유</th>
+							<th>신고 내용</th>
+							<th>신고받은 사람</th>
+							<th>관리자 확인</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="b_report" items="${b_reportList}">
+							<tr>
+								<td>${b_report.reason}</td>
+								<td>${b_report.content}</td>
+								<td>${b_report.reportedId}</td>
+								<td>${b_report.verified eq 1 ? '확인' : ''}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+				
+				<hr>
+				<br><h2>댓글 신고 확인</h2>
+				<table border="1" class="table table">
+					<thead>
+						<tr>
+							<th>신고 사유</th>
+							<th>신고 내용</th>
+							<th>신고받은 사람</th>
+							<th>관리자 확인</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="r_report" items="${r_reportList}">
+							<tr>
+								<td>${r_report.reason}</td>
+								<td>${r_report.content}</td>
+								<td>${r_report.reportedId}</td>
+								<td>${r_report.verified eq 1 ? '확인' : ''}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
 			       
 	    </div>           
                 

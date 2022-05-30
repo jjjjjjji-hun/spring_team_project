@@ -60,7 +60,7 @@
                 }
                 #container2 {
                   width: 1400px;
-                
+                  text-align: center;
                 }
                 
 
@@ -68,18 +68,19 @@
                   width: 140px;
                   padding: 20px;
                   margin-right: 10px;
-                  margin-top: 10px;
+                  margin-top: 40px;
                   margin-bottom: 20px;
                   float: left;
                 }
+                
                 #content {
-                  width: 1000px;
+                  width: 1100px;
                   padding: 10px;
                   margin-bottom: 20px;
-                  margin-left: 20px;
+                  margin-left: 0px;
                   margin-right: 40px;
                   float: left;
-                  border: 1px solid #bcbcbc;
+                  
                 }
                 
                 
@@ -122,13 +123,13 @@
                     </div>
                 </div>
                 <hr/>
- 
+ 				
 
      <div class="row-nav1">
                     <div class="col-md-12">
                         <div class="row">
                             <!-- 검색창 부분 -->
-                            <form action="/board/boardList" method="get">
+                            <form action="/board/list" method="get">
                                 <!--  select 태그를 이용해 클릭해 검색조건을 선택할수있도록 처리합니다.  -->
                                 <select name="searchType">
                                     <!-- 검색조건을 option태그를 이용해 만듭니다.  -->
@@ -143,14 +144,17 @@
                                 <input type="text" name="keyword" placeholder="검색어" value="${pageMaker.cri.keyword }">
                                 <input type="submit" class="btn btn-outline-secondary" value="검색하기">&nbsp;
                                 <button type="button" class="btn btn-outline-danger" onclick="location.href='/notify/list' ">공지사항</button>&nbsp;
-                                <button type="button" class="btn btn-secondary" onclick="location.href='/category/test' ">맛집등록</button>
+                      
+                                <sec:authorize access="hasAnyRole('ROLE_MEMBER')">
+							        <button type="button" class="btn btn-secondary" onclick="location.href='/category/test'">맛집등록</button>
+						        </sec:authorize>
                                 
                                 
                             </form>
                         </div>
                     </div>
                 </div>
-                <hr/>
+                <br>
     <div class="row-nav2">
         <div class="col-md-12">
         	<table border="1" class="table table">
@@ -171,7 +175,7 @@
         
     </div>
    
-    <hr>
+    <br>
 
   <div id="container">
                 
@@ -180,13 +184,12 @@
                 <button type="button" class="btn btn-secondary" onclick="location.href='/board/list' ">&nbsp;F O O D</button>
                 <br/>
                 <br/>
-                <button type="button" class="btn btn-secondary" onclick="location.href='/board/list' ">TRAVEL</button>
                 
                 </div>
                 
                 <div id="container2">
                     <div id="content">
-                    <h2>Content</h2>
+                    <h2>LIST</h2>
                     <table border="1" class="table table">
 						<thead>
 							<tr>
@@ -202,7 +205,7 @@
 							<c:forEach var="board" items="${boardList}">
 								<tr>
 									<td>${board.bno}</td>
-									<td>${board.title}</a>[${board.replyCount}]</td>
+									<td><a>${board.title}</a>[${board.replyCount}]</td>
 									<td>${board.content}</td>
 									<td>${board.u_id}</td>
 									<td>${board.regdate}</td>

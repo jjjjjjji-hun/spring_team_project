@@ -1,9 +1,6 @@
-	
-	
-	
-	<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	    pageEncoding="UTF-8"%>
-	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 	<!DOCTYPE html>
 	<html>
@@ -106,7 +103,7 @@
 			width: 450px;
 			height: 130px;
 			background-color: black;
-			position: absolute;
+			position: fixed;
 			top: 50%;
 			left: 50%;
 			margin-top: -50px;
@@ -122,7 +119,7 @@
 			width: 450px;
 			height: 190px;
 			background-color: darkred;
-			position: absolute;
+			position: fixed;
 			top: 50%;
 			left: 50%;
 			margin-top: -50px;
@@ -167,26 +164,17 @@
 		                         	
 			.modal_wrap{
 			display: none;
+			padding : 10px;
 			width: 300px;
-			height: 300px;
-			position: absolute;
+			height: 180px;
+			position: fixed;
 			top:50%;
 			left: 50%;
 			margin: -250px 0 0 -250px;
-			background-color: #ffffff;
+			background-color: darkred;
 			z-index: 2;
 					}
-			.black_bg{
-			display: none;
-			position: absolute;
-			content: "";
-			width: 100%;
-			height: 100%;
-			background-color:rgba(0, 0,0, 0.5);
-			top:0;
-			left: 0;
-			z-index: 1;
-			}
+			
 			.modal_close{
 			width: 26px;
 			height: 26px;
@@ -194,25 +182,11 @@
 			top: -30px;
 			right: 0;
 			 }
-			.modal_close> a{
-			display: block;
-			width: 100%;
-			height: 100%;
-			background:aqua;
-			text-indent: -9999px;
-			}
+			 #newB_Reportreason, #board_u_id, #newB_ReportContent{
+			 width: 250px;
+			 }
 															
-			
-	
-	   
-	   
-	    .modal_close> a{
-	        display: block;
-	        width: 100%;
-	        height: 100%;
-	        background:url(https://img.icons8.com/metro/26/000000/close-window.png);
-	        text-indent: -9999px;
-	    }
+
 	
 	  .boardReportText{
 	     width: 250px;
@@ -251,14 +225,12 @@
 
 
 #MessageModal{
-			width: 450px;
-			height: 100px;
-			background-color: pink;
-			position: absolute;
+			width: 250px;
+			height: 130px;
+			background-color: skyblue;
+			position: fixed;
 			top: 50%;
 			left: 50%;
-			margin-top: -50px;
-			margin-left: -150px;
 			padding:10px;
 			z-index:1000;
 		}
@@ -283,7 +255,17 @@
                         <a href="/"><img src="/resources2/img/katydidtitle.png" width="250px" height="90px"  border="0"></a>
                     </div>
                     <div class="col-md-4">
-                                    
+                    	<sec:authorize access="isAnonymous()">
+	                        <form action="/login" method="post">
+	                            <input type="text" name="username" value="" placeholder="ID"/><br/>
+	                            <input type="password" name="password" value="" placeholder="PW"/><br/>
+	                            <input type="checkbox" name="remember-me"/>자동로그인<br/>
+	                            <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+	                            &emsp;&emsp;<input type="submit" class="btn btn-light" value="Login" />
+	                            <button type="button" class="btn btn-light" onclick="location.href='/user/join' ">Sign_up</button>
+	                        </form>
+                        </sec:authorize>
+                        
                         <sec:authorize access="isAuthenticated()">
                             <button type="button" class="btn btn-light" onclick="location.href='/user/'">My Page</button>
                             <form action="/logout" method="post">
@@ -291,7 +273,7 @@
                                   <input type="submit" class="btn btn-light" value="Log_out"/>
                             </form>
                         </sec:authorize>
-                     </div>
+                    </div>
                  </div>
             <hr/>
         
@@ -299,7 +281,7 @@
                 <div class="col-md-12">
                     <div class="row">
                         <!-- 검색창 부분 -->
-                        <form action="/board/boardList" method="get">
+                        <form action="/board/list" method="get">
                             <!--  select 태그를 이용해 클릭해 검색조건을 선택할수있도록 처리합니다.  -->
                             <select name="searchType">
                                 <!-- 검색조건을 option태그를 이용해 만듭니다.  -->
@@ -314,14 +296,16 @@
                             <input type="text" name="keyword" placeholder="검색어" value="${pageMaker.cri.keyword }">
                             <input type="submit" class="btn btn-outline-secondary" value="검색하기">&nbsp;
                             <button type="button" class="btn btn-outline-danger" onclick="location.href='/notify/list' ">공지사항</button>&nbsp;
-                            <button type="button" class="btn btn-secondary" onclick="location.href='/category/test' ">맛집등록</button>
+                            <sec:authorize access="hasAnyRole('ROLE_MEMBER')">
+									<button type="button" class="btn btn-secondary" onclick="location.href='/category/test'">맛집등록</button>
+							</sec:authorize>
                             
                             
                         </form>
                     </div>
                 </div>
             </div>
-            <hr/>
+            <br>
             <div class="row-nav2">
                 <div class="col-md-12">
                     <table border="1" class="table table">
@@ -343,7 +327,7 @@
             </div>
             
            
-            <hr>
+            <br>
             
         
                 <div id="container">
@@ -352,7 +336,7 @@
                         <h1 class="text text=primary">${board.bno}번 PAGE</h1>
                         NUBER <input type="text" class="NUMBER" value="${board.bno}" readonly/>
                         TITLE <input type="text" class="TITLE" value="${board.title}" readonly/><br/>
-                        WRITER <span class="message">${board.u_id}</span><br/>
+                        WRITER <span onclick="messageModal(this)" class="reportedId">${board.u_id}</span><br/>
                         CONTENT <textarea rows="15" class="CONTENT" readonly>${board.content}</textarea>
                         <div class="row">
                             <div class="col-md-6">쓴날짜 : ${board.regdate}&nbsp;&nbsp;&nbsp;</div>
@@ -363,26 +347,30 @@
                             <div class="col-md-3">	
                                <a href="/board/list?pageNum=${param.pageNum == null ? 1 : param.pageNum }&searchType=${param.searchType}&keyword=${param.keyword}" class="btn btn-outline-success">게시글 목록</a>
                             </div>
-                            <div class="col-md-3">
-                                <form action="/board/updateForm" method="post">
-                                    <input type="hidden" value="${board.bno}" name="bno"/>
-                                    <input type="hidden" value="${param.pageNum}" name="pageNum"/>
-                                    <input type="hidden" value="${param.searchType}" name="searchType"/>
-                                    <input type="hidden" value="${param.keyword}" name="keyword"/>
-                                    <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                                    <input type="submit" value="게시물 수정" class="btn btn-outline-warning"/>
-                                </form>
-                            </div>
-                            <div class="col-md-3">
-                                <form action="/board/delete" method="post">
-                                    <input type="hidden" value="${board.bno}" name="bno"/>
-                                    <input type="hidden" value="${param.pageNum}" name="pageNum"/>
-                                    <input type="hidden" value="${param.searchType}" name="searchType"/>
-                                    <input type="hidden" value="${param.keyword}" name="keyword"/>
-                                    <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                                    <input type="submit" value="게시물 삭제" class="btn btn-outline-primary"/>
-                                </form>
-                            </div>
+                            <sec:authentication property="principal.username" var="u_id"/>
+                            <c:if test="${u_id eq board.u_id}">
+                                <div class="col-md-3">
+                                    <form action="/board/updateForm" method="post">
+                                        <input type="hidden" value="${board.bno}" name="bno"/>
+                                        <input type="hidden" value="${param.pageNum}" name="pageNum"/>
+                                        <input type="hidden" value="${param.searchType}" name="searchType"/>
+                                        <input type="hidden" value="${param.keyword}" name="keyword"/>
+                                        <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+                                        <input type="submit" value="게시물 수정" class="btn btn-outline-warning"/>
+                                    </form>
+                                </div>
+                                <div class="col-md-3">
+                                    <form action="/board/delete" method="post">
+                                        <input type="hidden" value="${board.bno}" name="bno"/>
+                                        <input type="hidden" value="${param.pageNum}" name="pageNum"/>
+                                        <input type="hidden" value="${param.searchType}" name="searchType"/>
+                                        <input type="hidden" value="${param.keyword}" name="keyword"/>
+                                        <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+                                        <input type="submit" value="게시물 삭제" class="btn btn-outline-primary"/>
+                                    </form>
+                                </div>
+                            </c:if>
+
                             <div class="col-md-3">
                                 <button class="btn btn-outline-danger" type="button" id="boardReportBtn">신고하기</button>
                                  <div class="black_bg">
@@ -401,7 +389,7 @@
                                         <input type="text" name="content" id="newB_ReportContent" placeholder="자세한 신고내용" class="form-control"/>
                                        </div>	
                                         <div>
-                                            <button type="button" id="final_report"  class="btn btn-warning">글 신고하기</button>  
+                                            <button type="button" id="final_report"  class="btn btn-danger">글 신고하기</button>  
                                       
                                             
                                         </div>						    
@@ -472,7 +460,12 @@
                             <div>	
 							   	<input type="hidden" name="rno" id="modal-number"/>
 							    <input type="hidden" name="reportedId" id="reported_Id"/>			
-								<input type="text" name="reason" id="newR_reportReason" placeholder="신고사유" class="form-control"/>
+								<select id="newR_Reportreason" required>
+                                            <option value="" disabled selected>신고사유</option>
+                                            <option value="거짓말">거짓말</option>
+                                            <option value="허위">허위</option>
+                                            <option value="상이한 내용">상이한 내용</option>
+                                         </select>
 								<input type="text" name="content" id="newR_reportContent" placeholder="자세한 신고내용" class="form-control"/>
 								<input type="hidden" value="${board.bno}" name="bno" id="board_bno"/> 	
 							</div><br>
@@ -487,8 +480,9 @@
                     <div id="MessageModal" style="display:none;">
                         <span class="receiveId"></span>
                         <input type="text" class="content" />
-                        <button type="button" class="send">쪽지 보내기</button>
-                        <button type="button" class="close">창 닫기</button>
+                        <br>
+                        <br><button type="button" class="send">쪽지 보내기</button>&emsp;
+                        <button type="button" class="close">닫기</button>
                     </div>
                     
                     
@@ -536,7 +530,7 @@
                                     // 하나하나 반복되는 각 데이터는 this라는 키워드로 표현됩니다.
                                     //console.log("----------------");
                                     //console.log(this);
-                                    str += "<div class='replyLi' data-rno='"+ this.rno +"'><strong class='reportedId'>"
+                                    str += "<div class='replyLi' data-rno='"+ this.rno +"'><strong onclick='messageModal(this)' class='reportedId'>"
                                         + this.replyer + "</strong> -" + formattedTime + "<br>"
                                         +"<div class='reply'>" +this.reply + "</div>"
                                         +"<button type='button' class='btn btn-outline-dark btn-sm'>수정/삭제</button>"
@@ -595,12 +589,12 @@
                         });
                         
                     // 메세지 기능
-                    $(".message").on("click", function() {
-                        console.log($(this).html());
-                        $(".receiveId").html($(this).html());
-                        $("#MessageModal").show();
-                        
-                    });
+                    function messageModal(e) {
+                    console.log($(e).html());
+                    $(".receiveId").html($(e).html());
+                    $("#MessageModal").show();
+                    
+                	};
                     
                     $(".send").on("click", function() {
                         sendMessage();
@@ -784,7 +778,7 @@
 						// 버튼을 누르는 시점에, 글쓴이와 내용 내부에 적힌 문자열을 변수에 저장합니다. 
 						var rno = $("#modal-number").val();
 						var bno = $("#board_bno").val();					
-						var reason = $("#newR_reportReason").val();
+						var reason = $("#newR_Reportreason option:selected").val();
 						var content = $("#newR_reportContent").val();
 						var reportedId = $("#reported_Id").val();
 					
@@ -842,56 +836,7 @@
                                         $("#newR_reportReason").val("");
                                         $("#newR_reportContent").val("");
                                     });
-                                    
-                
-                                  
-                                    
-                                         //모달 신고하기버튼(댓글 신고하기)
-                                         $("#replyReportBtn").on("click", function(){
-                                            
-                                            // 폼이 없기때문에, input태그 내에 입력된 요소를 가져와야 합니다.
-                                            // 버튼을 누르는 시점에, 글쓴이와 내용 내부에 적힌 문자열을 변수에 저장합니다. 
-                                            var rno = $("#modal-number").val();
-                                            var reason = $("#newR_reportReason").val();
-                                            var content = $("#newR_reportContent").val();
-                                            
-                                                
-                                            
-                                            // $.ajax({내용물}); 이 기본형태
-                                            $.ajax({
-                                                type : 'post',
-                                                beforeSend : function(xhr) {
-                                                    xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-                                                },
-                                                url : '/R_report',
-                                                headers : {
-                                                    "Content-Type" : "application/json",
-                                                    "X-HTTP-Method-Override" : "POST"
-                                                },
-                                                dataType : 'text',
-                                                data : JSON.stringify({
-                                                    rno : rno,
-                                                    reason : reason,
-                                                    content : content
-                                                }),
-                                                
-                                                success : function(result){
-                                                    if(result == 'SUCCESS'){
-                                                        alert("신고되었습니다.");
-                                                        $("#modRep").hide("slow");
-                                                        getAllList();// 댓글 등록 성공시, 다시 목록 갱신
-                                                        // 폼 태그 비우기.
-                                                        // 힌트 : .val(넣을값);
-                                                        $("#newR_reportReason").val("");
-                                                        $("#newR_reportContent").val("");
-                                                        
-                                                    }
-                                                }
-                                            });		
-                                            
-                                        });
-                                    
-                                    
+                      
                                     
                                     
                                   
