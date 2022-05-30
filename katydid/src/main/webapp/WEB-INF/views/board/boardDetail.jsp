@@ -470,11 +470,12 @@
                       <div id="modRep" style="display:none;">
                             <div class="modal-title"></div>
                             <div>	
-                                   <input type="hidden" name="rno" id="modal-number"/>
-                                <input type="text" name="reason" id="newR_reportReason" placeholder="신고사유" class="form-control"/>
-                                <input type="text" name="content" id="newR_reportContent" placeholder="자세한 신고내용" class="form-control"/>
-                                    
-                            </div><br>
+							   	<input type="hidden" name="rno" id="modal-number"/>
+							    <input type="hidden" name="reportedId" id="reported_Id"/>			
+								<input type="text" name="reason" id="newR_reportReason" placeholder="신고사유" class="form-control"/>
+								<input type="text" name="content" id="newR_reportContent" placeholder="자세한 신고내용" class="form-control"/>
+								<input type="hidden" value="${board.bno}" name="bno" id="board_bno"/> 	
+							</div><br>
                             <div>
                                 <button type="button" id="replyReportBtn" class="btn btn-danger btn-sm">신고하기</button>
                                 <button type="button" id="closeReportBtn" class="btn btn-outline-warning btn-sm" >창닫기</button>
@@ -535,7 +536,7 @@
                                     // 하나하나 반복되는 각 데이터는 this라는 키워드로 표현됩니다.
                                     //console.log("----------------");
                                     //console.log(this);
-                                    str += "<div class='replyLi' data-rno='"+ this.rno +"'><strong>@"
+                                    str += "<div class='replyLi' data-rno='"+ this.rno +"'><strong class='reportedId'>"
                                         + this.replyer + "</strong> -" + formattedTime + "<br>"
                                         +"<div class='reply'>" +this.reply + "</div>"
                                         +"<button type='button' class='btn btn-outline-dark btn-sm'>수정/삭제</button>"
@@ -755,6 +756,9 @@
                                          // 댓글신고 버튼
                                          $("#replies").on("click", ".report button", function(){
                          
+                                        	 var reportedId = $(this).parent().prev().children(".reportedId");
+            						    	 console.log(reportedId.html());
+            						    	 $("#reported_Id").val(reportedId.html());
                        
                                                 var replytag = $(this).parent();
                                                 
@@ -768,6 +772,7 @@
                                                  console.log(replytag);
                                                  $(".modal-title").html(replyContent);
                                                  $("#modal-number").val(rno);
+                                                 $("#reply_Id").val(reportedId);
                                                $("#modRep").show("slow");  // 버튼 누르면 모달 열림
                          
                                  });

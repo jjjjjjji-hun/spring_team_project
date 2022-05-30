@@ -148,7 +148,7 @@
         <form id="join" name="join" action="/user/join" method="post">	
             <div class="mb-3">
                 <input type="text" name="u_id" value="" class="form-control" id="formGroupExampleInput" placeholder="ID" required>
-                <button type="button" class="btn btn-secondary" style="float: right" >ID check</button><br/>
+                <button type="button" class="idconfirm" style="float: right" >ID check</button><br/>
                 <input type="password" name="upw" value="" class="form-control" id="formGroupExampleInput2" placeholder="Password" required><br/>
                 <input type="password" name="upwCheck" class="form-control" placeholder="PasswordCheck" required /><br/>
                 <input type="text" name="uname" value="" class="form-control" id="formGroupExampleInput2" placeholder="Name" required><br/>
