@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.project.domain.CategoryVO;
 import com.project.domain.MenuVO;
 import com.project.domain.StoreVO;
+import com.project.service.Notify.NotifyService;
 import com.project.service.category.CategoryService;
 import com.project.service.store.StoreService;
 
@@ -30,6 +31,9 @@ public class StoreController {
 
 	@Autowired
 	private StoreService storeservice;
+	
+	@Autowired
+	private NotifyService notifyservice;
 	
 	// 분류 추가
 	@PreAuthorize("hasAnyRole('ROLE_MEMBER')")

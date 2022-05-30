@@ -3,6 +3,8 @@
 	
 	<%@ page language="java" contentType="text/html; charset=UTF-8"
 	    pageEncoding="UTF-8"%>
+	
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 	<!DOCTYPE html>
 	<html>
 	<head>
@@ -247,9 +249,19 @@
 	width : 30%;
 	}
 
-	
 
-
+#MessageModal{
+			width: 450px;
+			height: 100px;
+			background-color: pink;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-top: -50px;
+			margin-left: -150px;
+			padding:10px;
+			z-index:1000;
+		}
 
         
         
@@ -632,7 +644,7 @@
                                         $(".content").val("");
                                         $(".receiveId").html("");
                                         // 모달 닫힘
-                                        $(".MessageModal").hide();
+                                        $("#MessageModal").hide();
                                     }
                                 }
                             });	

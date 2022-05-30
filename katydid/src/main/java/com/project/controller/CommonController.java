@@ -1,10 +1,17 @@
 package com.project.controller;
 
+import java.security.Principal;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import com.project.domain.NotifyVO;
+import com.project.service.Notify.NotifyService;
 
 import lombok.extern.log4j.Log4j;
 
@@ -12,8 +19,15 @@ import lombok.extern.log4j.Log4j;
 @Controller
 public class CommonController {
 
+	@Autowired
+	private NotifyService notifyservice;
+	
 	@GetMapping("/accessError")
 	public void accessDenied(Authentication auth, Model model) {
+		
+		List<NotifyVO> vo = notifyservice.getRecentList();
+		
+		model.addAttribute("recentNotifyList", vo);
 		
 		log.info("접근 거부 : " + auth);
 		
@@ -22,10 +36,18 @@ public class CommonController {
 	}
 	
 	@GetMapping("/login") 
-	public void loginInput(String error, String logout, Model model) {
+	public String loginInput(String error, String logout, Model model, Principal principal) {
+		
+		List<NotifyVO> vo = notifyservice.getRecentList();
+		
+		model.addAttribute("recentNotifyList", vo);
 		
 		log.info("error 여부 : " + error);
 		log.info("logout 여부 : " + logout);
+		
+		if(principal != null) {
+			return "redirect:/";
+		}
 		
 		if(error != null) { 
 			model.addAttribute("error", "로그인 관련 에러입니다. 계정확인을 다시 해주세요.");
@@ -33,6 +55,7 @@ public class CommonController {
 		if(logout != null) { 
 			model.addAttribute("logout", "로그아웃 했습니다.");
 		}
+		return "/login";
 	}
 	
 	@GetMapping("/logout")

@@ -23,11 +23,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.domain.B_reportVO;
 import com.project.domain.BoardVO;
+import com.project.domain.NotifyVO;
 import com.project.domain.PageMaker;
 import com.project.domain.R_reportVO;
 import com.project.domain.ReplyVO;
 import com.project.domain.SearchCriteria;
 import com.project.domain.StoreVO;
+import com.project.service.Notify.NotifyService;
 import com.project.service.R_report.R_reportService;
 import com.project.service.board.BoardService;
 import com.project.service.category.CategoryService;
@@ -44,6 +46,9 @@ public class R_reportController {
 	
 	@Autowired
 	private BoardService boardservice;
+
+	@Autowired
+	private NotifyService notifyservice;
 	
 	@Autowired
 	private CategoryService categoryservice;
@@ -161,6 +166,10 @@ public class R_reportController {
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 		@GetMapping("/R_relist")
 		public String getList(SearchCriteria cri, Model model) {
+		
+		List<NotifyVO> vo = notifyservice.getRecentList();
+		
+		model.addAttribute("recentNotifyList", vo);
 			
 			List<R_reportVO> r_reportList = service.getAllR_reportList(cri);
 			
@@ -199,6 +208,10 @@ public class R_reportController {
 		@GetMapping("/list/{r_reno}")
 		public String getRreportDetail(@PathVariable long r_reno, Model model) {
 			
+			List<NotifyVO> vo = notifyservice.getRecentList();
+			
+			model.addAttribute("recentNotifyList", vo);
+			
 			model.addAttribute("r_report", service.getReport(r_reno));
 			
 		
@@ -210,6 +223,10 @@ public class R_reportController {
 		@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER', 'ROLE_USER')")
 		@PostMapping("/updateForm")
 		public String r_reportUpdateForm(long r_reno,  Model model) {
+			
+			List<NotifyVO> vo = notifyservice.getRecentList();
+			
+			model.addAttribute("recentNotifyList", vo);
 			
 			R_reportVO r_reportvo = service.getReport(r_reno);
 			
@@ -225,7 +242,9 @@ public class R_reportController {
 		public String r_reportUpdate(R_reportVO vo, Model model) {
 			
 			service.modifyR_report(vo);
+			List<NotifyVO> notifyvo = notifyservice.getRecentList();
 			
+			model.addAttribute("recentNotifyList", notifyvo);
 		
 			
 			return "redirect:list/" + vo.getR_reno();
