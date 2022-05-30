@@ -12,4 +12,5 @@ public class R_reportVO {
 	private String reportId;
 	private String reportedId;
 	private int verified;
+	
 }

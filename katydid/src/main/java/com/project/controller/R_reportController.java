@@ -79,8 +79,6 @@ public class R_reportController {
 					log.info(principal.getName());
 					vo.setReportId(principal.getName()); 
 					
-				
-					
 					try {
 					service.addR_report(vo);
 					entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);

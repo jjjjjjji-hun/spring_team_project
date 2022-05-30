@@ -21,9 +21,6 @@ public class R_reportServicelmpl implements R_reportService{
 	@Autowired
 	private R_reportMapper r_reportmapper;
 	
-
-	
-	
 	// 신고
 		@Override
 		public void addR_report(R_reportVO vo) {

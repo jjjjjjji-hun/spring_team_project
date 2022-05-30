@@ -43,7 +43,4 @@ public interface R_reportMapper {
 	public List<B_reportVO> getByu_id(String u_id);
 					
 	
-			
-	
-	
 }

@@ -101,7 +101,4 @@
 		SELECT * FROM b_report_tbl WHERE reportId = #{u_id}
 	</select>
 	
-	
-	
-	
 </mapper>

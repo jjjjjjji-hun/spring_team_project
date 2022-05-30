@@ -34,6 +34,4 @@ public interface R_reportService {
 	  public void checkUpdate(R_reportVO vo);
 
 	  public List<B_reportVO> getByu_id(String u_id);
-	
-		
 }

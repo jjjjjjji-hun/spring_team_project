@@ -99,25 +99,7 @@
 			top: -30px;
 			right: 0;
 			 }
-			.modal_close> a{
-			display: block;
-			width: 100%;
-			height: 100%;
-			background:aqua;
-			text-indent: -9999px;
-			}
-															
 			
-	
-	   
-	   
-	    .modal_close> a{
-	        display: block;
-	        width: 100%;
-	        height: 100%;
-	        background:url(https://img.icons8.com/metro/26/000000/close-window.png);
-	        text-indent: -9999px;
-	    }
 	
 	  .boardReportText{
 	     width: 250px;
@@ -659,16 +641,6 @@
 											// 힌트 : .val(넣을값);
 											$("#newR_reportReason").val("");
 											$("#newR_reportContent").val("");
-											
-										}
-									},
-									error : function(result){
-										if(result != 'SUCCESS'){
-											alert("신고할 수 없습니다.");
-											$("#modRep").hide("slow");
-											$("#newR_reportReason").val("");
-											$("#newR_reportContent").val("");
-											
 											
 										}
 									}
