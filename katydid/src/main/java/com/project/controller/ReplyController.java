@@ -17,14 +17,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.domain.ReplyVO;
+import com.project.service.board.BoardService;
 import com.project.service.reply.ReplyService;
 
+import lombok.extern.log4j.Log4j;
+
 @RestController
+@Log4j
 @RequestMapping("/replies")
 public class ReplyController {
 
 	@Autowired
 	private ReplyService service;
+	
+	@Autowired
+	private BoardService boardservice;
 	
 	// 댓글 작성
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER', 'ROLE_USER')")
@@ -43,7 +50,7 @@ public class ReplyController {
 	}
 	
 	// 댓글 목록 조회
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER', 'ROLE_USER')")
+	@PreAuthorize("permitAll")
 	@GetMapping(value="/all/{bno}", produces= {MediaType.APPLICATION_XML_VALUE,
 									MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public ResponseEntity<List<ReplyVO>> list(@PathVariable("bno")Long bno){

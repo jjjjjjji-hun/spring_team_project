@@ -13,7 +13,6 @@
 
 <body>
      
-     ${b_reportList}
    
      <h1>게시글 신고 목록</h1>
 <!--  ${b_reportList}-->

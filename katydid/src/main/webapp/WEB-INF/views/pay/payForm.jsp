@@ -20,7 +20,7 @@
 			<h2>한식</h2>
 		</div>
 		<div class="itemCotent">
-			<h2>메뉴가 들어갈 자리</h2>
+			<h2>한식</h2>
 		</div>
 		<div class="itemPrice">
 			<p data-price="12500">12,500원</p>

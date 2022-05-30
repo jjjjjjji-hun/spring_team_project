@@ -42,10 +42,6 @@ public class UserLoginSuccessHandler implements AuthenticationSuccessHandler {
 			response.sendRedirect("/user/admin");
 			return;
 		}
-		if(roleList.contains("ROLE_MEMBER")) {
-			response.sendRedirect("/user/member");
-			return;
-		}
 		
 		response.sendRedirect("/");
 	}

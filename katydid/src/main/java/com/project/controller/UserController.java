@@ -21,9 +21,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.domain.AuthVO;
 import com.project.domain.CustomUser;
+import com.project.domain.NotifyVO;
 import com.project.domain.ReplyVO;
 import com.project.domain.UserVO;
 import com.project.service.B_report.B_reportService;
+import com.project.service.Notify.NotifyService;
 import com.project.service.R_report.R_reportService;
 import com.project.service.message.MessageService;
 import com.project.service.user.UserService;
@@ -50,6 +52,9 @@ public class UserController {
 	@Autowired
 	private PasswordEncoder pwen;
 	
+	@Autowired
+	private NotifyService notifyservice;
+	
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@GetMapping("/admin")
 	public void admin() {
@@ -58,7 +63,10 @@ public class UserController {
 	
 	@PreAuthorize("permitAll")
 	@GetMapping("/join")
-	public void joinForm() {
+	public void joinForm(Model model) {
+		List<NotifyVO> vo = notifyservice.getRecentList();
+		
+		model.addAttribute("recentNotifyList", vo);
 		log.info("회원가입창 접속");
 	}
 	
@@ -113,6 +121,10 @@ public class UserController {
 	@GetMapping("/message")
 	public void messageCheck(Model model, Principal principal) {
 		
+		List<NotifyVO> vo = notifyservice.getRecentList();
+		
+		model.addAttribute("recentNotifyList", vo);
+		
 		model.addAttribute("sendMessage", messageservice.getBySendId(principal.getName()));
 		model.addAttribute("receivedMessage", messageservice.getByReceiveId(principal.getName()));
 		
@@ -120,7 +132,10 @@ public class UserController {
 	
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER', 'ROLE_USER')")
 	@GetMapping("/")
-	public String userPage() {
+	public String userPage(Model model) {
+		List<NotifyVO> vo = notifyservice.getRecentList();
+		
+		model.addAttribute("recentNotifyList", vo);
 		return "/user/mypage";
 	}
 	
@@ -137,6 +152,11 @@ public class UserController {
 	@GetMapping("/report")
 	public void getReportList(Principal principal, Model model) {
 		
+		List<NotifyVO> vo = notifyservice.getRecentList();
+		
+		model.addAttribute("recentNotifyList", vo);
+		log.info(principal.getName());
+		log.info(rreportservice.getByu_id(principal.getName()));
 		model.addAttribute("b_reportList", breportservice.getByu_id(principal.getName()));
 		model.addAttribute("r_reportList", rreportservice.getByu_id(principal.getName()));
 		

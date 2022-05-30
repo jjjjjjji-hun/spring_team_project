@@ -1,5 +1,7 @@
 package com.project.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -26,6 +28,10 @@ public class NotifyController {
 	@GetMapping("/list")
 	public void getNotifyList(Model model) {
 		
+		List<NotifyVO> vo = service.getRecentList();
+		
+		model.addAttribute("recentNotifyList", vo);
+		
 		model.addAttribute("notifyList", service.getList());
 		
 	}
@@ -34,6 +40,10 @@ public class NotifyController {
 	@GetMapping("/detail/{nno}")
 	public String getNotifyDetail(@PathVariable Long nno, Model model) {
 		
+		List<NotifyVO> vo = service.getRecentList();
+		
+		model.addAttribute("recentNotifyList", vo);
+		
 		model.addAttribute("detail", service.select(nno));
 		
 		return "/notify/detail";
@@ -41,7 +51,10 @@ public class NotifyController {
 	
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@GetMapping("/insert")
-	public void addNotify() {
+	public void addNotify(Model model) {
+		List<NotifyVO> vo = service.getRecentList();
+		
+		model.addAttribute("recentNotifyList", vo);
 		
 	}
 	
@@ -58,6 +71,10 @@ public class NotifyController {
 	@GetMapping("/update/{nno}")
 	public String updateNotify(@PathVariable Long nno, Model model) {
 
+		List<NotifyVO> vo = service.getRecentList();
+		
+		model.addAttribute("recentNotifyList", vo);
+		
 		model.addAttribute("update", service.select(nno));
 		
 		return "/notify/update";

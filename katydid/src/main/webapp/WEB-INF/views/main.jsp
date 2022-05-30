@@ -35,7 +35,7 @@
                     text-align: right;
                 }
                 .col-md-3{
-                    margin-top: 20px;
+                    margin-top: 30px;
                     text-align: left;
                 }
                 .col-md-4{
@@ -60,75 +60,30 @@
                 }
                 #container2 {
                   width: 1400px;
+                  text-align: center;
+                }
                 
-                }
-                #container3 {
-                  width: 1400px;
-                
-                }
-                .h1 {
-                   text-align: center;
-                }
-            
+
                 #sidebar-left {
                   width: 140px;
                   padding: 20px;
                   margin-right: 10px;
-                  margin-top: 10px;
+                  margin-top: 40px;
                   margin-bottom: 20px;
                   float: left;
                 }
+                
                 #content {
-                  width: 300px;
+                  width: 1100px;
                   padding: 10px;
                   margin-bottom: 20px;
-                  margin-left: 20px;
+                  margin-left: 0px;
                   margin-right: 40px;
                   float: left;
-                  border: 1px solid #bcbcbc;
+                  
                 }
-                #content2 {
-                  width: 300px;
-                  padding: 10px;
-                  margin-bottom: 20px;
-                  margin-right: 40px;
-                  float: left;
-                  border: 1px solid #bcbcbc;
-                }
-            
-                #content3 {
-                  width: 300px;
-                  padding: 10px;
-                  margin-bottom: 20px;
-                  margin-right: 40px;
-                  float: left;
-                  border: 1px solid #bcbcbc;
-                }
-                #content4 {
-                  width: 300px;
-                  padding: 10px;
-                  margin-bottom: 20px;
-                  margin-left: 170px;
-                  margin-right: 40px;
-                  float: left;
-                  border: 1px solid #bcbcbc;
-                }
-                #content5 {
-                  width: 300px;
-                  padding: 10px;
-                  margin-bottom: 20px;
-                  margin-right: 40px;
-                  float: left;
-                  border: 1px solid #bcbcbc;
-                }
-                #content6 {
-                  width: 300px;
-                  padding: 10px;
-                  margin-bottom: 20px;
-                  margin-right: 40px;
-                  float: left;
-                  border: 1px solid #bcbcbc;
-                }
+                
+                
             
                 
             
@@ -141,10 +96,10 @@
 
     <div class="row header">
                     <div class="col-md-5">
-                        <img width="90px" height="90px" src="resources2/img/Katydid.gif">
+                        <img width="90px" height="90px" src="/resources2/img/Katydid.gif">
                     </div>
                     <div class="col-md-3">
-                        <a href="/"><img src="resources2/img/katydidtitle.png" width="250px" height="90px"  border="0"></a>
+                        <a href="/"><img src="/resources2/img/katydidtitle.png" width="250px" height="90px"  border="0"></a>
                     </div>
                     <div class="col-md-4">
                     	<sec:authorize access="isAnonymous()">
@@ -159,22 +114,22 @@
                         </sec:authorize>
                         
                         <sec:authorize access="isAuthenticated()">
-                        	<a href="/user/">마이페이지</a>
-                        	<form action="/logout" method="post">
-								<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-								<input type="submit" value="로그아웃" />
-							</form>
+                            <button type="button" class="btn btn-light" onclick="location.href='/user/'">My Page</button>
+                            <form action="/logout" method="post">
+                                  <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+                                  <input type="submit" class="btn btn-light" value="Log_out"/>
+                            </form>
                         </sec:authorize>
                     </div>
                 </div>
                 <hr/>
- 
+ 				
 
      <div class="row-nav1">
                     <div class="col-md-12">
                         <div class="row">
                             <!-- 검색창 부분 -->
-                            <form action="/board/boardList" method="get">
+                            <form action="/board/list" method="get">
                                 <!--  select 태그를 이용해 클릭해 검색조건을 선택할수있도록 처리합니다.  -->
                                 <select name="searchType">
                                     <!-- 검색조건을 option태그를 이용해 만듭니다.  -->
@@ -189,14 +144,17 @@
                                 <input type="text" name="keyword" placeholder="검색어" value="${pageMaker.cri.keyword }">
                                 <input type="submit" class="btn btn-outline-secondary" value="검색하기">&nbsp;
                                 <button type="button" class="btn btn-outline-danger" onclick="location.href='/notify/list' ">공지사항</button>&nbsp;
-                                <button type="button" class="btn btn-secondary" onclick="location.href='/category/test' ">맛집등록</button>
+                      
+                                <sec:authorize access="hasAnyRole('ROLE_MEMBER')">
+							        <button type="button" class="btn btn-secondary" onclick="location.href='/category/test'">맛집등록</button>
+						        </sec:authorize>
                                 
                                 
                             </form>
                         </div>
                     </div>
                 </div>
-                <hr/>
+                <br>
     <div class="row-nav2">
         <div class="col-md-12">
         	<table border="1" class="table table">
@@ -217,7 +175,7 @@
         
     </div>
    
-    <hr>
+    <br>
 
   <div id="container">
                 
@@ -226,40 +184,41 @@
                 <button type="button" class="btn btn-secondary" onclick="location.href='/board/list' ">&nbsp;F O O D</button>
                 <br/>
                 <br/>
-                <button type="button" class="btn btn-secondary" onclick="location.href='/board/list' ">TRAVEL</button>
                 
                 </div>
                 
                 <div id="container2">
                     <div id="content">
-                    <h2>Content</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies.</p>
+                    <h2>LIST</h2>
+                    <table border="1" class="table table">
+						<thead>
+							<tr>
+								<th>글 번호</th>
+								<th>글 제목</th>
+								<th>글 본문</th>
+								<th>글쓴이</th>
+								<th>글쓴 날짜</th>
+								<th>글 수정 날짜</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="board" items="${boardList}">
+								<tr>
+									<td>${board.bno}</td>
+									<td><a>${board.title}</a>[${board.replyCount}]</td>
+									<td>${board.content}</td>
+									<td>${board.u_id}</td>
+									<td>${board.regdate}</td>
+									<td>${board.updatedate}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
                     </div>
-                    <div id="content2">
-                        <h2>Content</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies.</p>
-                    </div>
-                    <div id="content3">
-                        <h2>Content</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies.</p>
-                    </div>
+                    
                 </div>
             
-                <div id="container3">
-                    <div id="content4">
-                        <h2>Content</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies.</p>
-                    </div>
-                    <div id="content5">
-                        <h2>Content</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies.</p>
-                    </div>
-                    <div id="content6">
-                        <h2>Content</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec mollis nulla. Phasellus lacinia tempus mauris eu laoreet. Proin gravida velit dictum dui consequat malesuada. Aenean et nibh eu purus scelerisque aliquet nec non justo. Aliquam vitae aliquet ipsum. Etiam condimentum varius purus ut ultricies.</p>
-                    </div>
-                </div>
-              </div>
+   </div>           
               <footer class="footer">
                 <hr>
                 <div class="container">
