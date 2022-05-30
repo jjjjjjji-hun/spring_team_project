@@ -12,6 +12,8 @@ public interface BoardService {
 
 	public List<BoardVO> getList(SearchCriteria cri);
 	
+	public List<BoardVO> getList2();
+	
 	public int countPageNum(SearchCriteria cri);
 	
 	public BoardVO select(long bno);

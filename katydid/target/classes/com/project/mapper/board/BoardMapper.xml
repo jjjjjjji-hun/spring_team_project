@@ -46,6 +46,12 @@
 		]]>
 	</select>
 	
+	<select id="getList2" resultType="com.project.domain.BoardVO">
+		<![CDATA[
+		SELECT * FROM board_tbl WHERE rownum >= 1 AND rownum <= 10 ORDER BY DBMS_RANDOM.VALUE() * 10
+		 ]]>
+	</select>
+	
 	<insert id="insert">
 	
 	<selectKey keyProperty="bno" order="BEFORE" resultType="long">

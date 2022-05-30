@@ -41,6 +41,11 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
+	public List<BoardVO> getList2() {
+		return boardmapper.getList2();
+	}
+	
+	@Override
 	public int countPageNum(SearchCriteria cri) {
 		return boardmapper.countPageNum(cri);
 	}
@@ -82,6 +87,7 @@ public class BoardServiceImpl implements BoardService {
 	public List<BoardAttachVO> getAttachList(Long bno) {
 		return attachmapper.findByBno(bno);
 	}
+
    
 	
 	

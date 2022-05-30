@@ -11,6 +11,8 @@ public interface BoardMapper {
 
 	public List<BoardVO> getList(SearchCriteria cri);
 	
+	public List<BoardVO> getList2();
+	
 	public void insert(BoardVO vo);
 	
 	public BoardVO select(long bno);

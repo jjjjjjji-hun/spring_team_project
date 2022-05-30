@@ -49,8 +49,10 @@ public class HomeController {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
 		List<BoardVO> boardList = service.getList(cri);
+		List<BoardVO> boardList2 = service.getList2();
 		
 		model.addAttribute("boardList", boardList);
+		model.addAttribute("boardList2", boardList2);
 		
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
