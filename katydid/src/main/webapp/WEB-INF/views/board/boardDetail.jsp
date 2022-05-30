@@ -167,21 +167,22 @@
 		                         	
 			.modal_wrap{
 			display: none;
+			padding : 10px;
 			width: 300px;
 			height: 300px;
 			position: absolute;
 			top:50%;
 			left: 50%;
 			margin: -250px 0 0 -250px;
-			background-color: #ffffff;
+			background-color: darkred;
 			z-index: 2;
 					}
 			.black_bg{
 			display: none;
 			position: absolute;
 			content: "";
-			width: 100%;
-			height: 100%;
+			width: 0%;
+			height: 0%;
 			background-color:rgba(0, 0,0, 0.5);
 			top:0;
 			left: 0;
@@ -194,25 +195,11 @@
 			top: -30px;
 			right: 0;
 			 }
-			.modal_close> a{
-			display: block;
-			width: 100%;
-			height: 100%;
-			background:aqua;
-			text-indent: -9999px;
-			}
+			 #newB_Reportreason, #board_u_id, #newB_ReportContent{
+			 width: 250px;
+			 }
 															
-			
-	
-	   
-	   
-	    .modal_close> a{
-	        display: block;
-	        width: 100%;
-	        height: 100%;
-	        background:url(https://img.icons8.com/metro/26/000000/close-window.png);
-	        text-indent: -9999px;
-	    }
+
 	
 	  .boardReportText{
 	     width: 250px;
@@ -401,7 +388,7 @@
                                         <input type="text" name="content" id="newB_ReportContent" placeholder="자세한 신고내용" class="form-control"/>
                                        </div>	
                                         <div>
-                                            <button type="button" id="final_report"  class="btn btn-warning">글 신고하기</button>  
+                                            <button type="button" id="final_report"  class="btn btn-danger">글 신고하기</button>  
                                       
                                             
                                         </div>						    
@@ -472,7 +459,12 @@
                             <div>	
 							   	<input type="hidden" name="rno" id="modal-number"/>
 							    <input type="hidden" name="reportedId" id="reported_Id"/>			
-								<input type="text" name="reason" id="newR_reportReason" placeholder="신고사유" class="form-control"/>
+								<select id="newR_Reportreason" required>
+                                            <option value="" disabled selected>신고사유</option>
+                                            <option value="거짓말">거짓말</option>
+                                            <option value="허위">허위</option>
+                                            <option value="상이한 내용">상이한 내용</option>
+                                         </select>
 								<input type="text" name="content" id="newR_reportContent" placeholder="자세한 신고내용" class="form-control"/>
 								<input type="hidden" value="${board.bno}" name="bno" id="board_bno"/> 	
 							</div><br>
@@ -784,7 +776,7 @@
 						// 버튼을 누르는 시점에, 글쓴이와 내용 내부에 적힌 문자열을 변수에 저장합니다. 
 						var rno = $("#modal-number").val();
 						var bno = $("#board_bno").val();					
-						var reason = $("#newR_reportReason").val();
+						var reason = $("#newR_Reportreason option:selected").val();
 						var content = $("#newR_reportContent").val();
 						var reportedId = $("#reported_Id").val();
 					
@@ -842,56 +834,7 @@
                                         $("#newR_reportReason").val("");
                                         $("#newR_reportContent").val("");
                                     });
-                                    
-                
-                                  
-                                    
-                                         //모달 신고하기버튼(댓글 신고하기)
-                                         $("#replyReportBtn").on("click", function(){
-                                            
-                                            // 폼이 없기때문에, input태그 내에 입력된 요소를 가져와야 합니다.
-                                            // 버튼을 누르는 시점에, 글쓴이와 내용 내부에 적힌 문자열을 변수에 저장합니다. 
-                                            var rno = $("#modal-number").val();
-                                            var reason = $("#newR_reportReason").val();
-                                            var content = $("#newR_reportContent").val();
-                                            
-                                                
-                                            
-                                            // $.ajax({내용물}); 이 기본형태
-                                            $.ajax({
-                                                type : 'post',
-                                                beforeSend : function(xhr) {
-                                                    xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-                                                },
-                                                url : '/R_report',
-                                                headers : {
-                                                    "Content-Type" : "application/json",
-                                                    "X-HTTP-Method-Override" : "POST"
-                                                },
-                                                dataType : 'text',
-                                                data : JSON.stringify({
-                                                    rno : rno,
-                                                    reason : reason,
-                                                    content : content
-                                                }),
-                                                
-                                                success : function(result){
-                                                    if(result == 'SUCCESS'){
-                                                        alert("신고되었습니다.");
-                                                        $("#modRep").hide("slow");
-                                                        getAllList();// 댓글 등록 성공시, 다시 목록 갱신
-                                                        // 폼 태그 비우기.
-                                                        // 힌트 : .val(넣을값);
-                                                        $("#newR_reportReason").val("");
-                                                        $("#newR_reportContent").val("");
-                                                        
-                                                    }
-                                                }
-                                            });		
-                                            
-                                        });
-                                    
-                                    
+                      
                                     
                                     
                                   

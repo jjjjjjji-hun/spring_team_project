@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -137,13 +138,54 @@
     </div>
    
     <hr>
-
- 	<div id="container">
+	
+	<div id="container">
 		<div id="report">
 	    	<h1>신고 확인 페이지</h1>
-		
-				${b_reportList }
-				${r_reportList }
+	    	<h2>게시글 신고 확인</h2>
+				<table border="1" class="table table">
+					<thead>
+						<tr>
+							<th>신고 사유</th>
+							<th>신고 내용</th>
+							<th>신고받은 사람</th>
+							<th>관리자 확인</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="b_report" items="${b_reportList}">
+							<tr>
+								<td>${b_report.reason}</td>
+								<td>${b_report.content}</td>
+								<td>${b_report.reportedId}</td>
+								<td>${b_report.verified eq 1 ? '확인' : ''}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+				
+				<hr>
+				<h2>댓글 신고 확인</h2>
+				<table border="1" class="table table">
+					<thead>
+						<tr>
+							<th>신고 사유</th>
+							<th>신고 내용</th>
+							<th>신고받은 사람</th>
+							<th>관리자 확인</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="r_report" items="${r_reportList}">
+							<tr>
+								<td>${r_report.reason}</td>
+								<td>${r_report.content}</td>
+								<td>${r_report.reportedId}</td>
+								<td>${r_report.verified eq 1 ? '확인' : ''}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
 			       
 	    </div>           
                 
