@@ -202,7 +202,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="board" items="${boardList}">
+							<c:forEach var="board" items="${boardList2}">
 								<tr>
 									<td>${board.bno}</td>
 									<td><a>${board.title}</a>[${board.replyCount}]</td>
