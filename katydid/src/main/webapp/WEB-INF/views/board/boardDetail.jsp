@@ -297,7 +297,7 @@
                             <input type="submit" class="btn btn-outline-secondary" value="검색하기">&nbsp;
                             <button type="button" class="btn btn-outline-danger" onclick="location.href='/notify/list' ">공지사항</button>&nbsp;
                             <sec:authorize access="hasAnyRole('ROLE_MEMBER')">
-									<button type="button" class="btn btn-secondary" onclick="location.href='/category/test'">맛집등록</button>
+									<button type="button" class="btn btn-secondary" onclick="location.href='/category/test'">업체등록</button>
 							</sec:authorize>
                             
                             
@@ -347,29 +347,31 @@
                             <div class="col-md-3">	
                                <a href="/board/list?pageNum=${param.pageNum == null ? 1 : param.pageNum }&searchType=${param.searchType}&keyword=${param.keyword}" class="btn btn-outline-success">게시글 목록</a>
                             </div>
-                            <sec:authentication property="principal.username" var="u_id"/>
-                            <c:if test="${u_id eq board.u_id}">
-                                <div class="col-md-3">
-                                    <form action="/board/updateForm" method="post">
-                                        <input type="hidden" value="${board.bno}" name="bno"/>
-                                        <input type="hidden" value="${param.pageNum}" name="pageNum"/>
-                                        <input type="hidden" value="${param.searchType}" name="searchType"/>
-                                        <input type="hidden" value="${param.keyword}" name="keyword"/>
-                                        <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                                        <input type="submit" value="게시물 수정" class="btn btn-outline-warning"/>
-                                    </form>
-                                </div>
-                                <div class="col-md-3">
-                                    <form action="/board/delete" method="post">
-                                        <input type="hidden" value="${board.bno}" name="bno"/>
-                                        <input type="hidden" value="${param.pageNum}" name="pageNum"/>
-                                        <input type="hidden" value="${param.searchType}" name="searchType"/>
-                                        <input type="hidden" value="${param.keyword}" name="keyword"/>
-                                        <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
-                                        <input type="submit" value="게시물 삭제" class="btn btn-outline-primary"/>
-                                    </form>
-                                </div>
-                            </c:if>
+                            <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_MEMBER','ROLE_USER')">
+	                            <sec:authentication property="principal.username" var="u_id"/>
+		                            <c:if test="${u_id eq board.u_id}">
+		                                <div class="col-md-3">
+		                                    <form action="/board/updateForm" method="post">
+		                                        <input type="hidden" value="${board.bno}" name="bno"/>
+		                                        <input type="hidden" value="${param.pageNum}" name="pageNum"/>
+		                                        <input type="hidden" value="${param.searchType}" name="searchType"/>
+		                                        <input type="hidden" value="${param.keyword}" name="keyword"/>
+		                                        <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+		                                        <input type="submit" value="게시물 수정" class="btn btn-outline-warning"/>
+		                                    </form>
+		                                </div>
+		                                <div class="col-md-3">
+		                                    <form action="/board/delete" method="post">
+		                                        <input type="hidden" value="${board.bno}" name="bno"/>
+		                                        <input type="hidden" value="${param.pageNum}" name="pageNum"/>
+		                                        <input type="hidden" value="${param.searchType}" name="searchType"/>
+		                                        <input type="hidden" value="${param.keyword}" name="keyword"/>
+		                                        <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+		                                        <input type="submit" value="게시물 삭제" class="btn btn-outline-primary"/>
+		                                    </form>
+		                                </div>
+		                            </c:if>
+                            </sec:authorize>
 
                             <div class="col-md-3">
                                 <button class="btn btn-outline-danger" type="button" id="boardReportBtn">신고하기</button>
@@ -420,19 +422,22 @@
                     </div><br>
                     <hr/>
                     <!-- 댓글 작성 공간 -->
+                    <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_MEMBER','ROLE_USER')">
                     <br><div class="row box-box-success">
                         <div class="box-header">
                             <h3 class="text-secondary">COMMENT</h3>
                         </div><!-- header -->
                                 <div class="box-body">
                                     <strong>ID</strong>
-                                    <input type="text" name="replyer" id="newReplyWriter" placeholder="writer" class="form-control"/><br>
+                                    <input type="text" name="replyer" id="newReplyWriter" value="${u_id }" placeholder="writer" class="form-control"/><br>
                                     <strong>CONTENT</strong>
                                     <input type="text" name="reply" id="newReplyText" placeholder="content" class="form-control"/>
                                 </div><!-- body -->
                                 <br><div class="box-footer">
                                     <button type="button" id="replyAddBtn" class="btn btn-secondary">확인</button>
                                 </div><!-- footer -->
+                                </div>
+                                </sec:authorize>
                     </div><!-- row -->
                     
                     

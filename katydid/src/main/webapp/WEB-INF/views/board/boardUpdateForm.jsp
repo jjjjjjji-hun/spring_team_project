@@ -200,7 +200,7 @@
                             <input type="submit" class="btn btn-outline-secondary" value="검색하기">&nbsp;
                             <button type="button" class="btn btn-outline-danger" onclick="location.href='#' ">공지사항</button>&nbsp;
                             <sec:authorize access="hasAnyRole('ROLE_MEMBER')">
-							        <button type="button" class="btn btn-secondary" onclick="location.href='/category/test'">맛집등록</button>
+							        <button type="button" class="btn btn-secondary" onclick="location.href='/category/test'">업체등록</button>
 						    </sec:authorize>
                             
                         </form>

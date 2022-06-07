@@ -25,6 +25,6 @@ public interface BoardService {
 	// 게시물에 연동된 첨부파일 목록 가져오기
 	public List<BoardAttachVO> getAttachList(Long bno);
 	
-	
+	public List<BoardVO> getMainList(SearchCriteria cri);
 	
 }

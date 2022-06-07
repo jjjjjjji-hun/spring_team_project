@@ -24,4 +24,6 @@ public interface BoardMapper {
 	// 게시글 댓글 개수
 	public void updateReplyCount(@Param("bno") Long bno,@Param("amount") int amount);
 	
+	public List<BoardVO> getMainList(@Param("total") int total);
+	
 }

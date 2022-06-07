@@ -146,7 +146,7 @@
                                 <button type="button" class="btn btn-outline-danger" onclick="location.href='/notify/list' ">공지사항</button>&nbsp;
                       
                                 <sec:authorize access="hasAnyRole('ROLE_MEMBER')">
-							        <button type="button" class="btn btn-secondary" onclick="location.href='/category/test'">맛집등록</button>
+							        <button type="button" class="btn btn-secondary" onclick="location.href='/category/test'">업체등록</button>
 						        </sec:authorize>
                                 
                                 
@@ -181,7 +181,7 @@
                 
                 <div id="sidebar-left">
                 
-                <button type="button" class="btn btn-secondary" onclick="location.href='/board/list' ">&nbsp;F O O D</button>
+                <button type="button" class="btn btn-secondary" onclick="location.href='/board/list' ">&nbsp;ALL LIST</button>
                 <br/>
                 <br/>
                 

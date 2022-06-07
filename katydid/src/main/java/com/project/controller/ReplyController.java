@@ -40,6 +40,8 @@ public class ReplyController {
 	public ResponseEntity<String> register
 					(@RequestBody ReplyVO vo){
 		ResponseEntity<String> entity = null;
+		log.info(vo);
+		log.info(vo.getBno());
 		try {
 			service.addReply(vo);
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);

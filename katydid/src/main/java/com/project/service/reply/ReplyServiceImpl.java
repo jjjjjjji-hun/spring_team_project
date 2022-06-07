@@ -32,6 +32,7 @@ public class ReplyServiceImpl implements ReplyService{
 	@Override
 	public void addReply(ReplyVO vo) {
 		mapper.create(vo);
+		log.info(vo.getBno());
 		boardmapper.updateReplyCount(vo.getBno(), 1);
 	}
 

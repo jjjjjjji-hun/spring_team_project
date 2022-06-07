@@ -82,6 +82,12 @@ public class BoardServiceImpl implements BoardService {
 	public List<BoardAttachVO> getAttachList(Long bno) {
 		return attachmapper.findByBno(bno);
 	}
+
+	@Override
+	public List<BoardVO> getMainList(SearchCriteria cri) {
+		int total = boardmapper.countPageNum(cri);
+		return boardmapper.getMainList(total);
+	}
    
 	
 	

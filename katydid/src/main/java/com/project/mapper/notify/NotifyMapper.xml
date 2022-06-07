@@ -6,11 +6,11 @@
     <select id="getRecentList" resultType="com.project.domain.NotifyVO">
 		SELECT * FROM notify_tbl where regdate 
 			BETWEEN TO_DATE (sysdate-7)
-				AND TO_DATE (sysdate) + 0.9999
+				AND TO_DATE (sysdate) + 0.9999 ORDER BY regdate DESC
 	</select>
 	
    <select id="getList" resultType="com.project.domain.NotifyVO">
-		SELECT * FROM notify_tbl
+		SELECT * FROM notify_tbl ORDER BY regdate DESC
 	</select>
 	
 	<insert id="insert">

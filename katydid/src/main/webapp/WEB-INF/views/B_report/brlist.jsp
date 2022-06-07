@@ -23,7 +23,7 @@
 			<thead>
 				<tr>
 					<th>신고 번호</th>
-					<th>댓글 번호</th>
+					<th>글 번호</th>
 					<th>신고자</th>
 					<th>신고당한자</th>
 					<th>신고 사유</th>
@@ -125,7 +125,7 @@
 						
 						 if(result == 'SUCCESS'){
 							 alert(b_reno + "번 신고글을 확인하였습니다.");
-							// ${"checkbox.disabled"};
+							 location.reload();
 						 }
 							// $("#modDiv").hide("slow");
 							// getAllList();

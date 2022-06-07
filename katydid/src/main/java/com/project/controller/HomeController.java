@@ -48,7 +48,7 @@ public class HomeController {
 	public String home(Locale locale, SearchCriteria cri, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
-		List<BoardVO> boardList = service.getList(cri);
+		List<BoardVO> boardList = service.getMainList(cri);
 		
 		model.addAttribute("boardList", boardList);
 		

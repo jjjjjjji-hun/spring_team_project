@@ -52,7 +52,7 @@
 		}
 		
 	#categoryModDiv{
-		position: absolute;
+		position: fixed;
 		top: 50%;
 		left: 50%;
 		margin-top: -50px;
@@ -65,7 +65,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<a href="/user/admin">어드민 페이지</a> &nbsp;&nbsp;&nbsp;&nbsp;
+<a href="/">메인 페이지</a>
 <div>
 	<h3 class="text-primary">지역</h3>
 <table class="table">
@@ -73,7 +74,6 @@
     <tr>
       <th scope="col">구분</th>
       <th scope="col">지역</th>
-      <th scope="col">수정/삭제</th>
     </tr>
   </thead>
   <tbody>
@@ -84,10 +84,6 @@
      	 </th>
      	 <td>
       		<strong id=area_ward>${area.ward }</strong>
-     	 </td>
-     	 <td>
-      		<button type="button" class="areaModBtn">Modify</button>&nbsp;&nbsp;
-			<button type="button" class="areaDelBtn">Delete</button>
      	 </td>
    	 	</tr>
     </c:forEach>
@@ -102,7 +98,6 @@
     <tr>
       <th scope="col">구분</th>
       <th scope="col">종류</th>
-      <th scope="col">수정/삭제</th>
     </tr>
   </thead>
   <tbody>
@@ -113,10 +108,6 @@
      	 </th>
      	 <td>
       		<strong id=l_kind_k_group>${l_kind.k_group }</strong>
-     	 </td>
-     	 <td>
-      		<button type="button" class="lkindModBtn">Modify</button>&nbsp;&nbsp;
-			<button type="button" class="lkindDelBtn">Delete</button>
      	 </td>
    	 	</tr>
     </c:forEach>
@@ -130,9 +121,8 @@
   <thead>
     <tr>
       <th scope="col">구분</th>
-      <th scope="col">종류</th>
-      <th scope="col">종류2</th>
-      <th scope="col">수정/삭제</th>
+      <th scope="col">대분류</th>
+      <th scope="col">소분류</th>
     </tr>
   </thead>
   <tbody>
@@ -146,10 +136,6 @@
      	 </td>
      	 <td>
       		<strong id=s_kind_k_group>${s_kind.k_group }</strong>
-     	 </td>
-     	 <td>
-      		<button type="button" class="skindModBtn">Modify</button>&nbsp;&nbsp;
-			<button type="button" class="skindDelBtn">Delete</button>
      	 </td>
    	 	</tr>
     </c:forEach>
@@ -165,7 +151,7 @@
       <th scope="col">구분</th>
       <th scope="col">소분류</th>
       <th scope="col">지역</th>
-      <th scope="col">수정/삭제</th>
+      <th scope="col">수정</th>
     </tr>
   </thead>
   <tbody>
@@ -182,7 +168,6 @@
      	 </td>
      	 <td>
       		<button type="button" class="categoryModBtn">Modify</button>&nbsp;&nbsp;
-			<button type="button" class="categoryDelBtn">Delete</button>
      	 </td>
    	 	</tr>
     </c:forEach>

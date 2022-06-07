@@ -217,7 +217,7 @@
                     <input type="submit" class="btn btn-outline-secondary" value="검색하기">&nbsp;
                     <button type="button" class="btn btn-outline-danger" onclick="location.href='/notify/list' ">공지사항</button>&nbsp;
                     <sec:authorize access="hasAnyRole('ROLE_MEMBER')">
-						<button type="button" class="btn btn-secondary" onclick="location.href='/category/test'">맛집등록</button>
+						<button type="button" class="btn btn-secondary" onclick="location.href='/category/test'">업체등록</button>
 					</sec:authorize>
                     
                     
@@ -252,7 +252,8 @@
     <div id="container">
 		<form action="/board/insert" method="post">
 			<input type="text" name="title" class="title" placeholder="TITLE" required/><br/>
-			<br/><input type="text" name="u_id" class="writer" placeholder="WRITER"required/><br/>
+			<sec:authentication property="principal.username" var="u_id"/>
+			<br/><input type="text" name="u_id" class="writer" value="${u_id }" placeholder="WRITER" readonly/><br/>
 			<br/>&emsp;category : <select class="L_kind">
 							<option value="">선택해주세요</option>
 								<c:forEach var="list" items="${category }">

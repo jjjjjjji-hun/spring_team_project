@@ -11,7 +11,7 @@
 					(CONTENT like '%'||#{keyword}||'%') AND
 				</if>
 				<if test="searchType == 'w'.toString()">
-					(WRITER like '%'||#{keyword}||'%') AND
+					(u_id like '%'||#{keyword}||'%') AND
 				</if>
 				<if test="searchType == 'tc'.toString()">
 					((TITLE like '%'||#{keyword}||'%') 
@@ -21,14 +21,14 @@
 				<if test="searchType == 'cw'.toString()">
 					((CONTENT like '%'||#{keyword}||'%') 
 					OR
-					(WRITER like '%'||#{keyword}||'%')) AND
+					(u_id like '%'||#{keyword}||'%')) AND
 				</if>
 				<if test="searchType == 'tcw'.toString()">
 					((TITLE like '%'||#{keyword}||'%') 
 					OR
 					(CONTENT like '%'||#{keyword}||'%')
 					OR
-					(WRITER like '%'||#{keyword}||'%')) AND
+					(u_id like '%'||#{keyword}||'%')) AND
 				</if>
 			</if>
 	</sql>
@@ -83,7 +83,14 @@
 	</select>
 	
 	<update id="updateReplyCount">
-		UPDATE board_tbl SET replycount = replycount + #{amount} WHERE bno = #{bno}
+		UPDATE board_tbl SET REPLYCOUNT = REPLYCOUNT + #{amount} WHERE bno = #{bno}
 	</update>
 	
+	<select id="getMainList" resultType="com.project.domain.BoardVO">
+		<![CDATA[
+		SELECT * FROM 
+			(SELECT * FROM board_tbl ORDER BY DBMS_RANDOM.VALUE())
+			WHERE rownum >= 1 AND rownum <= 10
+		 ]]>
+	</select>
 </mapper>
